@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package cjLogin;
+
+message BaseRequest {
+  string userName = 1;
+  string sessionKey = 2;
+}
+
+message BaseResponse {
+  uint64 errcode = 1;
+  string errmsg = 2;
+}
+
+message RegisterUserRequest {
+  string userName = 1;
+  string password = 2;
+}
+
+message RegisterUserResponse {
+  BaseResponse baseResp = 1;
+  string sessionKey = 2;
+}
+
+service CjLoginService {
+  rpc registerUser(RegisterUserRequest) returns (RegisterUserResponse);
+}
