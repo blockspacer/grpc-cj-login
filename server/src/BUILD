@@ -4,7 +4,8 @@ cc_binary(
     name = "cj_login_server",
     srcs = ["cj_login_server.cc"],
     deps = [
-        "//proto:cj_login_proto"
+        "//proto:cj_login_proto",
+        "@com_redis_hiredis//:hiredis-lib"
     ]
 )
 

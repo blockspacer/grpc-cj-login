@@ -4,9 +4,12 @@
 #include <grpc++/server_builder.h>
 #include <grpc++/server_context.h>
 #include <grpc/grpc.h>
+
 #include <iostream>
 #include <memory>
 #include <string>
+
+#include "hiredis.h"
 
 using cjLogin::RegisterUserRequest;
 using cjLogin::RegisterUserResponse;

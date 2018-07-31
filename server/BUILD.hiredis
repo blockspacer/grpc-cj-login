@@ -1,0 +1,12 @@
+cc_library(
+    name = "hiredis-lib",
+    srcs = glob(
+        ["*.c"],
+        exclude = ["test.c"]),
+    hdrs = glob(
+        ["*.h",
+	 "dict.c"],
+	exclude = ["win32.h"]),
+    visibility = ["//visibility:public"],
+
+)
