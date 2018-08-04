@@ -14,12 +14,16 @@ enum ErrCode {
   OK = 0;
   SYSTEM_ERROR = -1;
   SYSTEM_SESSION_TIMEOUT = -2;
+  SYSTEM_INVALID_PARAM = -3;
 
   REGISTER_ERROR_USERNAME_INVALID = 1001;
   REGISTER_ERROR_USERNAME_EXISTS = 1002;
 
-  LOGIN_ERROR_USERNAME_INVALID = 2001;
+  LOGIN_ERROR_USER_NOT_EXISTS = 2001;
   LOGIN_ERROR_PWD_ERROR = 2002;
+
+  CHECK_LOGIN_USER_LOGIN_OTHERS = 3001;
+  CHECK_LOGIN_TICKET_TIMEOUT = 3003;
 }
 
 message BaseRequest {
@@ -76,6 +80,6 @@ message UserLogoutResponse {
 service CjLoginService {
   rpc registerUser(RegisterUserRequest) returns (RegisterUserResponse);
   rpc userLogin(UserLoginRequest) returns (UserLoginResponse);
-  rpc userCheckLogin(UserCheckLoginRequest) returns (UserLoginResponse);
+  rpc userCheckLogin(UserCheckLoginRequest) returns (UserCheckLoginResponse);
   rpc userLogout(UserLogoutRequest) returns (UserLogoutResponse);
 }

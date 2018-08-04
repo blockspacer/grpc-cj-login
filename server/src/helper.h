@@ -6,8 +6,17 @@
 
 using std::string;
 
-namespace cjlogin {
+typedef struct {
+  string userName;
+  string uin;
+  long ts;
+} PayloadInfo;
+
+namespace cjLogin {
   bool validateUsername(string username);
+  string genLoginTicket(string username, string uin);
+  bool extraLoginTicket(string loginTicket, PayloadInfo &payload);
+  
   inline string md5(string raw) {
     return MD5(raw).toStr();
   }

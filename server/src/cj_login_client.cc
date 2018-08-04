@@ -7,8 +7,16 @@
 #include <memory>
 #include <string>
 
+using std::string;
+
 using cjLogin::RegisterUserRequest;
 using cjLogin::RegisterUserResponse;
+using cjLogin::UserLoginRequest;
+using cjLogin::UserLoginResponse;
+using cjLogin::UserCheckLoginRequest;
+using cjLogin::UserCheckLoginResponse;
+using cjLogin::UserLogoutRequest;
+using cjLogin::UserLogoutResponse;
 using cjLogin::CjLoginService;
 
 using grpc::Channel;
@@ -23,21 +31,32 @@ public:
   CjLoginClient(std::shared_ptr<Channel> channel)
     : stub_(CjLoginService::NewStub(channel)) {}
 
-  std::string registerUser(const std::string &username, const std::string &password) {
+  Status registerUser(string username,
+                      string password) {
     RegisterUserRequest req;
     req.set_username(username);
     req.set_password(password);
 
     RegisterUserResponse res;
     ClientContext context;
-    Status status = stub_->registerUser(&context, req, &res);
-    if (status.ok()) {
-      return res.baseresp().errmsg();
-    } else {
-      std::cout << status.error_code() << ": " << status.error_message()
-                << std::endl;
-      return "RPC failed";
-    }
+    auto status = stub_->registerUser(&context, req, &res);
+    std::cout << res.baseresp().errcode() << res.baseresp().errmsg() << std::endl;
+    return status;
+  }
+
+  Status userLogin(string username, string password) {
+    UserLoginRequest req;
+    req.set_username(username);
+    req.set_password(password);
+
+    UserLoginResponse resp;
+    ClientContext context;
+    auto status = stub_->userLogin(&context, req, &resp);
+    std::cout << resp.baseresp().errcode()
+              << resp.baseresp().errmsg()
+              << resp.loginticket()
+              << std::endl;
+    return status;
   }
 
 private:
@@ -47,8 +66,24 @@ private:
 int main(int argc, char *argv[]) {
   CjLoginClient client(CreateChannel("localhost:50051",
                                      InsecureChannelCredentials()));
-  auto reply = client.registerUser("jeason", "zhu");
-  std::cout << "Received: " << reply << std::endl;
+
+  int i = 1;
+  string v = string(argv[i]);
+  if (v == "-f") {
+    string func(argv[i + 1]);
+
+    Status status;
+    if (func == "register") {
+      string userName(argv[i + 2]);
+      string password(argv[i + 3]);
+      status = client.registerUser(userName, password);
+    } else if (func == "login") {
+      string userName(argv[i + 2]);
+      string password(argv[i + 3]);
+      status = client.userLogin(userName, password);
+    }
+  }
+
 
   return 0;
 }
