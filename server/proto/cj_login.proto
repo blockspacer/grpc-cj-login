@@ -13,13 +13,14 @@ message User {
 enum ErrCode {
   OK = 0;
   SYSTEM_ERROR = -1;
+  SYSTEM_SESSION_TIMEOUT = -2;
 
   REGISTER_ERROR_USERNAME_INVALID = 1001;
   REGISTER_ERROR_USERNAME_EXISTS = 1002;
 
+  LOGIN_ERROR_USERNAME_INVALID = 2001;
+  LOGIN_ERROR_PWD_ERROR = 2002;
 }
-
-
 
 message BaseRequest {
   string userName = 1;
@@ -31,6 +32,7 @@ message BaseResponse {
   string errmsg = 2;
 }
 
+// RegisterUser
 message RegisterUserRequest {
   string userName = 1;
   string password = 2;
@@ -38,9 +40,42 @@ message RegisterUserRequest {
 
 message RegisterUserResponse {
   BaseResponse baseResp = 1;
+}
+
+// UserLogin
+message UserLoginRequest {
+  string userName = 1;
+  string password = 2;
+}
+
+message UserLoginResponse {
+  BaseResponse baseResp = 1;
+  string loginTicket = 2;
+}
+
+// UserCheckLogin
+message UserCheckLoginRequest {
+  string userName = 1;
+  string loginTicket = 2;
+}
+
+message UserCheckLoginResponse {
+  BaseResponse baseResp = 1;
   string sessionKey = 2;
+}
+
+// UserLogout
+message UserLogoutRequest {
+  BaseRequest baseReq = 1;
+}
+
+message UserLogoutResponse {
+  BaseResponse baseResp = 1;
 }
 
 service CjLoginService {
   rpc registerUser(RegisterUserRequest) returns (RegisterUserResponse);
+  rpc userLogin(UserLoginRequest) returns (UserLoginResponse);
+  rpc userCheckLogin(UserCheckLoginRequest) returns (UserLoginResponse);
+  rpc userLogout(UserLogoutRequest) returns (UserLogoutResponse);
 }
