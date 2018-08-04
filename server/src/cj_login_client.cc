@@ -63,7 +63,8 @@ int main(int argc, char *argv[]) {
   CjLoginClient client(CreateChannel("localhost:50051",
                                      InsecureChannelCredentials()));
 
-  if (argc != 4) {
+  if (argc != 5) {
+    std::out << "params error: (" << argc << ")" << std::endl;
     return 0;
   }
 
