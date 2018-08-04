@@ -2,13 +2,32 @@ syntax = "proto3";
 
 package cjLogin;
 
+message User {
+  uint64 uin = 1;
+  string userName = 2;
+  string password = 3;
+  string loginTicket = 4;
+  uint64 loginTicketTimeout = 5;
+}
+
+enum ErrCode {
+  OK = 0;
+  SYSTEM_ERROR = -1;
+
+  REGISTER_ERROR_USERNAME_INVALID = 1001;
+  REGISTER_ERROR_USERNAME_EXISTS = 1002;
+
+}
+
+
+
 message BaseRequest {
   string userName = 1;
   string sessionKey = 2;
 }
 
 message BaseResponse {
-  uint64 errcode = 1;
+  ErrCode errcode = 1;
   string errmsg = 2;
 }
 

@@ -1,11 +1,40 @@
 package(default_visibility = ["//visibility:public"])
 
+cc_library(
+    name = "cj_login_helper",
+    srcs = [
+        "helper.cc"
+    ],
+    hdrs = [
+        "helper.h"
+    ],
+    deps = [
+        "@com_github_md5//:md5-lib"
+    ]
+)
+
+cc_library(
+    name = "cj_login_redis",
+    srcs = [
+        "redis/redis.cc",
+        "redis/redis_table.cc"
+    ],
+    hdrs = [
+        "redis/redis.h",
+        "redis/redis_table.h"
+    ],
+    deps = [
+        "@com_redis_hiredis//:hiredis-lib"
+    ]
+)
+
 cc_binary(
     name = "cj_login_server",
     srcs = ["cj_login_server.cc"],
     deps = [
         "//proto:cj_login_proto",
-        "@com_redis_hiredis//:hiredis-lib"
+        ":cj_login_helper",
+        ":cj_login_redis"
     ]
 )
 

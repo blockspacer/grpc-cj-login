@@ -9,9 +9,18 @@ git_repository(
 load("@org_pubref_rules_protobuf//cpp:rules.bzl", "cpp_proto_repositories")
 cpp_proto_repositories()
 
+# hiredis
 new_git_repository(
     name = "com_redis_hiredis",
     remote = "https://github.com/redis/hiredis",
     tag = "v0.13.3",
     build_file = "BUILD.hiredis"
+)
+
+# md5
+new_git_repository(
+    name = "com_github_md5",
+    remote = "https://github.com/JieweiWei/md5",
+    commit = "30774d0c9ecf82fb003fc15978b1f21bc85858f7",
+    build_file = "BUILD.md5"
 )

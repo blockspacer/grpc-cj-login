@@ -32,7 +32,7 @@ public:
     ClientContext context;
     Status status = stub_->registerUser(&context, req, &res);
     if (status.ok()) {
-      return res.sessionkey();
+      return res.baseresp().errmsg();
     } else {
       std::cout << status.error_code() << ": " << status.error_message()
                 << std::endl;
@@ -45,7 +45,8 @@ private:
 };
 
 int main(int argc, char *argv[]) {
-  CjLoginClient client(CreateChannel("localhost:50051", InsecureChannelCredentials()));
+  CjLoginClient client(CreateChannel("localhost:50051",
+                                     InsecureChannelCredentials()));
   auto reply = client.registerUser("jeason", "zhu");
   std::cout << "Received: " << reply << std::endl;
 
