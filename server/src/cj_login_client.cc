@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
                                      InsecureChannelCredentials()));
 
   if (argc != 5) {
-    std::out << "params error: (" << argc << ")" << std::endl;
+    std::cout << "params error: (" << argc << ")" << std::endl;
     return 0;
   }
 
