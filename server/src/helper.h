@@ -14,9 +14,11 @@ typedef struct {
 
 namespace cjLogin {
   bool validateUsername(string username);
+  bool validatePassword(string password);
+
   string genLoginTicket(string username, string uin);
   bool extraLoginTicket(string loginTicket, PayloadInfo &payload);
-  
+
   inline string md5(string raw) {
     return MD5(raw).toStr();
   }

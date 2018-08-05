@@ -75,6 +75,12 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
                                   "register invalid username");
     }
 
+    if (!cjLogin::validatePassword(password)) {
+      return this->_finishRequest(baseResponse,
+                                  ErrCode::REGISTER_ERROR_PWD_INVALID,
+                                  "register invalid password");
+    }
+
     bool userExist = this->userName2UinTable->existsKey(userName);
     if (userExist) {
       return this->_finishRequest(baseResponse,

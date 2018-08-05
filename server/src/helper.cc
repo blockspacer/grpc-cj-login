@@ -21,6 +21,23 @@ namespace cjLogin {
     return true;
   }
 
+  bool validatePassword(string password) {
+    if (password.size() < 6) {
+      return false;
+    }
+
+    size_t numberCount = 0, charCount = 0;
+    for (const auto &ch: password) {
+      if (ch >= '0' && ch <= '9') {
+        numberCount++;
+      } else if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
+        charCount++;
+      }
+    }
+
+    return password.size() != numberCount && password.size() != charCount;
+  }
+
   string genLoginTicket(string username, string uin) {
     // TODO: JWT here
     std::time_t ts = std::time(nullptr);

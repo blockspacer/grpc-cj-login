@@ -40,10 +40,19 @@ cc_binary(
     ]
 )
 
-cc_binary(
+cc_library(
     name = "cj_login_client",
     srcs = ["cj_login_client.cc"],
+    hdrs = ["cj_login_client.h"],
     deps = [
         "//proto:cj_login_proto"
+    ]
+)
+
+cc_binary(
+    name = "cj_login_tools",
+    srcs = ["cj_login_tools.cc"],
+    deps = [
+        ":cj_login_client"
     ]
 )
