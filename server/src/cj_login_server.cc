@@ -5,6 +5,10 @@
 #include <grpc++/server_context.h>
 #include <grpc/grpc.h>
 
+#include <gflags/gflags.h>
+#include <glog/logging.h>
+#include <glog/stl_logging.h>
+
 #include <iostream>
 #include <memory>
 #include <string>
@@ -82,7 +86,7 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     auto pwdServer = cjLogin::md5(password + salt);
     unsigned uin = 0;
     if (!this->commTable->increaseKey(curSystemGenUinKey, uin)) {
-      std::cout << "increase uin fail" << std::endl;
+      LOG(ERROR) << "increase uin fail" ;
       return this->_replySystemError(baseResponse);
     }
 
@@ -111,7 +115,7 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
 
     string uin;
     if (!this->userName2UinTable->getData(userName, uin)) {
-      std::cout << "login user not exists: " << userName << std::endl;
+      LOG(ERROR) << "login user not exists: " << userName ;
       return this->_finishRequest(baseResponse,
                                   ErrCode::LOGIN_ERROR_USER_NOT_EXISTS,
                                   "login user not exists");
@@ -119,13 +123,13 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
 
     string serialized;
     if (!this->userTable->getData(uin, serialized)) {
-      std::cout << "login user can not find userInfo: " << uin << std::endl;
+      LOG(ERROR) << "login user can not find userInfo: " << uin ;
       return this->_replySystemError(baseResponse);
     }
 
     User user;
     if (!user.ParseFromString(serialized)) {
-      std::cout << "parse User error: " << uin << std::endl;
+      LOG(ERROR) << "parse User error: " << uin ;
       return this->_replySystemError(baseResponse);
     }
 
@@ -240,7 +244,7 @@ private:
                         const string &errmsg) {
     baseResp->set_errcode(errcode);
     baseResp->set_errmsg(errmsg);
-    std::cout << "returns: {" << errcode << ", " + errmsg + "}" << std::endl;
+    LOG(INFO) << "returns: {" << errcode << ", " + errmsg + "}";
     return Status::OK;
   }
 
@@ -260,11 +264,15 @@ void RunServer() {
   builder.AddListeningPort(address, InsecureServerCredentials());
   builder.RegisterService(&service);
   std::unique_ptr<Server> server(builder.BuildAndStart());
-  std::cout << "Server listening on " << address << std::endl;
+  LOG(INFO) << "Server listening on " << address;
   server->Wait();
 }
 
 int main(int argc, char *argv[]) {
+
+  google::InitGoogleLogging(argv[0]);
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
+
   RunServer();
   return 0;
 }

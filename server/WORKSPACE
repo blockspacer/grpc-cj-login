@@ -24,3 +24,21 @@ new_git_repository(
     commit = "30774d0c9ecf82fb003fc15978b1f21bc85858f7",
     build_file = "BUILD.md5"
 )
+
+#glog
+http_archive(
+    name = "com_github_gflags_gflags",
+    sha256 = "6e16c8bc91b1310a44f3965e616383dbda48f83e8c1eaa2370a215057b00cabe",
+    strip_prefix = "gflags-77592648e3f3be87d6c7123eb81cbad75f9aef5a",
+    urls = [
+        "https://mirror.bazel.build/github.com/gflags/gflags/archive/77592648e3f3be87d6c7123eb81cbad75f9aef5a.tar.gz",
+        "https://github.com/gflags/gflags/archive/77592648e3f3be87d6c7123eb81cbad75f9aef5a.tar.gz",
+    ],
+)
+
+git_repository(
+    name = "com_google_glog",
+    remote = "https://github.com/google/glog",
+    commit = "8d7a107d68c127f3f494bb7807b796c8c5a97a82"
+)
+

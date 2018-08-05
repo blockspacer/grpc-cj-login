@@ -34,7 +34,8 @@ cc_binary(
     deps = [
         "//proto:cj_login_proto",
         ":cj_login_helper",
-        ":cj_login_redis"
+        ":cj_login_redis",
+        "@com_google_glog//:glog"
     ]
 )
 
