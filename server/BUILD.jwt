@@ -10,8 +10,7 @@ cc_library(
         "include"
     ],
     deps = [
-        "@com_github_openssl//:crypto",
-        "@com_github_openssl//:ssl"
+        "@com_github_openssl_wrap//:dep_libs"
     ],
     visibility = ["//visibility:public"]
 )

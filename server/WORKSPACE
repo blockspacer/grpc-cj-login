@@ -44,9 +44,9 @@ git_repository(
 
 # openssl
 git_repository(
-    name = "com_github_openssl",
-    remote = "https://github.com/qzmfranklin/openssl",
-    commit = "fdb6e87125317b208e9af9da0ed312a486cec5ff",
+    name = "com_github_openssl_wrap",
+    remote = "https://github.com/lbuchy/bazel-openssl",
+    commit = "c700be9ab51d5e869205f69480025cf33b033dc8",
     init_submodules = 1
 )
 

@@ -5,7 +5,7 @@
 
 #include "helper.h"
 #include "src/md5.h"
-#include "include/jwt/jwt.hpp"
+//#include "include/jwt/jwt.hpp"
 
 namespace cjLogin {
   bool validateUsername(string username) {
