@@ -78,9 +78,26 @@ message UserLogoutResponse {
   BaseResponse baseResp = 1;
 }
 
+// Service API LogoutUser
+message LogoutUserRequest {
+  uint64 uin = 1;
+}
+
+message LogoutUserResponse {
+  BaseResponse baseResp = 1;
+}
+
 service CjLoginService {
   rpc registerUser(RegisterUserRequest) returns (RegisterUserResponse);
   rpc userLogin(UserLoginRequest) returns (UserLoginResponse);
   rpc userCheckLogin(UserCheckLoginRequest) returns (UserCheckLoginResponse);
   rpc userLogout(UserLogoutRequest) returns (UserLogoutResponse);
+  rpc logoutUser(LogoutUserRequest) returns (LogoutUserResponse);
+}
+
+service CjLoginCGI {
+  rpc registerUser(RegisterUserRequest) returns (RegisterUserResponse);
+  rpc login(UserLoginRequest) returns (UserLoginResponse);
+  rpc checkLogin(UserCheckLoginRequest) returns (UserCheckLoginResponse);
+  rpc logout(UserLogoutRequest) returns (UserLogoutResponse);
 }

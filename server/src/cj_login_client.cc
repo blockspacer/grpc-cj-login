@@ -9,7 +9,7 @@ using grpc::Status;
 CjLoginClient::CjLoginClient(std::shared_ptr<Channel> channel)
   : stub_(CjLoginService::NewStub(channel)) {}
 
-Status CjLoginClient::registerUser(RegisterUserRequest &req,
+Status CjLoginClient::registerUser(const RegisterUserRequest &req,
                                    RegisterUserResponse *resp) {
   ClientContext context;
   return stub_->registerUser(&context, req, resp);

@@ -56,3 +56,12 @@ cc_binary(
         ":cj_login_client"
     ]
 )
+
+cc_binary(
+    name = "cj_login_cgi",
+    srcs = ["cj_login.cc"],
+    deps = [
+        ":cj_login_client",
+        "@com_google_glog//:glog"
+    ]
+)

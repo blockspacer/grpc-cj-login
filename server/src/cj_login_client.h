@@ -24,7 +24,7 @@ class CjLoginClient {
 public:
   CjLoginClient(std::shared_ptr<Channel> channel);
 
-  Status registerUser(RegisterUserRequest &req,
+  Status registerUser(const RegisterUserRequest &req,
                       RegisterUserResponse *resp);
 
   Status login(const UserLoginRequest &req,
