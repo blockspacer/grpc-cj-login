@@ -9,7 +9,8 @@ cc_library(
         "helper.h"
     ],
     deps = [
-        "@com_github_md5//:md5-lib"
+        "@com_github_md5//:md5-lib",
+        "@com_github_cppjwt//:jwt-lib"
     ]
 )
 

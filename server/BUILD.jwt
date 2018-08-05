@@ -1,0 +1,17 @@
+cc_library(
+    name = "jwt-lib",
+    hdrs = glob(
+        ["include/jwt/*.hpp",
+         "include/jwt/detail/*.hpp",
+         "include/jwt/impl/*ipp",
+         "include/jwt/json/*.hpp"],
+    ),
+    includes = [
+        "include"
+    ],
+    deps = [
+        "@com_github_openssl//:crypto",
+        "@com_github_openssl//:ssl"
+    ],
+    visibility = ["//visibility:public"]
+)

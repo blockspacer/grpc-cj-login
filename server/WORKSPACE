@@ -42,3 +42,18 @@ git_repository(
     commit = "8d7a107d68c127f3f494bb7807b796c8c5a97a82"
 )
 
+# openssl
+git_repository(
+    name = "com_github_openssl",
+    remote = "https://github.com/qzmfranklin/openssl",
+    commit = "fdb6e87125317b208e9af9da0ed312a486cec5ff",
+    init_submodules = 1
+)
+
+# jwt
+new_git_repository(
+    name = "com_github_cppjwt",
+    remote = "https://github.com/arun11299/cpp-jwt",
+    commit = "87dcef903f48a8c33df0bd9658d775d6d5db1918",
+    build_file = "BUILD.jwt"
+)
