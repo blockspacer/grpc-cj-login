@@ -36,7 +36,8 @@ cc_binary(
         "//proto:cj_login_proto",
         ":cj_login_helper",
         ":cj_login_redis",
-        "@com_google_glog//:glog"
+        "@com_google_glog//:glog",
+        ":cj_login_push_client"
     ]
 )
 
@@ -63,5 +64,23 @@ cc_binary(
     deps = [
         ":cj_login_client",
         "@com_google_glog//:glog"
+    ]
+)
+
+cc_binary(
+    name = "cj_login_push_server",
+    srcs = ["cj_login_push_server.cc"],
+    deps = [
+        "@com_google_glog//:glog",
+        ":cj_login_helper",
+        "//proto:cj_login_proto"
+    ]
+)
+
+cc_library(
+    name = "cj_login_push_client",
+    hdrs = ["cj_login_push_client.hpp"],
+    deps = [
+        "//proto:cj_login_proto"
     ]
 )

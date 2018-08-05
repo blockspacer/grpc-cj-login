@@ -16,6 +16,7 @@
 #include "redis/redis.h"
 #include "redis/redis_table.h"
 #include "helper.h"
+#include "cj_login_push_client.hpp"
 
 using cjLogin::User;
 using cjLogin::ErrCode;
@@ -30,10 +31,13 @@ using cjLogin::UserCheckLoginRequest;
 using cjLogin::UserCheckLoginResponse;
 using cjLogin::UserLogoutRequest;
 using cjLogin::UserLogoutResponse;
+using cjLogin::LogoutUserRequest;
+using cjLogin::LogoutUserResponse;
 
 using cjLogin::CjLoginService;
 
 using grpc::InsecureServerCredentials;
+using grpc::InsecureChannelCredentials;
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
@@ -53,6 +57,8 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     this->commTable = new RedisTable(this->redis, commTableName);
     this->userName2UinTable = new RedisTable(this->redis, userName2UinTableName);
     this->userTable = new RedisTable(this->redis, userTableName);
+    this->pushClient = new CjLoginPushClient(CreateChannel("localhost:50053",
+                                                           InsecureChannelCredentials()));
   }
 
   ~CjLoginServiceImpl() {
@@ -151,7 +157,13 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     user.set_logintickettimeout(60 * 60 * 24 * 30);
     if (user.SerializeToString(&serialized)
         && this->userTable->setData(uin, serialized)) {
-      // TODO: push others to logout
+
+      LogoutUserRequest req;
+      req.set_uin(atoll(uin.c_str()));
+      req.set_logoutbyothers(true);
+      LogoutUserResponse resp;
+      this->pushClient->logoutUser(req, &resp);
+
       response->set_loginticket(loginTicket);
       return this->_replyOk(baseResponse);
     } else {
@@ -231,6 +243,13 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     user.set_logintickettimeout(0);
     if (user.SerializeToString(&serialized)
         && this->userTable->setData(payload.uin, serialized)) {
+
+      // clear stream
+      LogoutUserRequest req;
+      req.set_uin(atoll(payload.uin.c_str()));
+      LogoutUserResponse resp;
+      this->pushClient->userLogout(req, &resp);
+
       return this->_replyOk(baseResponse);
     } else {
       return this->_replySystemError(baseResponse);
@@ -244,6 +263,7 @@ private:
   RedisTable *commTable;
   RedisTable *userName2UinTable;
   RedisTable *userTable;
+  CjLoginPushClient *pushClient;
 
   Status _finishRequest(BaseResponse *baseResp,
                         ErrCode errcode,

@@ -78,13 +78,30 @@ message UserLogoutResponse {
   BaseResponse baseResp = 1;
 }
 
-// Service API LogoutUser
+// Inner Service API: LogoutUser
 message LogoutUserRequest {
   uint64 uin = 1;
+  bool logoutByOthers = 2;
 }
 
 message LogoutUserResponse {
   BaseResponse baseResp = 1;
+}
+
+// Push Service: Connect
+message ConnectRequest {
+  BaseRequest baseReq = 1;
+}
+
+enum MessageType {
+  INVALID = 0;
+  LOGOUT_BY_SYSTEM = 1;
+  LOGOUT_BY_OTHERS = 2;
+}
+
+message ServerMessage {
+  MessageType type = 1;
+  string content = 2;
 }
 
 service CjLoginService {
@@ -100,4 +117,10 @@ service CjLoginCGI {
   rpc login(UserLoginRequest) returns (UserLoginResponse);
   rpc checkLogin(UserCheckLoginRequest) returns (UserCheckLoginResponse);
   rpc logout(UserLogoutRequest) returns (UserLogoutResponse);
+}
+
+service CjLoginPushService {
+  rpc logoutUser(LogoutUserRequest) returns (LogoutUserResponse);
+  rpc userLogout(LogoutUserRequest) returns (LogoutUserResponse);
+  rpc connect(ConnectRequest) returns (stream ServerMessage);
 }
