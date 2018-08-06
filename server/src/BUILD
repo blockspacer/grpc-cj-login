@@ -10,7 +10,7 @@ cc_library(
     ],
     deps = [
         "@com_github_md5//:md5-lib",
-        #"@com_github_cppjwt//:jwt-lib"
+        "@com_github_cppjwt//:jwt-lib"
     ]
 )
 
