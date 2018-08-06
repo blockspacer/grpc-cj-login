@@ -7,6 +7,10 @@
 #include "src/md5.h"
 #include "include/jwt/jwt.hpp"
 
+using namespace jwt::params;
+
+auto jwtLoginTicketKey = "__cj_login_jwt_key__login_ticket_key__";
+
 namespace cjLogin {
   bool validateUsername(string username) {
     for (const auto &ch : username) {
@@ -41,23 +45,31 @@ namespace cjLogin {
   string genLoginTicket(string username, string uin) {
     // TODO: JWT here
     std::time_t ts = std::time(nullptr);
-    return username + " " + uin + " " + std::to_string(ts);
+    jwt::jwt_object obj {
+      secret(jwtLoginTicketKey),
+      algorithm("hs256"),
+      payload({
+          {"X-uin", uin}, {"X-username", username}, {"ts", std::to_string(ts)}
+        })
+    };
+    return obj.signature();
   }
 
   bool extraLoginTicket(string loginTicket, PayloadInfo &payload) {
-    std::stringstream ss(loginTicket);
-    std::vector<string> v;
-    string t;
-    while (ss >> t) {
-      v.push_back(t);
-    }
-    if (v.size() != 3) {
+    std::error_code ec;
+
+    auto decObj = jwt::decode(loginTicket,
+                              algorithms({"hs256"}),
+                              ec,
+                              secret(jwtLoginTicketKey));
+    if (ec) {
       return false;
     }
 
-    payload.userName = v[0];
-    payload.uin = v[1];
-    payload.ts = atol(v[2].c_str());
+    auto json = dec_obj.payload();
+    payload.uin = json["X-uin"];
+    payload.username = json["X-username"];
+    payload.ts = json["ts"];
     return true;
   }
 }
