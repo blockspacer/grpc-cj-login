@@ -66,9 +66,9 @@ namespace cjLogin {
       return false;
     }
 
-    auto json = dec_obj.payload();
+    auto json = decObj.payload().create_json_obj();
     payload.uin = json["X-uin"];
-    payload.username = json["X-username"];
+    payload.userName = json["X-username"];
     payload.ts = json["ts"];
     return true;
   }
