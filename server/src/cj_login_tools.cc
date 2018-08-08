@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     string func(argv[i + 1]);
 
     Status status;
-    BaseResponse *baseResp = NULL;
+    const BaseResponse *baseResp;
     string extra;
     if (func == "register") {
       string userName(argv[i + 2]);
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
       req.set_password(password);
 
       status = client.registerUser(req, &resp);
-      baseResp = &resp.baseresp();
+      baseResp = &(resp.baseresp());
     } else if (func == "login") {
       string userName(argv[i + 2]);
       string password(argv[i + 3]);
@@ -79,9 +79,8 @@ int main(int argc, char *argv[]) {
       baseResp = &resp.baseresp();
     }
 
-    std::cout << "response: {"
-              << baseResp->errcode()
-              << ", " << baseresp->errmsg() << "}" << std::endl
+    std::cout << "response:"
+              << baseResp->errcode() << std::endl
               << extra << std::endl;
   }
 
