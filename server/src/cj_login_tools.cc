@@ -11,6 +11,7 @@ using grpc::InsecureChannelCredentials;
 using grpc::CreateChannel;
 
 using std::string;
+using cjLogin::BaseResponse;
 
 int main(int argc, char *argv[]) {
   CjLoginClient client(CreateChannel("localhost:50051",
@@ -27,6 +28,8 @@ int main(int argc, char *argv[]) {
     string func(argv[i + 1]);
 
     Status status;
+    BaseResponse *baseResp = NULL;
+    string extra;
     if (func == "register") {
       string userName(argv[i + 2]);
       string password(argv[i + 3]);
@@ -37,6 +40,7 @@ int main(int argc, char *argv[]) {
       req.set_password(password);
 
       status = client.registerUser(req, &resp);
+      baseResp = &resp.baseresp();
     } else if (func == "login") {
       string userName(argv[i + 2]);
       string password(argv[i + 3]);
@@ -47,7 +51,8 @@ int main(int argc, char *argv[]) {
       req.set_password(password);
 
       status = client.login(req, &resp);
-      std::cout << resp.loginticket() << std::endl;
+      baseResp = &resp.baseresp();
+      extra = "loginTicket: " + resp.loginticket();
     } else if (func == "checkLogin") {
       string userName(argv[i + 2]);
       string loginTicket(argv[i + 3]);
@@ -58,7 +63,8 @@ int main(int argc, char *argv[]) {
       req.set_loginticket(loginTicket);
 
       status = client.checkLogin(req, &resp);
-      std::cout << resp.sessionkey() << std::endl;
+      baseResp = &resp.baseresp();
+      extra = "sessionKey: " + resp.sessionkey();
     } else if (func == "logout") {
       string userName(argv[i + 2]);
       string sessionKey(argv[i + 3]);
@@ -70,9 +76,14 @@ int main(int argc, char *argv[]) {
       baseReq->set_sessionkey(sessionKey);
 
       status = client.logout(req, &resp);
+      baseResp = &resp.baseresp();
     }
-  }
 
+    std::cout << "response: {"
+              << baseResp->errcode()
+              << ", " << baseresp->errmsg() << "}" << std::endl
+              << extra << std::endl;
+  }
 
   return 0;
 }
