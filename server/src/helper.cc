@@ -5,7 +5,7 @@
 
 #include "helper.h"
 #include "src/md5.h"
-#include "include/jwt/jwt.hpp"
+#include <glog/logging.h>
 
 using namespace jwt::params;
 
@@ -57,19 +57,22 @@ namespace cjLogin {
 
   bool extraLoginTicket(string loginTicket, PayloadInfo &payload) {
     std::error_code ec;
-
     auto decObj = jwt::decode(loginTicket,
                               algorithms({"hs256"}),
                               ec,
                               secret(jwtLoginTicketKey));
     if (ec) {
+      LOG(ERROR) << "extraLoginTicket fail, errcode: " << ec;
       return false;
     }
 
     auto json = decObj.payload().create_json_obj();
     payload.uin = json["X-uin"];
     payload.userName = json["X-username"];
-    payload.ts = json["ts"];
+    string ts = json["ts"];
+    payload.ts = atol(ts.c_str());
+
+    LOG(INFO) << "extraLoginTicket Success, [uin]" << payload.uin;
     return true;
   }
 }

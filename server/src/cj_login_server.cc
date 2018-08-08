@@ -75,6 +75,8 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     auto password = request->password();
     auto baseResponse = response->mutable_baseresp();
 
+    LOG(INFO) << "register: {" << userName << ", " << password << "}";
+
     if (!cjLogin::validateUsername(userName)) {
       return this->_finishRequest(baseResponse,
                                   ErrCode::REGISTER_ERROR_USERNAME_INVALID,
@@ -124,6 +126,8 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     auto userName = request->username();
     auto password = request->password();
     auto baseResponse = response->mutable_baseresp();
+
+    LOG(INFO) << "login: {" << userName << ", " << password << "}";
 
     string uin;
     if (!this->userName2UinTable->getData(userName, uin)) {
@@ -178,6 +182,8 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     auto loginTicket = request->loginticket();
     auto baseResponse = response->mutable_baseresp();
 
+    LOG(INFO) << "checkLogin: {" << userName << ", " << loginTicket << "}";
+
     PayloadInfo payload;
     if (!cjLogin::extraLoginTicket(loginTicket, payload)
         || payload.userName != userName) {
@@ -191,6 +197,12 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     if (!this->userTable->getData(payload.uin, serialized)
         || !user.ParseFromString(serialized)) {
       return this->_replySystemError(baseResponse);
+    }
+
+    if (user.loginticket().size() == 0) {
+      return this->_finishRequest(baseResponse,
+                                  ErrCode::CHECK_LOGIN_USER_LOGIN_OTHERS,
+                                  "user logout, ticket timeout");
     }
 
     if (user.loginticket() != loginTicket) {
@@ -217,6 +229,8 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     auto userName = request->basereq().username();
     auto sessionKey = request->basereq().sessionkey();
     auto baseResponse = response->mutable_baseresp();
+
+    LOG(INFO) << "userLogout: {" << userName << ", " << sessionKey << "}";
 
     PayloadInfo payload;
     if (!cjLogin::extraLoginTicket(sessionKey, payload)

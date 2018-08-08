@@ -3,6 +3,7 @@
 
 #include <string>
 #include "src/md5.h"
+#include "include/jwt/jwt.hpp"
 
 using std::string;
 
