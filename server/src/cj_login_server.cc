@@ -52,8 +52,8 @@ const char *commTableName = "CommonTable";
 
 class CjLoginServiceImpl final : public CjLoginService::Service {
  public:
-  CjLoginServiceImpl() {
-    this->redis = new Redis("172.17.0.4", 6379);
+  CjLoginServiceImpl(string redisIp, int redisPort) {
+    this->redis = new Redis(redisIp.c_str(), redisPort);
     this->commTable = new RedisTable(this->redis, commTableName);
     this->userName2UinTable = new RedisTable(this->redis, userName2UinTableName);
     this->userTable = new RedisTable(this->redis, userTableName);
@@ -297,9 +297,9 @@ private:
   }
 };
 
-void RunServer() {
+void RunServer(string redisIp, int redisPort) {
   std::string address("0.0.0.0:50051");
-  CjLoginServiceImpl service;
+  CjLoginServiceImpl service(redisIp, redisPort);
   ServerBuilder builder;
   builder.AddListeningPort(address, InsecureServerCredentials());
   builder.RegisterService(&service);
@@ -311,8 +311,23 @@ void RunServer() {
 int main(int argc, char *argv[]) {
 
   google::InitGoogleLogging(argv[0]);
-  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  RunServer();
+  if (argc != 5) {
+    std::cout << "Usage: -h <redisIp> -p <redisPort>" << std::endl;
+    return -1;
+  }
+
+  string redisIp;
+  int redisPort;
+  for (int i = 1; i < argc; i += 2) {
+    string action = string(argv[i]);
+    if (action == "-h") {
+      redisIp = string(argv[i + 1]);
+    } else if (action == "-p") {
+      redisPort  = atoi(argv[i + 1]);
+    }
+  }
+
+  RunServer(redisIp, redisPort);
   return 0;
 }
