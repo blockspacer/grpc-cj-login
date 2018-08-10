@@ -37,8 +37,7 @@ cc_binary(
         "//proto:cj_login_proto",
         ":cj_login_helper",
         ":cj_login_redis",
-        "@com_google_glog//:glog",
-        ":cj_login_push_client"
+        "@com_google_glog//:glog"
     ]
 )
 
@@ -64,7 +63,8 @@ cc_binary(
     srcs = ["cj_login.cc"],
     deps = [
         ":cj_login_client",
-        "@com_google_glog//:glog"
+        "@com_google_glog//:glog",
+        ":cj_login_helper"
     ]
 )
 

@@ -14,7 +14,9 @@
 #include <string>
 
 #include "cj_login_client.h"
+#include "helper.h"
 
+using cjLogin::ErrCode;
 using cjLogin::CjLoginCGI;
 
 using grpc::InsecureServerCredentials;
@@ -24,45 +26,86 @@ using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
 
+using cjLogin::ConnectRequest;
+using cjLogin::ServerMessage;
+using cjLogin::MessageType;
+
 class CjLoginCGIImp final : public CjLoginCGI::Service {
  public:
 
   CjLoginCGIImp() {
-    this->client = new CjLoginClient(CreateChannel("localhost:50051",
+    this->server = new CjLoginClient(CreateChannel("localhost:50051",
                                                    InsecureChannelCredentials()));
 
   }
 
   ~CjLoginCGIImp() {
-    delete this->client;
+    delete this->server;
+  }
+
+  Status connect(ServerContext *context,
+                 const ConnectRequest *request,
+                 ServerWriter<ServerMessage> *writer) override {
+    auto userName = request->basereq().username();
+    auto sessionKey = request->basereq().sessionkey();
+
+    PayloadInfo payload;
+    if (!cjLogin::extraLoginTicket(sessionKey, payload)
+        || payload.userName != userName) {
+      LOG(ERROR) << "connect request invalid" << userName;
+      return Status::CANCELLED;
+    }
+
+    this->clientMap[payload.uin] = writer;
+    return Status::OK;
   }
 
   Status registerUser(ServerContext *context,
                       const RegisterUserRequest *request,
                       RegisterUserResponse *response) override {
-    return client->registerUser(*request, response);
+    return this->server->registerUser(*request, response);
   }
 
   Status login(ServerContext *context,
                const UserLoginRequest *request,
                UserLoginResponse *response) override {
-    return client->login(*request, response);
+    return this->server->login(*request, response);
   }
 
   Status checkLogin(ServerContext *context,
                     const UserCheckLoginRequest *request,
                     UserCheckLoginResponse *response) override {
-    return client->checkLogin(*request, response);
+    return this->server->checkLogin(*request, response);
   }
 
   Status logout(ServerContext *context,
                 const UserLogoutRequest *request,
                 UserLogoutResponse *response) override {
-    return client->logout(*request, response);
+    auto userName = request->basereq().username();
+    auto sessionKey = request->basereq().sessionkey();
+    auto baseResponse = response->mutable_baseresp();
+
+    PayloadInfo payload;
+    if (!cjLogin::extraLoginTicket(sessionKey, payload)
+        || payload.userName != userName) {
+      LOG(ERROR) << "logout User Invalid request invalid" << userName;
+      baseResponse->set_errcode(ErrCode::SYSTEM_INVALID_PARAM);
+      baseResponse->set_errmsg("invalid params");
+      return Status::OK;
+    }
+
+    auto writer = this->clientMap[payload.uin];
+    if (writer) {
+      ServerMessage message;
+      this->clientMap.erase(uin);
+    }
+
+    return this->server->logout(*request, response);
   }
 
  private:
-  CjLoginClient *client;
+  CjLoginClient *server;
+  std::map<std::string, ServerWriter<ServerMessage> *> clientMap;
 };
 
 

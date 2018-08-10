@@ -26,6 +26,11 @@ public:
   CjLoginPushClient(std::shared_ptr<Channel> channel)
     : stub_(CjLoginPushService::NewStub(channel)) {}
 
+  Status connect(const ConnectRequest &req, ConnectResponse *resp) {
+    ClientContext context;
+    return this->stub_->connect(&context, req, resp);
+  }
+
   Status logoutUser(const LogoutUserRequest &req, LogoutUserResponse *resp) {
     ClientContext context;
     return this->stub_->logoutUser(&context, req, resp);
