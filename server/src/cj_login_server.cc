@@ -36,7 +36,6 @@ using cjLogin::LogoutUserResponse;
 using cjLogin::CjLoginService;
 
 using grpc::InsecureServerCredentials;
-using grpc::InsecureChannelCredentials;
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;

@@ -12,6 +12,9 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <utility>
+#include <thread>
+#include <chrono>
 
 #include "cj_login_client.h"
 #include "helper.h"
@@ -25,6 +28,9 @@ using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
+using grpc::ServerReader;
+using grpc::ServerReaderWriter;
+using grpc::ServerWriter;
 
 using cjLogin::ConnectRequest;
 using cjLogin::ServerMessage;
@@ -33,10 +39,27 @@ using cjLogin::MessageType;
 class CjLoginCGIImp final : public CjLoginCGI::Service {
  public:
 
+  void sendTestMessage() {
+    while (true) {
+      std::this_thread::sleep_for(std::chrono::seconds(10));
+      auto iter = this->clientMap.begin();
+      while (iter != this->clientMap.end()) {
+        ServerMessage message;
+        auto client = iter->second;
+        message.set_type(MessageType::LOGOUT_BY_OTHERS);
+        message.set_content("logout by others");
+        std::cout << "write test message: " << iter->second << std::endl;
+        client->Write(message);
+        iter++;
+      }
+    }
+  }
+
   CjLoginCGIImp() {
     this->server = new CjLoginClient(CreateChannel("localhost:50051",
                                                    InsecureChannelCredentials()));
-
+    std::thread t(&CjLoginCGIImp::sendTestMessage, this);
+    t.detach();
   }
 
   ~CjLoginCGIImp() {
@@ -57,6 +80,9 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
     }
 
     this->clientMap[payload.uin] = writer;
+    while (true) {
+      
+    }
     return Status::OK;
   }
 
@@ -97,7 +123,7 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
     auto writer = this->clientMap[payload.uin];
     if (writer) {
       ServerMessage message;
-      this->clientMap.erase(uin);
+      this->clientMap.erase(payload.uin);
     }
 
     return this->server->logout(*request, response);
