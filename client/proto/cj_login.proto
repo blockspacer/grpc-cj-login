@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+package cjLogin;
+
+message User {
+  uint64 uin = 1;
+  string userName = 2;
+  string password = 3;
+  string loginTicket = 4;
+  uint64 loginTicketTimeout = 5;
+}
+
+enum ErrCode {
+  OK = 0;
+  SYSTEM_ERROR = -1;
+  SYSTEM_SESSION_TIMEOUT = -2;
+  SYSTEM_INVALID_PARAM = -3;
+
+  REGISTER_ERROR_USERNAME_INVALID = 1001;
+  REGISTER_ERROR_USERNAME_EXISTS = 1002;
+  REGISTER_ERROR_PWD_INVALID = 1003;
+
+  LOGIN_ERROR_USER_NOT_EXISTS = 2001;
+  LOGIN_ERROR_PWD_ERROR = 2002;
+
+  CHECK_LOGIN_USER_LOGIN_OTHERS = 3001;
+  CHECK_LOGIN_TICKET_TIMEOUT = 3003;
+}
+
+enum ActionCode {
+  Invalid = 0;
+  Register = 1;
+  Login = 2;
+  CheckLogin = 3;
+  Logout = 4;
+}
+
+message BaseRequest {
+  string userName = 1;
+  string sessionKey = 2;
+}
+
+message BaseResponse {
+  ErrCode errcode = 1;
+  string errmsg = 2;
+}
+
+// RegisterUser
+message RegisterUserRequest {
+  string userName = 1;
+  string password = 2;
+}
+
+message RegisterUserResponse {
+  BaseResponse baseResp = 1;
+}
+
+// UserLogin
+message UserLoginRequest {
+  string userName = 1;
+  string password = 2;
+}
+
+message UserLoginResponse {
+  BaseResponse baseResp = 1;
+  string loginTicket = 2;
+}
+
+// UserCheckLogin
+message UserCheckLoginRequest {
+  string userName = 1;
+  string loginTicket = 2;
+}
+
+message UserCheckLoginResponse {
+  BaseResponse baseResp = 1;
+  string sessionKey = 2;
+}
+
+// UserLogout
+message UserLogoutRequest {
+  BaseRequest baseReq = 1;
+}
+
+message UserLogoutResponse {
+  BaseResponse baseResp = 1;
+}
+
+// Inner Service API: LogoutUser
+message LogoutUserRequest {
+  uint64 uin = 1;
+  bool logoutByOthers = 2;
+}
+
+message LogoutUserResponse {
+  BaseResponse baseResp = 1;
+}
+
+// Push Service: Connect
+message ConnectRequest {
+  BaseRequest baseReq = 1;
+}
+
+enum MessageType {
+  INVALID = 0;
+  LOGOUT_BY_SYSTEM = 1;
+  LOGOUT_BY_OTHERS = 2;
+}
+
+message ServerMessage {
+  MessageType type = 1;
+  string content = 2;
+}
+
+service CjLoginService {
+  rpc registerUser(RegisterUserRequest) returns (RegisterUserResponse);
+  rpc userLogin(UserLoginRequest) returns (UserLoginResponse);
+  rpc userCheckLogin(UserCheckLoginRequest) returns (UserCheckLoginResponse);
+  rpc userLogout(UserLogoutRequest) returns (UserLogoutResponse);
+  rpc logoutUser(LogoutUserRequest) returns (LogoutUserResponse);
+}
+
+service CjLoginCGI {
+  rpc registerUser(RegisterUserRequest) returns (RegisterUserResponse);
+  rpc login(UserLoginRequest) returns (UserLoginResponse);
+  rpc checkLogin(UserCheckLoginRequest) returns (UserCheckLoginResponse);
+  rpc logout(UserLogoutRequest) returns (UserLogoutResponse);
+  rpc connect(ConnectRequest) returns (stream ServerMessage);
+}
+
+service CjLoginPushService {
+  rpc logoutUser(LogoutUserRequest) returns (LogoutUserResponse);
+  rpc userLogout(LogoutUserRequest) returns (LogoutUserResponse);
+  rpc connect(ConnectRequest) returns (stream ServerMessage);
+}

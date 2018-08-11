@@ -85,12 +85,3 @@ cc_library(
         "//proto:cj_login_proto"
     ]
 )
-
-cc_binary(
-    name = "cj_login_cgi_tools",
-    srcs = ["cj_login_cgi_client.cc"],
-    deps = [
-        "@com_google_glog//:glog",
-        "//proto:cj_login_proto"
-    ]
-)
