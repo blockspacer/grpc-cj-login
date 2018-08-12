@@ -3,8 +3,10 @@
 
 #import "CJCjLogin+Private.h"
 #import "CJCjLogin.h"
+#import "CJRegisterUserCallback+Private.h"
 #import "DJICppWrapperCache+Private.h"
 #import "DJIError.h"
+#import "DJIMarshal+Private.h"
 #include <exception>
 #include <stdexcept>
 #include <utility>
@@ -33,6 +35,16 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
     try {
         auto objcpp_result_ = ::cjlogin::CjLogin::create();
         return ::djinni_generated::CjLogin::fromCpp(objcpp_result_);
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (void)registerUser:(nonnull NSString *)userName
+            password:(nonnull NSString *)password
+                  cb:(nullable CJRegisterUserCallback *)cb {
+    try {
+        _cppRefHandle.get()->registerUser(::djinni::String::toCpp(userName),
+                                          ::djinni::String::toCpp(password),
+                                          ::djinni_generated::RegisterUserCallback::toCpp(cb));
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 

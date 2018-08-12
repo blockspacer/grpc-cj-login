@@ -1,0 +1,3 @@
+target 'CJLoginDemo'
+
+pod 'gRPC-C++', '~> 0.0.3'

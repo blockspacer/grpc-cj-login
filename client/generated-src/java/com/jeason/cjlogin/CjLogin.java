@@ -6,6 +6,8 @@ package com.jeason.cjlogin;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class CjLogin {
+    public abstract void registerUser(String userName, String password, RegisterUserCallback cb);
+
     public static CjLogin create()
     {
         return CppProxy.create();
@@ -33,6 +35,14 @@ public abstract class CjLogin {
             _djinni_private_destroy();
             super.finalize();
         }
+
+        @Override
+        public void registerUser(String userName, String password, RegisterUserCallback cb)
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            native_registerUser(this.nativeRef, userName, password, cb);
+        }
+        private native void native_registerUser(long _nativeRef, String userName, String password, RegisterUserCallback cb);
 
         public static native CjLogin create();
     }

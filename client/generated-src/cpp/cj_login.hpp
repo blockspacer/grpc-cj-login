@@ -4,14 +4,19 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 namespace cjlogin {
+
+class RegisterUserCallback;
 
 class CjLogin {
 public:
     virtual ~CjLogin() {}
 
     static std::shared_ptr<CjLogin> create();
+
+    virtual void registerUser(const std::string & userName, const std::string & password, const std::shared_ptr<RegisterUserCallback> & cb) = 0;
 };
 
 }  // namespace cjlogin

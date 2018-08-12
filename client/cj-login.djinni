@@ -1,3 +1,9 @@
 cj_login = interface +c {
   static create(): cj_login;
+
+  registerUser(userName: string, password: string, cb: registerUserCallback);
+}
+
+registerUserCallback = interface +c {
+  complete(errcode: i32, errmsg: string);
 }

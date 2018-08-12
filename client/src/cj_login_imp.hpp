@@ -1,12 +1,12 @@
 #pragma once
 
-#include "generated-src/cpp/cj_login.hpp"
-
-using cjlogin::CjLogin;
+#include "cj_login.hpp"
 
 namespace cjlogin {
-  class CjLoginImpl : public CjLogin {
-  public:
-    CjLoginImpl();
-  };
+    class CjLoginImpl : public cjlogin::CjLogin {
+    public:
+        CjLoginImpl();
+        
+        void registerUser(const std::string & userName, const std::string & password, const std::shared_ptr<RegisterUserCallback> & cb);
+    };
 }

@@ -1,4 +1,5 @@
 package(default_visibility = ["//visibility:public"])
+load("@build_bazel_rules_apple//apple:ios.bzl", "ios_application")
 
 cc_binary(
     name = "cj_login_cgi_tools",
