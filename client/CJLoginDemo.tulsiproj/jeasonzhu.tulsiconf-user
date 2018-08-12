@@ -1,0 +1,10 @@
+{
+  "optionSet" : {
+    "WorkspaceRootPath" : {
+      "p" : "/Users/jeasonzhu/Documents/Work/Code/MiniProject/grpc-cj-login/client"
+    },
+    "BazelPath" : {
+      "p" : "/usr/local/bin/bazel"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "cj_login.hpp"
+#include "djinni-src/cpp/cj_login.hpp"
+#include "src/cj_login_cgi_client.hpp"
 
 namespace cjlogin {
     class CjLoginImpl : public cjlogin::CjLogin {

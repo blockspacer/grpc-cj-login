@@ -1,0 +1,911 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E6AF4947343FBEE100000000 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D68C28343FBEE100000000 /* main.mm */; };
+		E6AF49473DD89B9D00000000 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D68C283DD89B9D00000000 /* AppDelegate.mm */; };
+		E6AF49476EBE5A1500000000 /* cj_login_imp.cc in Sources */ = {isa = PBXBuildFile; fileRef = 43D68C286EBE5A1500000000 /* cj_login_imp.cc */; };
+		E6AF4947A9E4ADA900000000 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43D68C28A9E4ADA900000000 /* ViewController.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		819366726921D83500000000 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E7BD0EA08AECC3700000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ECCC95946921D83400000000;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		43D68C280BA3DB5000000000 /* CJLoginDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = CJLoginDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		43D68C282A1D658300000000 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = src/iOS/ViewController.h; sourceTree = "<group>"; };
+		43D68C282BCC345900000000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = src/iOS/Info.plist; sourceTree = "<group>"; };
+		43D68C282C2BA0FF00000000 /* cj_login_cgi_client.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = cj_login_cgi_client.hpp; path = src/cj_login_cgi_client.hpp; sourceTree = "<group>"; };
+		43D68C28343FBEE100000000 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = src/iOS/main.mm; sourceTree = "<group>"; };
+		43D68C283B9FA73800000000 /* libcj_login_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcj_login_sdk.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		43D68C283DD89B9D00000000 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = src/iOS/AppDelegate.mm; sourceTree = "<group>"; };
+		43D68C284B55FC7B00000000 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text; name = Base; path = src/iOS/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		43D68C284D7B256400000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = "tulsi-workspace//BUILD"; sourceTree = "<group>"; };
+		43D68C286EBE5A1500000000 /* cj_login_imp.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cj_login_imp.cc; path = src/cj_login_imp.cc; sourceTree = "<group>"; };
+		43D68C2875764C7500000000 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text; name = Base; path = src/iOS/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		43D68C287D496E2F00000000 /* cj_login.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = cj_login.hpp; path = "djinni-src/cpp/cj_login.hpp"; sourceTree = "<group>"; };
+		43D68C28A9E4ADA900000000 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ViewController.mm; path = src/iOS/ViewController.mm; sourceTree = "<group>"; };
+		43D68C28AC89EA1B00000000 /* cj_login_imp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = cj_login_imp.hpp; path = src/cj_login_imp.hpp; sourceTree = "<group>"; };
+		43D68C28ACDD78A700000000 /* CJLoginDemo-Info-binary.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; name = "CJLoginDemo-Info-binary.plist"; path = "tulsi-workspace/_tulsi-includes/x/x/CJLoginDemo-Info-binary.plist"; sourceTree = "<group>"; };
+		43D68C28B263409600000000 /* lib_idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = lib_idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		43D68C28C078812E00000000 /* libSources.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSources.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		43D68C28D90CE5B700000000 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = src/iOS/AppDelegate.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		966FB6DE0562C2F700000000 /* Indexer */ = {
+			isa = PBXGroup;
+			children = (
+				43D68C28B263409600000000 /* lib_idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4.a */,
+			);
+			name = Indexer;
+			sourceTree = "<group>";
+		};
+		966FB6DE07201E0200000000 /* _tulsi-includes */ = {
+			isa = PBXGroup;
+			children = (
+				966FB6DE88DDC84A00000000 /* x */,
+			);
+			name = "_tulsi-includes";
+			sourceTree = "<group>";
+		};
+		966FB6DE2BD1037D00000000 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				43D68C280BA3DB5000000000 /* CJLoginDemo.app */,
+				966FB6DE0562C2F700000000 /* Indexer */,
+				966FB6DE07201E0200000000 /* _tulsi-includes */,
+				43D68C28C078812E00000000 /* libSources.a */,
+				43D68C283B9FA73800000000 /* libcj_login_sdk.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		966FB6DE877A8FDA00000000 /* djinni-src */ = {
+			isa = PBXGroup;
+			children = (
+				966FB6DE960A8E5700000000 /* cpp */,
+			);
+			name = "djinni-src";
+			sourceTree = "<group>";
+		};
+		966FB6DE88DDC84A00000000 /* x */ = {
+			isa = PBXGroup;
+			children = (
+				966FB6DE88DDC84A00000001 /* x */,
+			);
+			name = x;
+			sourceTree = "<group>";
+		};
+		966FB6DE88DDC84A00000001 /* x */ = {
+			isa = PBXGroup;
+			children = (
+				43D68C28ACDD78A700000000 /* CJLoginDemo-Info-binary.plist */,
+			);
+			name = x;
+			sourceTree = "<group>";
+		};
+		966FB6DE88DDCFB100000000 /* / */ = {
+			isa = PBXGroup;
+			children = (
+				43D68C284D7B256400000000 /* BUILD */,
+			);
+			name = /;
+			sourceTree = "<group>";
+		};
+		966FB6DE960A8E5700000000 /* cpp */ = {
+			isa = PBXGroup;
+			children = (
+				43D68C287D496E2F00000000 /* cj_login.hpp */,
+			);
+			name = cpp;
+			sourceTree = "<group>";
+		};
+		966FB6DE97B5B88200000000 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				43D68C282C2BA0FF00000000 /* cj_login_cgi_client.hpp */,
+				43D68C286EBE5A1500000000 /* cj_login_imp.cc */,
+				43D68C28AC89EA1B00000000 /* cj_login_imp.hpp */,
+				966FB6DE97D14F5F00000000 /* iOS */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		966FB6DE97D14F5F00000000 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				43D68C28D90CE5B700000000 /* AppDelegate.h */,
+				43D68C283DD89B9D00000000 /* AppDelegate.mm */,
+				43D68C282BCC345900000000 /* Info.plist */,
+				8CBD86FAF8B6E96800000000 /* LaunchScreen.storyboard */,
+				8CBD86FA6FB80E2A00000000 /* Main.storyboard */,
+				43D68C282A1D658300000000 /* ViewController.h */,
+				43D68C28A9E4ADA900000000 /* ViewController.mm */,
+				43D68C28343FBEE100000000 /* main.mm */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		966FB6DEE342F69A00000000 /* mainGroup */ = {
+			isa = PBXGroup;
+			children = (
+				966FB6DE88DDCFB100000000 /* / */,
+				966FB6DE2BD1037D00000000 /* Products */,
+				966FB6DE877A8FDA00000000 /* djinni-src */,
+				966FB6DE97B5B88200000000 /* src */,
+			);
+			name = mainGroup;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		ECCC95946921D83400000000 /* _bazel_clean_ */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "\"/usr/local/bin/bazel\" \"bazel-bin\"";
+			buildConfigurationList = DE475583CA83BF7E00000000 /* Build configuration list for PBXLegacyTarget "_bazel_clean_" */;
+			buildPhases = (
+			);
+			buildToolPath = "${PROJECT_FILE_PATH}/.tulsi/Scripts/bazel_clean.sh";
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = _bazel_clean_;
+			passBuildSettingsInEnvironment = 1;
+			productName = _bazel_clean_;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXNativeTarget section */
+		3D31C5E6115D986E00000000 /* CJLoginDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE4755838BFEE66D00000000 /* Build configuration list for PBXNativeTarget "CJLoginDemo" */;
+			buildPhases = (
+				84B422716084CE1A00000000 /* Run Script */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4DAD0B426921D83500000000 /* PBXTargetDependency */,
+			);
+			name = CJLoginDemo;
+			productName = CJLoginDemo;
+			productReference = 43D68C280BA3DB5000000000 /* CJLoginDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3D31C5E66D8AAE9400000000 /* Sources */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE475583E30A810000000000 /* Build configuration list for PBXNativeTarget "Sources" */;
+			buildPhases = (
+				84B42271DBD6367300000000 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4DAD0B426921D83500000000 /* PBXTargetDependency */,
+			);
+			name = Sources;
+			productName = Sources;
+			productReference = 43D68C28C078812E00000000 /* libSources.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		3D31C5E6D208D17C00000000 /* _idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE475583300281F400000000 /* Build configuration list for PBXNativeTarget "_idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4" */;
+			buildPhases = (
+				605793E20000000000000000 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4DAD0B426921D83500000000 /* PBXTargetDependency */,
+			);
+			name = _idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4;
+			productName = _idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4;
+			productReference = 43D68C28B263409600000000 /* lib_idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		3D31C5E6DAF547A600000000 /* cj_login_sdk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE4755838923840900000000 /* Build configuration list for PBXNativeTarget "cj_login_sdk" */;
+			buildPhases = (
+				84B42271F39E208A00000000 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4DAD0B426921D83500000000 /* PBXTargetDependency */,
+			);
+			name = cj_login_sdk;
+			productName = cj_login_sdk;
+			productReference = 43D68C283B9FA73800000000 /* libcj_login_sdk.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7E7BD0EA08AECC3700000000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0940;
+			};
+			buildConfigurationList = DE475583FA47067100000000 /* Build configuration list for PBXProject "CJLoginDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 966FB6DEE342F69A00000000 /* mainGroup */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3D31C5E6115D986E00000000 /* CJLoginDemo */,
+				3D31C5E66D8AAE9400000000 /* Sources */,
+				ECCC95946921D83400000000 /* _bazel_clean_ */,
+				3D31C5E6D208D17C00000000 /* _idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4 */,
+				3D31C5E6DAF547A600000000 /* cj_login_sdk */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		84B422716084CE1A00000000 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "set -e\n\nexec \"${PROJECT_FILE_PATH}/.tulsi/Scripts/bazel_build.py\" //:CJLoginDemo --bazel \"/usr/local/bin/bazel\" --bazel_bin_path \"bazel-bin\" --verbose ";
+		};
+		84B42271DBD6367300000000 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "set -e\n\nexec \"${PROJECT_FILE_PATH}/.tulsi/Scripts/bazel_build.py\" //:Sources --bazel \"/usr/local/bin/bazel\" --bazel_bin_path \"bazel-bin\" --verbose ";
+		};
+		84B42271F39E208A00000000 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "set -e\n\nexec \"${PROJECT_FILE_PATH}/.tulsi/Scripts/bazel_build.py\" //:cj_login_sdk --bazel \"/usr/local/bin/bazel\" --bazel_bin_path \"bazel-bin\" --verbose ";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		605793E20000000000000000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				E6AF49476EBE5A1500000000 /* cj_login_imp.cc in Sources */,
+				E6AF49473DD89B9D00000000 /* AppDelegate.mm in Sources */,
+				E6AF4947A9E4ADA900000000 /* ViewController.mm in Sources */,
+				E6AF4947343FBEE100000000 /* main.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4DAD0B426921D83500000000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ECCC95946921D83400000000 /* _bazel_clean_ */;
+			targetProxy = 819366726921D83500000000 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8CBD86FA6FB80E2A00000000 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				43D68C2875764C7500000000 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8CBD86FAF8B6E96800000000 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				43D68C284B55FC7B00000000 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		107E060421202C6C009493A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = _bazel_clean_;
+			};
+			name = Debug;
+		};
+		107E060521202C6C009493A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				PRODUCT_NAME = _bazel_clean_;
+			};
+			name = Release;
+		};
+		107E060621202C6C009493A7 /* __TulsiTestRunner_Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = _bazel_clean_;
+			};
+			name = __TulsiTestRunner_Debug;
+		};
+		107E060721202C6C009493A7 /* __TulsiTestRunner_Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = _bazel_clean_;
+			};
+			name = __TulsiTestRunner_Release;
+		};
+		107E060821202C6C009493A7 /* __TulsiTestRunner_Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = _idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4;
+			};
+			name = __TulsiTestRunner_Debug;
+		};
+		107E060921202C6C009493A7 /* __TulsiTestRunner_Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = _idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4;
+			};
+			name = __TulsiTestRunner_Release;
+		};
+		44936BD67EED3C4D00000000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(TULSI_BWRS)",
+					"$(TULSI_WR)/bazel-bin",
+					"$(TULSI_WR)/bazel-genfiles",
+					"$(TULSI_BWRS)/_tulsi-includes/x/x",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PYTHONIOENCODING = utf8;
+				SDKROOT = iphoneos;
+				TULSI_BWRS = "${TULSI_WR}/tulsi-workspace";
+				TULSI_PROJECT = CJLoginDemo;
+				TULSI_VERSION = 0.4.207969836.20180808;
+				TULSI_WR = "$(SRCROOT)";
+			};
+			name = Debug;
+		};
+		44936BD67EED3C4D00000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
+				BAZEL_TARGET = "//:CJLoginDemo";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeason.cjlogin;
+				PRODUCT_NAME = CJLoginDemo;
+				SDKROOT = iphoneos;
+				TULSI_BUILD_PATH = "";
+				TULSI_XCODE_VERSION = 9.4.1;
+			};
+			name = Debug;
+		};
+		44936BD67EED3C4D00000002 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
+				BAZEL_TARGET = "//:Sources";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				PRODUCT_NAME = Sources;
+				SDKROOT = iphoneos;
+				TULSI_BUILD_PATH = "";
+				TULSI_XCODE_VERSION = 9.4.1;
+			};
+			name = Debug;
+		};
+		44936BD67EED3C4D00000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(TULSI_BWRS)/tools/cpp/gcc3",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				OTHER_CFLAGS = (
+					"-D_FORTIFY_SOURCE=1",
+					"-D__DATE__=\"redacted\"",
+					"-D__TIMESTAMP__=\"redacted\"",
+					"-D__TIME__=\"redacted\"",
+				);
+				PRODUCT_NAME = _idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(TULSI_WR)";
+			};
+			name = Debug;
+		};
+		44936BD67EED3C4D00000004 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
+				BAZEL_TARGET = "//:cj_login_sdk";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				PRODUCT_NAME = cj_login_sdk;
+				SDKROOT = iphoneos;
+				TULSI_BUILD_PATH = "";
+				TULSI_XCODE_VERSION = 9.4.1;
+			};
+			name = Debug;
+		};
+		44936BD6A3D45CE900000000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(TULSI_BWRS)",
+					"$(TULSI_WR)/bazel-bin",
+					"$(TULSI_WR)/bazel-genfiles",
+					"$(TULSI_BWRS)/_tulsi-includes/x/x",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PYTHONIOENCODING = utf8;
+				SDKROOT = iphoneos;
+				TULSI_BWRS = "${TULSI_WR}/tulsi-workspace";
+				TULSI_PROJECT = CJLoginDemo;
+				TULSI_VERSION = 0.4.207969836.20180808;
+				TULSI_WR = "$(SRCROOT)";
+			};
+			name = Release;
+		};
+		44936BD6A3D45CE900000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
+				BAZEL_TARGET = "//:CJLoginDemo";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeason.cjlogin;
+				PRODUCT_NAME = CJLoginDemo;
+				SDKROOT = iphoneos;
+				TULSI_BUILD_PATH = "";
+				TULSI_XCODE_VERSION = 9.4.1;
+			};
+			name = Release;
+		};
+		44936BD6A3D45CE900000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
+				BAZEL_TARGET = "//:Sources";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				PRODUCT_NAME = Sources;
+				SDKROOT = iphoneos;
+				TULSI_BUILD_PATH = "";
+				TULSI_XCODE_VERSION = 9.4.1;
+			};
+			name = Release;
+		};
+		44936BD6A3D45CE900000003 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(TULSI_BWRS)/tools/cpp/gcc3",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				OTHER_CFLAGS = (
+					"-D_FORTIFY_SOURCE=1",
+					"-D__DATE__=\"redacted\"",
+					"-D__TIMESTAMP__=\"redacted\"",
+					"-D__TIME__=\"redacted\"",
+				);
+				PRODUCT_NAME = _idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(TULSI_WR)";
+			};
+			name = Release;
+		};
+		44936BD6A3D45CE900000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
+				BAZEL_TARGET = "//:cj_login_sdk";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				PRODUCT_NAME = cj_login_sdk;
+				SDKROOT = iphoneos;
+				TULSI_BUILD_PATH = "";
+				TULSI_XCODE_VERSION = 9.4.1;
+			};
+			name = Release;
+		};
+		44936BD6C928366700000000 /* __TulsiTestRunner_Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-help";
+				OTHER_LDFLAGS = "-help";
+				OTHER_SWIFT_FLAGS = "-help";
+				PYTHONIOENCODING = utf8;
+				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME).h";
+				TULSI_BWRS = "${TULSI_WR}/tulsi-workspace";
+				TULSI_PROJECT = CJLoginDemo;
+				TULSI_VERSION = 0.4.207969836.20180808;
+				TULSI_WR = "$(SRCROOT)";
+			};
+			name = __TulsiTestRunner_Debug;
+		};
+		44936BD6C928366700000001 /* __TulsiTestRunner_Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
+				BAZEL_TARGET = "//:CJLoginDemo";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-help";
+				OTHER_LDFLAGS = "-help";
+				OTHER_SWIFT_FLAGS = "-help";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeason.cjlogin;
+				PRODUCT_NAME = CJLoginDemo;
+				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME).h";
+				TULSI_BUILD_PATH = "";
+				TULSI_XCODE_VERSION = 9.4.1;
+			};
+			name = __TulsiTestRunner_Debug;
+		};
+		44936BD6C928366700000002 /* __TulsiTestRunner_Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
+				BAZEL_TARGET = "//:Sources";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-help";
+				OTHER_LDFLAGS = "-help";
+				OTHER_SWIFT_FLAGS = "-help";
+				PRODUCT_NAME = Sources;
+				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME).h";
+				TULSI_BUILD_PATH = "";
+				TULSI_XCODE_VERSION = 9.4.1;
+			};
+			name = __TulsiTestRunner_Debug;
+		};
+		44936BD6C928366700000003 /* __TulsiTestRunner_Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
+				BAZEL_TARGET = "//:cj_login_sdk";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-help";
+				OTHER_LDFLAGS = "-help";
+				OTHER_SWIFT_FLAGS = "-help";
+				PRODUCT_NAME = cj_login_sdk;
+				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME).h";
+				TULSI_BUILD_PATH = "";
+				TULSI_XCODE_VERSION = 9.4.1;
+			};
+			name = __TulsiTestRunner_Debug;
+		};
+		44936BD6FCBCA00300000000 /* __TulsiTestRunner_Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-help";
+				OTHER_LDFLAGS = "-help";
+				OTHER_SWIFT_FLAGS = "-help";
+				PYTHONIOENCODING = utf8;
+				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME).h";
+				TULSI_BWRS = "${TULSI_WR}/tulsi-workspace";
+				TULSI_PROJECT = CJLoginDemo;
+				TULSI_VERSION = 0.4.207969836.20180808;
+				TULSI_WR = "$(SRCROOT)";
+			};
+			name = __TulsiTestRunner_Release;
+		};
+		44936BD6FCBCA00300000001 /* __TulsiTestRunner_Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
+				BAZEL_TARGET = "//:CJLoginDemo";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-help";
+				OTHER_LDFLAGS = "-help";
+				OTHER_SWIFT_FLAGS = "-help";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeason.cjlogin;
+				PRODUCT_NAME = CJLoginDemo;
+				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME).h";
+				TULSI_BUILD_PATH = "";
+				TULSI_XCODE_VERSION = 9.4.1;
+			};
+			name = __TulsiTestRunner_Release;
+		};
+		44936BD6FCBCA00300000002 /* __TulsiTestRunner_Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
+				BAZEL_TARGET = "//:Sources";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-help";
+				OTHER_LDFLAGS = "-help";
+				OTHER_SWIFT_FLAGS = "-help";
+				PRODUCT_NAME = Sources;
+				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME).h";
+				TULSI_BUILD_PATH = "";
+				TULSI_XCODE_VERSION = 9.4.1;
+			};
+			name = __TulsiTestRunner_Release;
+		};
+		44936BD6FCBCA00300000003 /* __TulsiTestRunner_Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Stub Launch Image";
+				BAZEL_TARGET = "//:cj_login_sdk";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "${PROJECT_FILE_PATH}/.tulsi/Resources/StubInfoPlist.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-help";
+				OTHER_LDFLAGS = "-help";
+				OTHER_SWIFT_FLAGS = "-help";
+				PRODUCT_NAME = cj_login_sdk;
+				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME).h";
+				TULSI_BUILD_PATH = "";
+				TULSI_XCODE_VERSION = 9.4.1;
+			};
+			name = __TulsiTestRunner_Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DE475583300281F400000000 /* Build configuration list for PBXNativeTarget "_idx_cj_login_sdk_Sources_B9C56D53_ios_min11.4" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44936BD67EED3C4D00000003 /* Debug */,
+				44936BD6A3D45CE900000003 /* Release */,
+				107E060821202C6C009493A7 /* __TulsiTestRunner_Debug */,
+				107E060921202C6C009493A7 /* __TulsiTestRunner_Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE4755838923840900000000 /* Build configuration list for PBXNativeTarget "cj_login_sdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44936BD67EED3C4D00000004 /* Debug */,
+				44936BD6A3D45CE900000004 /* Release */,
+				44936BD6C928366700000003 /* __TulsiTestRunner_Debug */,
+				44936BD6FCBCA00300000003 /* __TulsiTestRunner_Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE4755838BFEE66D00000000 /* Build configuration list for PBXNativeTarget "CJLoginDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44936BD67EED3C4D00000001 /* Debug */,
+				44936BD6A3D45CE900000001 /* Release */,
+				44936BD6C928366700000001 /* __TulsiTestRunner_Debug */,
+				44936BD6FCBCA00300000001 /* __TulsiTestRunner_Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE475583CA83BF7E00000000 /* Build configuration list for PBXLegacyTarget "_bazel_clean_" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				107E060421202C6C009493A7 /* Debug */,
+				107E060521202C6C009493A7 /* Release */,
+				107E060621202C6C009493A7 /* __TulsiTestRunner_Debug */,
+				107E060721202C6C009493A7 /* __TulsiTestRunner_Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE475583E30A810000000000 /* Build configuration list for PBXNativeTarget "Sources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44936BD67EED3C4D00000002 /* Debug */,
+				44936BD6A3D45CE900000002 /* Release */,
+				44936BD6C928366700000002 /* __TulsiTestRunner_Debug */,
+				44936BD6FCBCA00300000002 /* __TulsiTestRunner_Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE475583FA47067100000000 /* Build configuration list for PBXProject "CJLoginDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44936BD67EED3C4D00000000 /* Debug */,
+				44936BD6A3D45CE900000000 /* Release */,
+				44936BD6C928366700000000 /* __TulsiTestRunner_Debug */,
+				44936BD6FCBCA00300000000 /* __TulsiTestRunner_Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7E7BD0EA08AECC3700000000 /* Project object */;
+}

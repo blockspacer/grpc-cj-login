@@ -1,3 +1,7 @@
+#pragma once
+
+#define MSG_NOSIGNAL 0x2000
+
 #include "proto/cj_login.grpc.pb.h"
 #include <grpc++/channel.h>
 #include <grpc++/client_context.h>

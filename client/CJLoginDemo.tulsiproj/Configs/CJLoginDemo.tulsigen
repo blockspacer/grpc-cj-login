@@ -1,0 +1,70 @@
+{
+  "sourceFilters" : [
+    "djinni-src/...",
+    "djinni-src/cpp",
+    "external/...",
+    "external/bazel_skylib",
+    "external/bazel_skylib/lib",
+    "external/bazel_tools",
+    "external/bazel_tools/tools",
+    "external/bazel_tools/tools/cpp",
+    "external/build_bazel_rules_apple",
+    "external/build_bazel_rules_apple/apple",
+    "external/build_bazel_rules_apple/apple/bundling",
+    "external/build_bazel_rules_apple/apple/testing",
+    "external/build_bazel_rules_apple/common",
+    "external/build_bazel_rules_swift",
+    "external/build_bazel_rules_swift/swift",
+    "external/build_bazel_rules_swift/swift/internal",
+    "src/...",
+    "src/iOS",
+    "src/iOS/Base.lproj"
+  ],
+  "buildTargets" : [
+    "//:CJLoginDemo",
+    "//:Sources",
+    "//:cj_login_sdk"
+  ],
+  "projectName" : "CJLoginDemo",
+  "optionSet" : {
+    "BazelBuildOptionsDebug" : {
+      "p" : "$(inherited)"
+    },
+    "BazelBuildStartupOptionsRelease" : {
+      "p" : "$(inherited)"
+    },
+    "LaunchActionPreActionScript" : {
+      "p" : "$(inherited)"
+    },
+    "LaunchActionPostActionScript" : {
+      "p" : "$(inherited)"
+    },
+    "EnvironmentVariables" : {
+      "p" : "$(inherited)"
+    },
+    "BuildActionPreActionScript" : {
+      "p" : "$(inherited)"
+    },
+    "CommandlineArguments" : {
+      "p" : "$(inherited)"
+    },
+    "TestActionPreActionScript" : {
+      "p" : "$(inherited)"
+    },
+    "BazelBuildStartupOptionsDebug" : {
+      "p" : "$(inherited)"
+    },
+    "BuildActionPostActionScript" : {
+      "p" : "$(inherited)"
+    },
+    "TestActionPostActionScript" : {
+      "p" : "$(inherited)"
+    },
+    "BazelBuildOptionsRelease" : {
+      "p" : "$(inherited)"
+    }
+  },
+  "additionalFilePaths" : [
+    "/BUILD"
+  ]
+}
