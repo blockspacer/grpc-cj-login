@@ -1,7 +1,5 @@
 #pragma once
 
-#define MSG_NOSIGNAL 0x2000
-
 #include "proto/cj_login.grpc.pb.h"
 #include <grpc++/channel.h>
 #include <grpc++/client_context.h>
@@ -138,15 +136,7 @@ public:
     while (cq_.Next(&goTag, &ok)) {
       AsyncClientCall<RegisterUserResponse> *call = static_cast<AsyncClientCall<RegisterUserResponse>*>(goTag);
 
-      std::cout << "return: " << ok << std::endl;
-      if (ok && call->status.ok()) {
-        std::cout << "success" << std::endl;
-      } else {
-        std::cout << "RPC failed" << std::endl;
-      }
-
       call->handler(goTag);
-      delete call;
     }
   }
 

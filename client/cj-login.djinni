@@ -2,8 +2,23 @@ cj_login = interface +c {
   static create(): cj_login;
 
   registerUser(userName: string, password: string, cb: registerUserCallback);
+  login(userName: string, password: string, cb: loginCallback);
+  checkLogin(userName: string, loginTicket: string, cb: checkLoginCallback);
+  logout(userName: string, sessionKey: string, cb: logoutCallback);
 }
 
 registerUserCallback = interface +c {
+  complete(errcode: i32, errmsg: string);
+}
+
+loginCallback = interface +c {
+  complete(errcode: i32, errmsg: string, loginTicket: string);
+}
+
+checkLoginCallback = interface +c {
+  complete(errcode: i32, errmsg: string, sessionKey: string);
+}
+
+logoutCallback = interface +c {
   complete(errcode: i32, errmsg: string);
 }

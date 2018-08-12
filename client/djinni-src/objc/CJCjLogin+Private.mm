@@ -3,6 +3,9 @@
 
 #import "CJCjLogin+Private.h"
 #import "CJCjLogin.h"
+#import "CJCheckLoginCallback+Private.h"
+#import "CJLoginCallback+Private.h"
+#import "CJLogoutCallback+Private.h"
 #import "CJRegisterUserCallback+Private.h"
 #import "DJICppWrapperCache+Private.h"
 #import "DJIError.h"
@@ -45,6 +48,36 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
         _cppRefHandle.get()->registerUser(::djinni::String::toCpp(userName),
                                           ::djinni::String::toCpp(password),
                                           ::djinni_generated::RegisterUserCallback::toCpp(cb));
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (void)login:(nonnull NSString *)userName
+     password:(nonnull NSString *)password
+           cb:(nullable CJLoginCallback *)cb {
+    try {
+        _cppRefHandle.get()->login(::djinni::String::toCpp(userName),
+                                   ::djinni::String::toCpp(password),
+                                   ::djinni_generated::LoginCallback::toCpp(cb));
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (void)checkLogin:(nonnull NSString *)userName
+       loginTicket:(nonnull NSString *)loginTicket
+                cb:(nullable CJCheckLoginCallback *)cb {
+    try {
+        _cppRefHandle.get()->checkLogin(::djinni::String::toCpp(userName),
+                                        ::djinni::String::toCpp(loginTicket),
+                                        ::djinni_generated::CheckLoginCallback::toCpp(cb));
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (void)logout:(nonnull NSString *)userName
+    sessionKey:(nonnull NSString *)sessionKey
+            cb:(nullable CJLogoutCallback *)cb {
+    try {
+        _cppRefHandle.get()->logout(::djinni::String::toCpp(userName),
+                                    ::djinni::String::toCpp(sessionKey),
+                                    ::djinni_generated::LogoutCallback::toCpp(cb));
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
