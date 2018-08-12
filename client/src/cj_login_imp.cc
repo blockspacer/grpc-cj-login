@@ -87,5 +87,18 @@ namespace cjlogin {
         cb->complete((int32_t)errcode, errmsg);
       });
   }
+
+  void CjLoginImpl::connect(const string & userName,
+                            const string & sessionKey,
+                            const std::shared_ptr<ConnectCallback> & cb) {
+    ConnectRequest request;
+    auto baseRequest = request.mutable_basereq();
+    baseRequest->set_username(userName);
+    baseRequest->set_sessionkey(sessionKey);
+
+    this->client->connect(request, [&cb](ServerMessage &message) {
+        cb->complete((int32_t)message.type(), message.content());
+      });
+  }
 }
 

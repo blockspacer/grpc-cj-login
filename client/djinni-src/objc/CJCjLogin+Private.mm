@@ -4,6 +4,7 @@
 #import "CJCjLogin+Private.h"
 #import "CJCjLogin.h"
 #import "CJCheckLoginCallback+Private.h"
+#import "CJConnectCallback+Private.h"
 #import "CJLoginCallback+Private.h"
 #import "CJLogoutCallback+Private.h"
 #import "CJRegisterUserCallback+Private.h"
@@ -78,6 +79,16 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
         _cppRefHandle.get()->logout(::djinni::String::toCpp(userName),
                                     ::djinni::String::toCpp(sessionKey),
                                     ::djinni_generated::LogoutCallback::toCpp(cb));
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (void)connect:(nonnull NSString *)userName
+     sessionKey:(nonnull NSString *)sessionKey
+             cb:(nullable CJConnectCallback *)cb {
+    try {
+        _cppRefHandle.get()->connect(::djinni::String::toCpp(userName),
+                                     ::djinni::String::toCpp(sessionKey),
+                                     ::djinni_generated::ConnectCallback::toCpp(cb));
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 

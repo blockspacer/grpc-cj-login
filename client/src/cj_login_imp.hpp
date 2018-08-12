@@ -26,6 +26,10 @@ namespace cjlogin {
                 const std::string & sessionKey,
                 const std::shared_ptr<LogoutCallback> & cb);
 
+    void connect(const std::string & userName,
+                 const std::string & sessionKey,
+                 const std::shared_ptr<ConnectCallback> &cb);
+
   private:
     CjLoginCGIClient *client;
   };

@@ -37,12 +37,14 @@ using grpc::CreateChannel;
 using grpc::InsecureChannelCredentials;
 using grpc::ClientReader;
 using grpc::ClientAsyncResponseReader;
+using grpc::ClientAsyncReader;
 using grpc::CompletionQueue;
 
 using std::string;
 using google::protobuf::Message;
 
 typedef std::function<void(void *)> Completion;
+typedef std::function<void(ServerMessage &)> MessageHandler;
 
 template <class T>
 struct AsyncClientCall {
@@ -57,6 +59,7 @@ struct AsyncClientCall {
   Status status;
 
   std::unique_ptr<ClientAsyncResponseReader<T>> responseReader;
+  std::unique_ptr<ClientAsyncReader<T>> streamReader;
 };
 
 class CjLoginCGIClient {
@@ -65,32 +68,39 @@ public:
   CjLoginCGIClient(std::shared_ptr<Channel> channel)
     : stub_(CjLoginCGI::NewStub(channel)) {}
 
-  void readMessage(const ConnectRequest &req) {
+  void readMessage(const ConnectRequest &req, MessageHandler handler) {
     ClientContext context;
-    std::unique_ptr<ClientReader<ServerMessage>>
-      reader(this->stub_->connect(&context, req));
+    CompletionQueue cq;
     ServerMessage message;
-    while (true) {
-      std::this_thread::sleep_for(std::chrono::seconds(1));
-      while (reader->Read(&message)) {
-        std::cout << "read message" << std::endl;
-        std::cout << message.type() << ", " << message.content() << std::endl;
+    Status status;
+    void *goTag;
+    bool ok = false;
+
+    std::unique_ptr<ClientAsyncReader<ServerMessage>>
+      reader(this->stub_->Asyncconnect(&context, req, &cq, (void *)1));
+
+    while (cq.Next(&goTag, &ok)) {
+      if (ok && goTag == (void *)1) {
+        reader->Read(&message, (void *)1);
+        if (message.type() != 0) {
+          std::cout << "receive Message: " << message.type()
+                    << ", " << message.content() << std::endl;
+          handler(message);
+        }
       }
     }
 
-    Status status = reader->Finish();
+    reader->Finish(&status, (void *)1);
     if (status.ok()) {
-      std::cout << "ok" << std::endl;
+      std::cout << "Finish Read Message" << std::endl;
     } else {
-      std::cout << "fail" << std::endl;
+      std::cout << "Fail" << std::endl;
     }
   }
 
-  Status connect(const ConnectRequest &req) {
-    std::cout << "hello" << std::endl;
-    std::thread t(&CjLoginCGIClient::readMessage, this, std::ref(req));
-    t.join();
-    return Status::OK;
+  void connect(const ConnectRequest &req, MessageHandler handler) {
+    auto t = std::thread(&CjLoginCGIClient::readMessage, this, req, handler);
+    t.detach();
   }
 
   void registerUser(const RegisterUserRequest &request,
@@ -134,9 +144,10 @@ public:
     void *goTag;
     bool ok = false;
     while (cq_.Next(&goTag, &ok)) {
-      AsyncClientCall<RegisterUserResponse> *call = static_cast<AsyncClientCall<RegisterUserResponse>*>(goTag);
-
-      call->handler(goTag);
+      if (ok) {
+        auto call = static_cast<AsyncClientCall<RegisterUserResponse>*>(goTag);
+        call->handler(goTag);
+      }
     }
   }
 
@@ -155,55 +166,3 @@ private:
   std::unique_ptr<CjLoginCGI::Stub> stub_;
   CompletionQueue cq_;
 };
-
-/*
-int main(int argc, char** argv) {
-  CjLoginCGIClient client(grpc::CreateChannel("35.194.225.201:50052",
-                                              grpc::InsecureChannelCredentials()));
-
-    if (argc != 5) {
-      std::cout << "params error: (" << argc << ")" << std::endl;
-      return 0;
-    }
-
-    int i = 1;
-    string v(argv[i]);
-    if (v == "-f") {
-      string func(argv[i + 1]);
-
-      Status status;
-      string extra;
-      std::thread thread_ = std::thread(&CjLoginCGIClient::AsyncCompleteRpc, &client);
-
-      if (func == "connect") {
-        ConnectRequest request;
-        string userName(argv[i + 2]);
-        string sessionKey(argv[i + 3]);
-        auto baseReq = request.mutable_basereq();
-        baseReq->set_username(userName);
-        baseReq->set_sessionkey(sessionKey);
-        status = client.connect(request);
-        while(true) {
-          
-        }
-      } else if (func == "register") {
-        string userName(argv[i + 2]);
-        string password(argv[i + 3]);
-        RegisterUserRequest request;
-        request.set_username(userName);
-        request.set_password(password);
-        client.registerUser(request, [](void *goTag) {
-            AsyncClientCall<RegisterUserResponse> *call = static_cast<AsyncClientCall<RegisterUserResponse>*>(goTag);
-            std::cout << "response: " << call->reply.baseresp().errcode()
-                      << ", " << call->reply.baseresp().errmsg() << std::endl;
-          });
-        std::cout << "continue after call registerUser" << std::endl;
-      }
-
-      thread_.join();
-    }
-
-
-    return 0;
-}
-*/

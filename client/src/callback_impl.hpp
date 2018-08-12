@@ -4,6 +4,7 @@
 #include "djinni-src/cpp/loginCallback.hpp"
 #include "djinni-src/cpp/checkLoginCallback.hpp"
 #include "djinni-src/cpp/logoutCallback.hpp"
+#include "djinni-src/cpp/connectCallback.hpp"
 
 #include <functional>
 #include <string>
@@ -50,6 +51,15 @@ namespace cjlogin {
     LogoutCallbackImpl(function<void(int32_t, string)> cb);
 
     void complete(int32_t errcode, const string & errmsg);
+  private:
+    function<void(int32_t, string)> _cb;
+  };
+
+  class ConnectCallbackImpl: public ConnectCallback {
+  public:
+    ConnectCallbackImpl(function<void(int32_t, string)> cb);
+
+    void complete(int32_t messageType, const string & content);
   private:
     function<void(int32_t, string)> _cb;
   };

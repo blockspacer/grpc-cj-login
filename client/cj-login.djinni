@@ -5,6 +5,7 @@ cj_login = interface +c {
   login(userName: string, password: string, cb: loginCallback);
   checkLogin(userName: string, loginTicket: string, cb: checkLoginCallback);
   logout(userName: string, sessionKey: string, cb: logoutCallback);
+  connect(userName: string, sessionKey: string, cb: connectCallback);
 }
 
 registerUserCallback = interface +c {
@@ -21,4 +22,8 @@ checkLoginCallback = interface +c {
 
 logoutCallback = interface +c {
   complete(errcode: i32, errmsg: string);
+}
+
+connectCallback = interface +c {
+  complete(messageType: i32, content: string);
 }

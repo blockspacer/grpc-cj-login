@@ -6,6 +6,7 @@ using cjlogin::RegisterUserCallbackImpl;
 using cjlogin::LoginCallbackImpl;
 using cjlogin::CheckLoginCallbackImpl;
 using cjlogin::LogoutCallbackImpl;
+using cjlogin::ConnectCallbackImpl;
 
 int main(int argc, char** argv) {
 
@@ -50,6 +51,14 @@ int main(int argc, char** argv) {
           std::cout << errcode << ", " << errmsg << std::endl;
         });
       cjLogin.logout(userName, sessionKey, cb);
+    } else if (func == "connect") {
+      string userName, sessionKey;
+      std::cin >> userName >> sessionKey;
+      auto cb = std::make_shared<ConnectCallbackImpl>
+        ([](int32_t messageType, const string content) {
+          std::cout << "Client Rec:" << messageType << ", " << content << std::endl;
+        });
+      cjLogin.connect(userName, sessionKey, cb);
     } else if (func == "exit") {
       break;
     }

@@ -9,6 +9,7 @@
 namespace cjlogin {
 
 class CheckLoginCallback;
+class ConnectCallback;
 class LoginCallback;
 class LogoutCallback;
 class RegisterUserCallback;
@@ -26,6 +27,8 @@ public:
     virtual void checkLogin(const std::string & userName, const std::string & loginTicket, const std::shared_ptr<CheckLoginCallback> & cb) = 0;
 
     virtual void logout(const std::string & userName, const std::string & sessionKey, const std::shared_ptr<LogoutCallback> & cb) = 0;
+
+    virtual void connect(const std::string & userName, const std::string & sessionKey, const std::shared_ptr<ConnectCallback> & cb) = 0;
 };
 
 }  // namespace cjlogin

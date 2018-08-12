@@ -4,6 +4,7 @@
 #import <Foundation/Foundation.h>
 @class CJCheckLoginCallback;
 @class CJCjLogin;
+@class CJConnectCallback;
 @class CJLoginCallback;
 @class CJLogoutCallback;
 @class CJRegisterUserCallback;
@@ -28,5 +29,9 @@
 - (void)logout:(nonnull NSString *)userName
     sessionKey:(nonnull NSString *)sessionKey
             cb:(nullable CJLogoutCallback *)cb;
+
+- (void)connect:(nonnull NSString *)userName
+     sessionKey:(nonnull NSString *)sessionKey
+             cb:(nullable CJConnectCallback *)cb;
 
 @end

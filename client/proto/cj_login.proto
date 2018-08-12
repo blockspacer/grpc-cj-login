@@ -33,6 +33,7 @@ enum ActionCode {
   Login = 2;
   CheckLogin = 3;
   Logout = 4;
+  Connect = 5;
 }
 
 message BaseRequest {

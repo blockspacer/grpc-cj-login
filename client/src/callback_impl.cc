@@ -48,4 +48,14 @@ namespace cjlogin {
                                     const string & errmsg) {
     this->_cb(errcode, errmsg);
   }
+
+  // Connect //
+  ConnectCallbackImpl::ConnectCallbackImpl(function<void(int32_t,string)> cb) {
+    this->_cb = cb;
+  }
+
+  void ConnectCallbackImpl::complete(int32_t messageType,
+                                    const string & content) {
+    this->_cb(messageType, content);
+  }
 }
