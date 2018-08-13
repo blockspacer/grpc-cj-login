@@ -30,6 +30,7 @@ int main(int argc, char** argv) {
       std::cin >> userName >> password;
       auto cb = std::make_shared<LoginCallbackImpl>
         ([](int32_t errcode, const string errmsg, const string loginTicket) {
+          std::cout << "loginResponse" << std::endl;
           std::cout << errcode << ", " << errmsg << std::endl;
           std::cout << "loginTicket: " << loginTicket << std::endl;
         });
