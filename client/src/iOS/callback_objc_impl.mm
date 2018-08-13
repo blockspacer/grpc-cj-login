@@ -76,3 +76,21 @@
 }
 
 @end
+
+@implementation CJConnectCallbackImpl
+
+- (instancetype)initWithBlock:(ObjcConnectCallback)block {
+    if (self = [super init]) {
+        self.block = block;
+    }
+    return self;
+}
+
+- (void)complete:(int32_t)messageType content:(NSString *)content {
+    if (self.block) {
+        self.block(messageType, content);
+    }
+}
+
+@end
+

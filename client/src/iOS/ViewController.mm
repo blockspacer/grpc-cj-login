@@ -135,8 +135,37 @@ typedef enum {
                     weakSelf.currentViewState = LoginViewStateLogined;
                     [weakSelf syncViewState];
                 });
+                
+                [self connect:userName withSessionKey:sessionKey];
             } else {
                 NSLog(@"checkLogin error: %d, errmsg: %@", errcode, errmsg);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.currentViewState = LoginViewStateLogout;
+                    [weakSelf syncViewState];
+                });
+
+            }
+        }]];
+    }
+}
+
+- (void)connect:(NSString *)userName withSessionKey:(NSString *)sessionKey {
+    if (userName.length > 0 && sessionKey.length > 0) {
+        __weak typeof (self) weakSelf = self;
+        [self.loginSdk connect:userName
+                    sessionKey:sessionKey
+                            cb:[[CJConnectCallbackImpl alloc] initWithBlock:^(int32_t messageType, NSString *content) {
+            if (messageType == 1 || messageType == 2) {
+                NSLog(@"logout!");
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userName"];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginTicket"];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"sessionKey"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.currentViewState = LoginViewStateLogout;
+                    [weakSelf syncViewState];
+                });
             }
         }]];
     }

@@ -10,11 +10,13 @@
 #import "djinni-src/CJRegisterUserCallback.h"
 #import "djinni-src/CJCheckLoginCallback.h"
 #import "djinni-src/CJLogoutCallback.h"
+#import "djinni-src/CJConnectCallback.h"
 
 typedef void(^ObjcRegisterUserCallback)(int32_t errcode, NSString *errmsg);
 typedef void(^ObjcLoginCallback)(int32_t errcode, NSString *errmsg, NSString *loginTicket);
 typedef void(^ObjcCheckLoginCallback)(int32_t errcode, NSString *errmsg, NSString *sessionKey);
 typedef void(^ObjcLogoutCallback)(int32_t errcode, NSString *errmsg);
+typedef void(^ObjcConnectCallback)(int32_t messageType, NSString *content);
 
 @interface CJLoginCallbackObjcImpl : NSObject<CJLoginCallback>
 
@@ -45,5 +47,13 @@ typedef void(^ObjcLogoutCallback)(int32_t errcode, NSString *errmsg);
 - (instancetype)initWithBlock:(ObjcLogoutCallback)block;
 
 @property (nonatomic, copy) ObjcLogoutCallback block;
+
+@end
+
+@interface CJConnectCallbackImpl : NSObject<CJConnectCallback>
+
+- (instancetype)initWithBlock:(ObjcConnectCallback)block;
+
+@property (nonatomic, copy) ObjcConnectCallback block;
 
 @end
