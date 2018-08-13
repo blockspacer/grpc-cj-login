@@ -7,25 +7,13 @@
 
 #import "callback_objc_impl.h"
 
-@interface CJLoginCallbackObjcImpl()
-
-@property (nonatomic, copy) ObjcLoginCallback block;
-
-@end
-
 @implementation CJLoginCallbackObjcImpl
 
 - (instancetype)initWithBlock:(ObjcLoginCallback)block {
     if (self = [super init]) {
         self.block = block;
-        return self;
     }
-}
-
-+ (instancetype)callbackWithBlock:(ObjcLoginCallback)block {
-    CJLoginCallbackObjcImpl *instance = [[CJLoginCallbackObjcImpl alloc] init];
-    instance.block = block;
-    return instance;
+    return self;
 }
 
 - (void)complete:(int32_t)errcode
@@ -33,6 +21,57 @@
      loginTicket:(nonnull NSString *)loginTicket {
     if (self.block) {
         self.block(errcode, errmsg, loginTicket);
+    }
+}
+
+@end
+
+@implementation CJRegisterUserCallbackObjcImpl
+
+- (instancetype)initWithBlock:(ObjcRegisterUserCallback)block {
+    if (self = [super init]) {
+        self.block = block;
+    }
+    return self;
+}
+
+- (void)complete:(int32_t)errcode errmsg:(NSString *)errmsg {
+    if (self.block) {
+        self.block(errcode, errmsg);
+    }
+}
+
+@end
+
+@implementation CJCheckLoginCallbackObjcImpl
+
+- (instancetype)initWithBlock:(ObjcCheckLoginCallback)block {
+    if (self = [super init]) {
+        self.block = block;
+    }
+    return self;
+}
+
+- (void)complete:(int32_t)errcode errmsg:(NSString *)errmsg sessionKey:(NSString *)sessionKey {
+    if (self.block) {
+        self.block(errcode, errmsg, sessionKey);
+    }
+}
+
+@end
+
+@implementation CJLogoutCallbackObjcImpl
+
+- (instancetype)initWithBlock:(ObjcLogoutCallback)block {
+    if (self = [super init]) {
+        self.block = block;
+    }
+    return self;
+}
+
+- (void)complete:(int32_t)errcode errmsg:(NSString *)errmsg {
+    if (self.block) {
+        self.block(errcode, errmsg);
     }
 }
 
