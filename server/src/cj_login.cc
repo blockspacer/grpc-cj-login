@@ -15,9 +15,11 @@
 #include <utility>
 #include <thread>
 #include <chrono>
+#include <vector>
 
 #include "cj_login_client.h"
 #include "helper.h"
+#include "semaphore.hpp"
 
 using cjLogin::ErrCode;
 using cjLogin::CjLoginCGI;
@@ -36,6 +38,12 @@ using cjLogin::ConnectRequest;
 using cjLogin::ServerMessage;
 using cjLogin::MessageType;
 
+class ConnectedClient {
+  ServerContext *context;
+  ServerWriter<ServerMessage *> writer;
+  Semaphore s;
+};
+
 class CjLoginCGIImp final : public CjLoginCGI::Service {
  public:
 
@@ -43,14 +51,27 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
     while (true) {
       std::this_thread::sleep_for(std::chrono::seconds(10));
       auto iter = this->clientMap.begin();
+      std::vector<string> eraseUin;
+
       while (iter != this->clientMap.end()) {
         ServerMessage message;
         auto client = iter->second;
-        message.set_type(MessageType::LOGOUT_BY_OTHERS);
-        message.set_content("logout by others");
-        std::cout << "write test message: " << iter->second << std::endl;
-        client->Write(message);
+        if (client.context->IsCancelled()) {
+          eraseUin.push_back(iter->first);
+        } else {
+          message.set_type(MessageType::LOGOUT_BY_OTHERS);
+          message.set_content("logout by others");
+          std::cout << "write test message: " << iter->second << std::endl;
+          client.writer->Write(message);
+        }
         iter++;
+      }
+
+      for (size_t i = 0; i < eraseUin.size(); i++) {
+        auto uin = eraseUin[i];
+        auto client = this->clientMap[i];
+        client.s.signal();
+        this->clientMap.erase(uin);
       }
     }
   }
@@ -73,16 +94,19 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
     auto sessionKey = request->basereq().sessionkey();
 
     PayloadInfo payload;
-    if (!cjLogin::extraLoginTicket(sessionKey, payload)
+    if (!cjLogin::extraSessionKey(sessionKey, payload)
         || payload.userName != userName) {
       LOG(ERROR) << "connect request invalid" << userName;
       return Status::CANCELLED;
     }
 
-    this->clientMap[payload.uin] = writer;
-    while (true) {
-      
-    }
+    ConnectedClient client;
+    client.context = context;
+    client.writer = writer;
+    this->clientMap[payload.uin] = client;
+
+    client.s.wait();
+
     return Status::OK;
   }
 
@@ -112,7 +136,7 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
     auto baseResponse = response->mutable_baseresp();
 
     PayloadInfo payload;
-    if (!cjLogin::extraLoginTicket(sessionKey, payload)
+    if (!cjLogin::extraSessionKey(sessionKey, payload)
         || payload.userName != userName) {
       LOG(ERROR) << "logout User Invalid request invalid" << userName;
       baseResponse->set_errcode(ErrCode::SYSTEM_INVALID_PARAM);
@@ -120,9 +144,10 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
       return Status::OK;
     }
 
-    auto writer = this->clientMap[payload.uin];
-    if (writer) {
-      ServerMessage message;
+    auto iter = this->clientMap.find(payload.uin);
+    if (iter != this->clientMap.end()) {
+      auto client = this->clientMap[payload.uin];
+      client.s.signal();
       this->clientMap.erase(payload.uin);
     }
 
@@ -131,7 +156,7 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
 
  private:
   CjLoginClient *server;
-  std::map<std::string, ServerWriter<ServerMessage> *> clientMap;
+  std::map<std::string, ConnectedClient> clientMap;
 };
 
 

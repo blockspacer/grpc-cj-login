@@ -9,7 +9,8 @@
 
 using namespace jwt::params;
 
-auto jwtLoginTicketKey = "__cj_login_jwt_key__login_ticket_key__";
+auto jwtLoginTicketKey = "jwtLoginTicketKey";
+auto jwtSessionKeyKey = "jwtSessionKeyKey";
 
 namespace cjLogin {
   bool validateUsername(string username) {
@@ -43,26 +44,41 @@ namespace cjLogin {
   }
 
   string genLoginTicket(string username, string uin) {
-    // TODO: JWT here
-    std::time_t ts = std::time(nullptr);
-    jwt::jwt_object obj {
-      secret(jwtLoginTicketKey),
-      algorithm("hs256"),
-      payload({
-          {"X-uin", uin}, {"X-username", username}, {"ts", std::to_string(ts)}
-        })
-    };
-    return obj.signature();
+    return genJWTToken(userName, uin, jwtLoginTicketKey);
   }
 
   bool extraLoginTicket(string loginTicket, PayloadInfo &payload) {
+    return extraJWTToken(loginTicket, payload, jwtLoginTicketKey);
+  }
+
+  string genSessionKey(string username, string uin) {
+    return genJWTToken(username, uin, jwtSessionKeyKey);
+  }
+
+  bool extraSessionKey(string sessionKey, PayloadInfo &payload) {
+    return extraJWTToken(sessionKey, payload, jwtSessionKeyKey);
+  }
+
+  string genJWTToken(string userName, string uin, const char *key) {
+    std::time_t ts = std::time(nullptr);
+    jwt::jwt_object obj {
+      secret(key),
+        algorithm("hs256"),
+        payload({
+            {"X-uin", uin}, {"X-username", username}, {"ts", std::to_string(ts)}
+          })
+        };
+    return obj.signature();
+  }
+
+  bool extraJWTToken(string token, PayloadInfo &payload, const char *key) {
     std::error_code ec;
     auto decObj = jwt::decode(loginTicket,
                               algorithms({"hs256"}),
                               ec,
-                              secret(jwtLoginTicketKey));
+                              secret(key));
     if (ec) {
-      LOG(ERROR) << "extraLoginTicket fail, errcode: " << ec;
+      LOG(ERROR) << "extraJWTToken fail, errcode: " << ec;
       return false;
     }
 
@@ -72,7 +88,7 @@ namespace cjLogin {
     string ts = json["ts"];
     payload.ts = atol(ts.c_str());
 
-    LOG(INFO) << "extraLoginTicket Success, [uin]" << payload.uin;
+    LOG(INFO) << "extraJWTToken Success, [uin]" << payload.uin;
     return true;
   }
 }

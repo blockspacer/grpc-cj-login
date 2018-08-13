@@ -208,7 +208,7 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
                                   "loginTicket timeout");
     }
 
-    auto sessionKey = cjLogin::genLoginTicket(payload.userName, payload.uin);
+    auto sessionKey = cjLogin::genSessionKey(payload.userName, payload.uin);
     response->set_sessionkey(sessionKey);
     return this->_replyOk(baseResponse);
   }
@@ -223,7 +223,7 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     LOG(INFO) << "userLogout: {" << userName << ", " << sessionKey << "}";
 
     PayloadInfo payload;
-    if (!cjLogin::extraLoginTicket(sessionKey, payload)
+    if (!cjLogin::extraSessionKey(sessionKey, payload)
         || payload.userName != userName) {
       return this->_finishRequest(baseResponse,
                                   ErrCode::SYSTEM_INVALID_PARAM,

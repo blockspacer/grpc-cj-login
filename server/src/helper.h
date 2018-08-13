@@ -20,6 +20,9 @@ namespace cjLogin {
   string genLoginTicket(string username, string uin);
   bool extraLoginTicket(string loginTicket, PayloadInfo &payload);
 
+  string genSessionKey(string username, string uin);
+  bool extraSessionKey(string sessionKey, PayloadInfo &payload);
+
   inline string md5(string raw) {
     return MD5(raw).toStr();
   }
