@@ -43,23 +43,7 @@ namespace cjLogin {
     return password.size() != numberCount && password.size() != charCount;
   }
 
-  string genLoginTicket(string username, string uin) {
-    return genJWTToken(userName, uin, jwtLoginTicketKey);
-  }
-
-  bool extraLoginTicket(string loginTicket, PayloadInfo &payload) {
-    return extraJWTToken(loginTicket, payload, jwtLoginTicketKey);
-  }
-
-  string genSessionKey(string username, string uin) {
-    return genJWTToken(username, uin, jwtSessionKeyKey);
-  }
-
-  bool extraSessionKey(string sessionKey, PayloadInfo &payload) {
-    return extraJWTToken(sessionKey, payload, jwtSessionKeyKey);
-  }
-
-  string genJWTToken(string userName, string uin, const char *key) {
+  string genJWTToken(string username, string uin, const char *key) {
     std::time_t ts = std::time(nullptr);
     jwt::jwt_object obj {
       secret(key),
@@ -73,7 +57,7 @@ namespace cjLogin {
 
   bool extraJWTToken(string token, PayloadInfo &payload, const char *key) {
     std::error_code ec;
-    auto decObj = jwt::decode(loginTicket,
+    auto decObj = jwt::decode(token,
                               algorithms({"hs256"}),
                               ec,
                               secret(key));
@@ -90,5 +74,21 @@ namespace cjLogin {
 
     LOG(INFO) << "extraJWTToken Success, [uin]" << payload.uin;
     return true;
+  }
+
+  string genLoginTicket(string username, string uin) {
+    return genJWTToken(username, uin, jwtLoginTicketKey);
+  }
+
+  bool extraLoginTicket(string loginTicket, PayloadInfo &payload) {
+    return extraJWTToken(loginTicket, payload, jwtLoginTicketKey);
+  }
+
+  string genSessionKey(string username, string uin) {
+    return genJWTToken(username, uin, jwtSessionKeyKey);
+  }
+
+  bool extraSessionKey(string sessionKey, PayloadInfo &payload) {
+    return extraJWTToken(sessionKey, payload, jwtSessionKeyKey);
   }
 }

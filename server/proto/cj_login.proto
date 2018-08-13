@@ -119,9 +119,3 @@ service CjLoginCGI {
   rpc logout(UserLogoutRequest) returns (UserLogoutResponse);
   rpc connect(ConnectRequest) returns (stream ServerMessage);
 }
-
-service CjLoginPushService {
-  rpc logoutUser(LogoutUserRequest) returns (LogoutUserResponse);
-  rpc userLogout(LogoutUserRequest) returns (LogoutUserResponse);
-  rpc connect(ConnectRequest) returns (stream ServerMessage);
-}

@@ -6,7 +6,8 @@ cc_library(
         "helper.cc"
     ],
     hdrs = [
-        "helper.h"
+        "helper.h",
+        "semaphore.hpp"
     ],
     deps = [
         "@com_github_md5//:md5-lib",
@@ -65,23 +66,5 @@ cc_binary(
         ":cj_login_client",
         "@com_google_glog//:glog",
         ":cj_login_helper"
-    ]
-)
-
-cc_binary(
-    name = "cj_login_push_server",
-    srcs = ["cj_login_push_server.cc"],
-    deps = [
-        "@com_google_glog//:glog",
-        ":cj_login_helper",
-        "//proto:cj_login_proto"
-    ]
-)
-
-cc_library(
-    name = "cj_login_push_client",
-    hdrs = ["cj_login_push_client.hpp"],
-    deps = [
-        "//proto:cj_login_proto"
     ]
 )

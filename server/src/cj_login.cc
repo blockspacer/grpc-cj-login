@@ -39,8 +39,15 @@ using cjLogin::ServerMessage;
 using cjLogin::MessageType;
 
 class ConnectedClient {
+public:
+  ConnectedClient() {
+    context = NULL;
+    writer = NULL;
+  }
+  ~ConnectedClient() {}
+
   ServerContext *context;
-  ServerWriter<ServerMessage *> writer;
+  ServerWriter<ServerMessage> *writer;
   Semaphore s;
 };
 
@@ -56,22 +63,23 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
       while (iter != this->clientMap.end()) {
         ServerMessage message;
         auto client = iter->second;
-        if (client.context->IsCancelled()) {
+        if (client->context->IsCancelled()) {
           eraseUin.push_back(iter->first);
         } else {
           message.set_type(MessageType::LOGOUT_BY_OTHERS);
           message.set_content("logout by others");
           std::cout << "write test message: " << iter->second << std::endl;
-          client.writer->Write(message);
+          client->writer->Write(message);
         }
         iter++;
       }
 
       for (size_t i = 0; i < eraseUin.size(); i++) {
         auto uin = eraseUin[i];
-        auto client = this->clientMap[i];
-        client.s.signal();
+        auto client = this->clientMap[uin];
+        client->s.signal();
         this->clientMap.erase(uin);
+        delete client;
       }
     }
   }
@@ -100,12 +108,12 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
       return Status::CANCELLED;
     }
 
-    ConnectedClient client;
-    client.context = context;
-    client.writer = writer;
+    auto client = new ConnectedClient();
+    client->context = context;
+    client->writer = writer;
     this->clientMap[payload.uin] = client;
 
-    client.s.wait();
+    client->s.wait();
 
     return Status::OK;
   }
@@ -147,8 +155,9 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
     auto iter = this->clientMap.find(payload.uin);
     if (iter != this->clientMap.end()) {
       auto client = this->clientMap[payload.uin];
-      client.s.signal();
+      client->s.signal();
       this->clientMap.erase(payload.uin);
+      delete client;
     }
 
     return this->server->logout(*request, response);
@@ -156,7 +165,7 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
 
  private:
   CjLoginClient *server;
-  std::map<std::string, ConnectedClient> clientMap;
+  std::map<std::string, ConnectedClient *> clientMap;
 };
 
 
