@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "djinni-src/CJCjLogin.h"
+#import "callback_objc_impl.h"
 
 int main(int argc, char * argv[]) {
     @autoreleasepool {
+        CJCjLogin *login = [CJCjLogin create];
+        CJLoginCallbackObjcImpl *cb = [[CJLoginCallbackObjcImpl alloc] initWithBlock:^(int32_t errcode, NSString *errmsg, NSString *loginTicket) {
+            NSLog(@"errcode:%d, errmsg:%@, loginTicket:%@", errcode, errmsg, loginTicket);
+        }];
+        [login login:@"jeason"
+            password:@"zhu"
+                  cb:cb];
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }

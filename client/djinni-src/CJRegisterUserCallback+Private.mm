@@ -6,19 +6,20 @@
 #import "DJICppWrapperCache+Private.h"
 #import "DJIError.h"
 #import "DJIMarshal+Private.h"
+#import "DJIObjcWrapperCache+Private.h"
 #include <exception>
 #include <stdexcept>
 #include <utility>
 
 static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for this file");
 
-@interface CJRegisterUserCallback ()
+@interface CJRegisterUserCallbackCppProxy : NSObject<CJRegisterUserCallback>
 
 - (id)initWithCpp:(const std::shared_ptr<::cjlogin::RegisterUserCallback>&)cppRef;
 
 @end
 
-@implementation CJRegisterUserCallback {
+@implementation CJRegisterUserCallbackCppProxy {
     ::djinni::CppProxyCache::Handle<std::shared_ptr<::cjlogin::RegisterUserCallback>> _cppRefHandle;
 }
 
@@ -40,12 +41,35 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
 
 namespace djinni_generated {
 
+class RegisterUserCallback::ObjcProxy final
+: public ::cjlogin::RegisterUserCallback
+, private ::djinni::ObjcProxyBase<ObjcType>
+{
+    friend class ::djinni_generated::RegisterUserCallback;
+public:
+    using ObjcProxyBase::ObjcProxyBase;
+    void complete(int32_t c_errcode, const std::string & c_errmsg) override
+    {
+        @autoreleasepool {
+            [djinni_private_get_proxied_objc_object() complete:(::djinni::I32::fromCpp(c_errcode))
+                                                        errmsg:(::djinni::String::fromCpp(c_errmsg))];
+        }
+    }
+};
+
+}  // namespace djinni_generated
+
+namespace djinni_generated {
+
 auto RegisterUserCallback::toCpp(ObjcType objc) -> CppType
 {
     if (!objc) {
         return nullptr;
     }
-    return objc->_cppRefHandle.get();
+    if ([(id)objc isKindOfClass:[CJRegisterUserCallbackCppProxy class]]) {
+        return ((CJRegisterUserCallbackCppProxy*)objc)->_cppRefHandle.get();
+    }
+    return ::djinni::get_objc_proxy<ObjcProxy>(objc);
 }
 
 auto RegisterUserCallback::fromCppOpt(const CppOptType& cpp) -> ObjcType
@@ -53,7 +77,10 @@ auto RegisterUserCallback::fromCppOpt(const CppOptType& cpp) -> ObjcType
     if (!cpp) {
         return nil;
     }
-    return ::djinni::get_cpp_proxy<CJRegisterUserCallback>(cpp);
+    if (auto cppPtr = dynamic_cast<ObjcProxy*>(cpp.get())) {
+        return cppPtr->djinni_private_get_proxied_objc_object();
+    }
+    return ::djinni::get_cpp_proxy<CJRegisterUserCallbackCppProxy>(cpp);
 }
 
 }  // namespace djinni_generated

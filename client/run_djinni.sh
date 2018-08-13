@@ -17,12 +17,8 @@ objc_prefix="CJ"
 base_dir=$(cd "`dirname "0"`" && pwd)
 
 # output directories for generated src
-cpp_out="$base_dir/djinni-src/cpp"
-objc_out="$base_dir/djinni-src/objc"
-
-# clean generated src dirs
-rm -rf $cpp_out
-rm -rf $objc_out
+cpp_out="$base_dir/djinni-src/"
+objc_out="$base_dir/djinni-src/"
 
 # execute the djinni command
 deps/djinni/src/run \

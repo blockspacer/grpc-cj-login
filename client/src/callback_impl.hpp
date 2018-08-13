@@ -1,10 +1,10 @@
 #pragma once
 
-#include "djinni-src/cpp/registerUserCallback.hpp"
-#include "djinni-src/cpp/loginCallback.hpp"
-#include "djinni-src/cpp/checkLoginCallback.hpp"
-#include "djinni-src/cpp/logoutCallback.hpp"
-#include "djinni-src/cpp/connectCallback.hpp"
+#include "djinni-src/registerUserCallback.hpp"
+#include "djinni-src/loginCallback.hpp"
+#include "djinni-src/checkLoginCallback.hpp"
+#include "djinni-src/logoutCallback.hpp"
+#include "djinni-src/connectCallback.hpp"
 
 #include <functional>
 #include <string>

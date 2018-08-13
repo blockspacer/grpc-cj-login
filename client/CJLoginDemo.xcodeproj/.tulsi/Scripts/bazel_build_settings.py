@@ -236,7 +236,14 @@ BUILD_SETTINGS = BazelBuildSettings(
     [
         'DirectDebugPrefixMap',
     ],
-    BazelFlagsSet(),
+    BazelFlagsSet(
+        flags = BazelFlags(
+            startup = [],
+            build = [
+                '--cxxopt=-std=c++14',
+            ],
+        ),
+    ),
     {},
 )
 

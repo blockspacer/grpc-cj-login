@@ -28,7 +28,7 @@
   "projectName" : "CJLoginDemo",
   "optionSet" : {
     "BazelBuildOptionsDebug" : {
-      "p" : ""
+      "p" : "--cxxopt=-std=c++14"
     },
     "BazelBuildStartupOptionsRelease" : {
       "p" : ""
@@ -61,7 +61,7 @@
       "p" : ""
     },
     "BazelBuildOptionsRelease" : {
-      "p" : ""
+      "p" : "--cxxopt=-std=c++14"
     }
   },
   "additionalFilePaths" : [

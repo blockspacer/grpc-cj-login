@@ -6,19 +6,20 @@
 #import "DJICppWrapperCache+Private.h"
 #import "DJIError.h"
 #import "DJIMarshal+Private.h"
+#import "DJIObjcWrapperCache+Private.h"
 #include <exception>
 #include <stdexcept>
 #include <utility>
 
 static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for this file");
 
-@interface CJLoginCallback ()
+@interface CJLoginCallbackCppProxy : NSObject<CJLoginCallback>
 
 - (id)initWithCpp:(const std::shared_ptr<::cjlogin::LoginCallback>&)cppRef;
 
 @end
 
-@implementation CJLoginCallback {
+@implementation CJLoginCallbackCppProxy {
     ::djinni::CppProxyCache::Handle<std::shared_ptr<::cjlogin::LoginCallback>> _cppRefHandle;
 }
 
@@ -42,12 +43,36 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
 
 namespace djinni_generated {
 
+class LoginCallback::ObjcProxy final
+: public ::cjlogin::LoginCallback
+, private ::djinni::ObjcProxyBase<ObjcType>
+{
+    friend class ::djinni_generated::LoginCallback;
+public:
+    using ObjcProxyBase::ObjcProxyBase;
+    void complete(int32_t c_errcode, const std::string & c_errmsg, const std::string & c_loginTicket) override
+    {
+        @autoreleasepool {
+            [djinni_private_get_proxied_objc_object() complete:(::djinni::I32::fromCpp(c_errcode))
+                                                        errmsg:(::djinni::String::fromCpp(c_errmsg))
+                                                   loginTicket:(::djinni::String::fromCpp(c_loginTicket))];
+        }
+    }
+};
+
+}  // namespace djinni_generated
+
+namespace djinni_generated {
+
 auto LoginCallback::toCpp(ObjcType objc) -> CppType
 {
     if (!objc) {
         return nullptr;
     }
-    return objc->_cppRefHandle.get();
+    if ([(id)objc isKindOfClass:[CJLoginCallbackCppProxy class]]) {
+        return ((CJLoginCallbackCppProxy*)objc)->_cppRefHandle.get();
+    }
+    return ::djinni::get_objc_proxy<ObjcProxy>(objc);
 }
 
 auto LoginCallback::fromCppOpt(const CppOptType& cpp) -> ObjcType
@@ -55,7 +80,10 @@ auto LoginCallback::fromCppOpt(const CppOptType& cpp) -> ObjcType
     if (!cpp) {
         return nil;
     }
-    return ::djinni::get_cpp_proxy<CJLoginCallback>(cpp);
+    if (auto cppPtr = dynamic_cast<ObjcProxy*>(cpp.get())) {
+        return cppPtr->djinni_private_get_proxied_objc_object();
+    }
+    return ::djinni::get_cpp_proxy<CJLoginCallbackCppProxy>(cpp);
 }
 
 }  // namespace djinni_generated

@@ -44,7 +44,7 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
 
 - (void)registerUser:(nonnull NSString *)userName
             password:(nonnull NSString *)password
-                  cb:(nullable CJRegisterUserCallback *)cb {
+                  cb:(nullable id<CJRegisterUserCallback>)cb {
     try {
         _cppRefHandle.get()->registerUser(::djinni::String::toCpp(userName),
                                           ::djinni::String::toCpp(password),
@@ -54,7 +54,7 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
 
 - (void)login:(nonnull NSString *)userName
      password:(nonnull NSString *)password
-           cb:(nullable CJLoginCallback *)cb {
+           cb:(nullable id<CJLoginCallback>)cb {
     try {
         _cppRefHandle.get()->login(::djinni::String::toCpp(userName),
                                    ::djinni::String::toCpp(password),
@@ -64,7 +64,7 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
 
 - (void)checkLogin:(nonnull NSString *)userName
        loginTicket:(nonnull NSString *)loginTicket
-                cb:(nullable CJCheckLoginCallback *)cb {
+                cb:(nullable id<CJCheckLoginCallback>)cb {
     try {
         _cppRefHandle.get()->checkLogin(::djinni::String::toCpp(userName),
                                         ::djinni::String::toCpp(loginTicket),
@@ -74,7 +74,7 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
 
 - (void)logout:(nonnull NSString *)userName
     sessionKey:(nonnull NSString *)sessionKey
-            cb:(nullable CJLogoutCallback *)cb {
+            cb:(nullable id<CJLogoutCallback>)cb {
     try {
         _cppRefHandle.get()->logout(::djinni::String::toCpp(userName),
                                     ::djinni::String::toCpp(sessionKey),
@@ -84,7 +84,7 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
 
 - (void)connect:(nonnull NSString *)userName
      sessionKey:(nonnull NSString *)sessionKey
-             cb:(nullable CJConnectCallback *)cb {
+             cb:(nullable id<CJConnectCallback>)cb {
     try {
         _cppRefHandle.get()->connect(::djinni::String::toCpp(userName),
                                      ::djinni::String::toCpp(sessionKey),

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "djinni-src/cpp/cj_login.hpp"
+#include "djinni-src/cj_login.hpp"
 #include "src/callback_impl.hpp"
 #include "src/cj_login_cgi_client.hpp"
 

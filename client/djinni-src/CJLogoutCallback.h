@@ -4,10 +4,9 @@
 #import <Foundation/Foundation.h>
 
 
-@interface CJLoginCallback : NSObject
+@protocol CJLogoutCallback
 
 - (void)complete:(int32_t)errcode
-          errmsg:(nonnull NSString *)errmsg
-     loginTicket:(nonnull NSString *)loginTicket;
+          errmsg:(nonnull NSString *)errmsg;
 
 @end

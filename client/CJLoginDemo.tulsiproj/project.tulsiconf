@@ -1,7 +1,12 @@
 {
   "configDefaults" : {
     "optionSet" : {
-
+      "BazelBuildOptionsDebug" : {
+        "p" : "--cxxopt=-std=c++14"
+      },
+      "BazelBuildOptionsRelease" : {
+        "p" : "--cxxopt=-std=c++14"
+      }
     }
   },
   "projectName" : "CJLoginDemo",

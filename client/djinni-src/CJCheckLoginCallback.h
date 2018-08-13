@@ -4,7 +4,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface CJCheckLoginCallback : NSObject
+@protocol CJCheckLoginCallback
 
 - (void)complete:(int32_t)errcode
           errmsg:(nonnull NSString *)errmsg

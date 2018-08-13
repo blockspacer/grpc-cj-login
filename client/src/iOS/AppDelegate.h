@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+//#include "ares_config.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

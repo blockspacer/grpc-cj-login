@@ -8,22 +8,22 @@ cj_login = interface +c {
   connect(userName: string, sessionKey: string, cb: connectCallback);
 }
 
-registerUserCallback = interface +c {
+registerUserCallback = interface +o +c {
   complete(errcode: i32, errmsg: string);
 }
 
-loginCallback = interface +c {
+loginCallback = interface +o +c {
   complete(errcode: i32, errmsg: string, loginTicket: string);
 }
 
-checkLoginCallback = interface +c {
+checkLoginCallback = interface +o +c {
   complete(errcode: i32, errmsg: string, sessionKey: string);
 }
 
-logoutCallback = interface +c {
+logoutCallback = interface +o +c {
   complete(errcode: i32, errmsg: string);
 }
 
-connectCallback = interface +c {
+connectCallback = interface +o +c {
   complete(messageType: i32, content: string);
 }

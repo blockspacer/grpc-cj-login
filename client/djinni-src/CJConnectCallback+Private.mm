@@ -6,19 +6,20 @@
 #import "DJICppWrapperCache+Private.h"
 #import "DJIError.h"
 #import "DJIMarshal+Private.h"
+#import "DJIObjcWrapperCache+Private.h"
 #include <exception>
 #include <stdexcept>
 #include <utility>
 
 static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for this file");
 
-@interface CJConnectCallback ()
+@interface CJConnectCallbackCppProxy : NSObject<CJConnectCallback>
 
 - (id)initWithCpp:(const std::shared_ptr<::cjlogin::ConnectCallback>&)cppRef;
 
 @end
 
-@implementation CJConnectCallback {
+@implementation CJConnectCallbackCppProxy {
     ::djinni::CppProxyCache::Handle<std::shared_ptr<::cjlogin::ConnectCallback>> _cppRefHandle;
 }
 
@@ -40,12 +41,35 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
 
 namespace djinni_generated {
 
+class ConnectCallback::ObjcProxy final
+: public ::cjlogin::ConnectCallback
+, private ::djinni::ObjcProxyBase<ObjcType>
+{
+    friend class ::djinni_generated::ConnectCallback;
+public:
+    using ObjcProxyBase::ObjcProxyBase;
+    void complete(int32_t c_messageType, const std::string & c_content) override
+    {
+        @autoreleasepool {
+            [djinni_private_get_proxied_objc_object() complete:(::djinni::I32::fromCpp(c_messageType))
+                                                       content:(::djinni::String::fromCpp(c_content))];
+        }
+    }
+};
+
+}  // namespace djinni_generated
+
+namespace djinni_generated {
+
 auto ConnectCallback::toCpp(ObjcType objc) -> CppType
 {
     if (!objc) {
         return nullptr;
     }
-    return objc->_cppRefHandle.get();
+    if ([(id)objc isKindOfClass:[CJConnectCallbackCppProxy class]]) {
+        return ((CJConnectCallbackCppProxy*)objc)->_cppRefHandle.get();
+    }
+    return ::djinni::get_objc_proxy<ObjcProxy>(objc);
 }
 
 auto ConnectCallback::fromCppOpt(const CppOptType& cpp) -> ObjcType
@@ -53,7 +77,10 @@ auto ConnectCallback::fromCppOpt(const CppOptType& cpp) -> ObjcType
     if (!cpp) {
         return nil;
     }
-    return ::djinni::get_cpp_proxy<CJConnectCallback>(cpp);
+    if (auto cppPtr = dynamic_cast<ObjcProxy*>(cpp.get())) {
+        return cppPtr->djinni_private_get_proxied_objc_object();
+    }
+    return ::djinni::get_cpp_proxy<CJConnectCallbackCppProxy>(cpp);
 }
 
 }  // namespace djinni_generated

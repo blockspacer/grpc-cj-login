@@ -4,7 +4,7 @@ load("@build_bazel_rules_apple//apple:ios.bzl", "ios_application")
 cc_library(
     name = "cj_login_sdk",
     hdrs = glob([
-        "djinni-src/cpp/*.hpp",
+        "djinni-src/*.hpp",
         "src/cj_login_imp.hpp",
         "src/callback_impl.hpp",
         "src/cj_login_cgi_client.hpp"
@@ -28,29 +28,31 @@ cc_binary(
     ]
 )
 
-# objc_library(
-#     name = "Sources",
-#     srcs = glob([
-#         "src/iOS/*.mm",
-#         "deps/djinni/support-lib/*.mm"
-#     ]),
-#     hdrs = glob([
-#         "src/iOS/*.h",
-#         "deps/djinni/support-lib/*.h"
-#     ]),
-#     resources = glob([
-#         "src/iOS/Base.lproj/*.storyboard"
-#     ]),
-#     deps = [
-#         ":cj_login_sdk"
-#     ]
-# )
+objc_library(
+    name = "Sources",
+    srcs = glob([
+        "djinni-src/*.mm",
+        "src/iOS/*.mm"
+    ]),
+    hdrs = glob([
+        "djinni-src/*.h",
+        "src/iOS/*.h",
+        "*.h",
+        "*.hpp"
+    ]),
+    resources = glob([
+        "src/iOS/Base.lproj/*.storyboard"
+    ]),
+    deps = [
+        ":cj_login_sdk"
+    ]
+)
 
-# ios_application(
-#     name = "CJLoginDemo",
-#     bundle_id = "com.jeason.cjlogin",
-#     families = ["iphone"],
-#     infoplists = ["src/iOS/Info.plist"],
-#     deps = [":Sources"],
-# )
+ios_application(
+    name = "CJLoginDemo",
+    bundle_id = "com.jeason.cjlogin",
+    families = ["iphone"],
+    infoplists = ["src/iOS/Info.plist"],
+    deps = [":Sources"],
+)
 

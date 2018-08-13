@@ -4,9 +4,9 @@
 #import <Foundation/Foundation.h>
 
 
-@interface CJConnectCallback : NSObject
+@protocol CJRegisterUserCallback
 
-- (void)complete:(int32_t)messageType
-         content:(nonnull NSString *)content;
+- (void)complete:(int32_t)errcode
+          errmsg:(nonnull NSString *)errmsg;
 
 @end
