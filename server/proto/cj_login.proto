@@ -109,8 +109,8 @@ message InternalConnectRequest {
 
 message InternalMessage {
   MessageType type = 1;
-  string content;
-  uint64 uin;
+  string content = 2;
+  uint64 uin = 3;
 }
 
 service CjLoginService {
@@ -119,7 +119,7 @@ service CjLoginService {
   rpc userCheckLogin(UserCheckLoginRequest) returns (UserCheckLoginResponse);
   rpc userLogout(UserLogoutRequest) returns (UserLogoutResponse);
   rpc logoutUser(LogoutUserRequest) returns (LogoutUserResponse);
-  rpc internalConnect(InternalConnectRequest) returns (InternalMessage);
+  rpc internalConnect(InternalConnectRequest) returns (stream InternalMessage);
 }
 
 service CjLoginCGI {

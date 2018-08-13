@@ -35,6 +35,7 @@ using cjLogin::LogoutUserRequest;
 using cjLogin::LogoutUserResponse;
 using cjLogin::InternalConnectRequest;
 using cjLogin::InternalMessage;
+using cjLogin::MessageType;
 
 using cjLogin::CjLoginService;
 
@@ -42,6 +43,7 @@ using grpc::InsecureServerCredentials;
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
+using grpc::ServerWriter;
 using grpc::Status;
 
 const char *salt = "cj_login_server_grpc_salt";
@@ -277,7 +279,7 @@ private:
   RedisTable *commTable;
   RedisTable *userName2UinTable;
   RedisTable *userTable;
-  ConnectedClient connectedClient;
+  ConnectedClient<InternalMessage> connectedClient;
 
   Status _finishRequest(BaseResponse *baseResp,
                         ErrCode errcode,
@@ -297,18 +299,18 @@ private:
   }
 
   bool writeMessageToConnectedClient(InternalMessage &message) {
-    if (!this.connectedClient.writer || !this.connectedClient.context) {
+    if (!this->connectedClient.writer || !this->connectedClient.context) {
       return false;
     }
 
-    if (this.connectedClient.context->IsCancelled()) {
-      this.connectedClient.s.signal();
-      this.connectedClient.context = NULL;
-      this.connectedClient.writer = NULL;
+    if (this->connectedClient.context->IsCancelled()) {
+      this->connectedClient.s.signal();
+      this->connectedClient.context = NULL;
+      this->connectedClient.writer = NULL;
       return false;
     }
 
-    this.connectedClient.writer->Write(message);
+    this->connectedClient.writer->Write(message);
     return true;
   }
 };

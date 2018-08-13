@@ -51,6 +51,7 @@ void CjLoginClient::readMessage(const InternalConnectRequest &req,
   void *goTag;
   bool ok = false;
   std::unique_ptr<ClientAsyncReader<InternalMessage>>
+    
     reader(this->stub_->AsyncinternalConnect(&context, req, &cq, (void *)1));
 
   while (cq.Next(&goTag, &ok)) {

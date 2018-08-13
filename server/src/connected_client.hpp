@@ -7,6 +7,7 @@
 
 #include "semaphore.hpp"
 
+template <class T>
 class ConnectedClient {
 public:
   ConnectedClient() {
@@ -16,6 +17,6 @@ public:
   ~ConnectedClient() {}
 
   grpc::ServerContext *context;
-  grpc::ServerWriter<ServerMessage> *writer;
+  grpc::ServerWriter<T> *writer;
   Semaphore s;
 };

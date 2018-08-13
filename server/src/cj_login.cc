@@ -47,10 +47,10 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
     InternalConnectRequest request;
 
     this->server->internalConnect(request, [this](InternalMessage &message) {
-        auto uin = std::to_string(message.uin);
+        auto uin = std::to_string(message.uin());
         ServerMessage toClientMessage;
-        toClientMessage.set_type(message.type);
-        toClientMessage.set_content(message.content);
+        toClientMessage.set_type(message.type());
+        toClientMessage.set_content(message.content());
         this->writeMessageToClient(uin, toClientMessage);
       });
   }
@@ -72,7 +72,7 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
       return Status::CANCELLED;
     }
 
-    auto client = new ConnectedClient();
+    auto client = new ConnectedClient<ServerMessage>();
     client->context = context;
     client->writer = writer;
     this->clientMap[payload.uin] = client;
@@ -129,9 +129,9 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
 
  private:
   CjLoginClient *server;
-  std::map<std::string, ConnectedClient *> clientMap;
+  std::map<std::string, ConnectedClient<ServerMessage> *> clientMap;
 
-  bool writeMessageToClient(std::string uin, InternalMessage &message) {
+  bool writeMessageToClient(std::string uin, ServerMessage &message) {
     auto iter = this->clientMap.find(uin);
     if (iter != this->clientMap.end()) {
       auto client = this->clientMap[uin];
@@ -150,21 +150,10 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
       }
 
       client->writer->Write(message);
-
+      return true;
     } else {
       return false;
     }
-
-
-    if (this.connectedClient.context->IsCancelled()) {
-      this.connectedClient.s.signal();
-      this.connectedClient.context = NULL;
-      this.connectedClient.writer = NULL;
-      return false;
-    }
-
-    this.connectedClient.writer->Write(message);
-    return true;
   }
 };
 
