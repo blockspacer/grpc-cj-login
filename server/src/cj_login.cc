@@ -51,7 +51,18 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
         ServerMessage toClientMessage;
         toClientMessage.set_type(message.type());
         toClientMessage.set_content(message.content());
-        this->writeMessageToClient(uin, toClientMessage);
+        if (this->writeMessageToClient(uin, toClientMessage)) {
+          if (message.type() == MessageType::LOGOUT_BY_OTHERS ||
+              message.type() == MessageType::LOGOUT_BY_SYSTEM) {
+            auto iter = this->clientMap.find(uin);
+            if (iter != this->clientMap.end()) {
+              auto client = this->clientMap[uin];
+              client->s.signal();
+              this->clientMap.erase(uin);
+              delete client;
+            }
+          }
+        }
       });
   }
 
@@ -75,6 +86,15 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
     auto client = new ConnectedClient<ServerMessage>();
     client->context = context;
     client->writer = writer;
+
+    auto iter = this->clientMap.find(payload.uin);
+    if (iter != this->clientMap.end()) {
+      auto oldClient = this->clientMap[payload.uin];
+      oldClient->s.signal();
+      this->clientMap.erase(payload.uin);
+      delete oldClient;
+    }
+
     this->clientMap[payload.uin] = client;
 
     client->s.wait();
@@ -139,6 +159,7 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
         client->s.signal();
         this->clientMap.erase(uin);
         delete client;
+        LOG(ERROR) << "write message to unconnected client";
         return false;
       }
 
@@ -146,10 +167,14 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
         client->s.signal();
         this->clientMap.erase(uin);
         delete client;
+        LOG(ERROR) << "write message to cancelled client";
         return false;
       }
 
       client->writer->Write(message);
+      LOG(INFO) << "write message to client: " << uin
+                << ", type: " << message.type()
+                << ", content: " << message.content();
       return true;
     } else {
       return false;

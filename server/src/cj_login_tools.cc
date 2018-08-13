@@ -30,7 +30,18 @@ int main(int argc, char *argv[]) {
     Status status;
     const BaseResponse *baseResp;
     string extra;
-    if (func == "register") {
+    if (func == "logoutUser") {
+      string type(argv[i + 2]);
+      if (type == "uin") { // only support uin now
+        auto uin = (uint64_t)atoll(argv[i + 3]);
+        LogoutUserRequest req;
+        LogoutUserResponse resp;
+        req.set_uin(uin);
+
+        status = client.logoutUser(req, &resp);
+        baseResp = &(resp.baseresp());
+      }
+    } else if (func == "register") {
       string userName(argv[i + 2]);
       string password(argv[i + 3]);
 

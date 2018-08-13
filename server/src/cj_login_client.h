@@ -15,6 +15,8 @@ using cjLogin::UserCheckLoginRequest;
 using cjLogin::UserCheckLoginResponse;
 using cjLogin::UserLogoutRequest;
 using cjLogin::UserLogoutResponse;
+using cjLogin::LogoutUserRequest;
+using cjLogin::LogoutUserResponse;
 using cjLogin::CjLoginService;
 using cjLogin::InternalConnectRequest;
 using cjLogin::InternalMessage;
@@ -40,6 +42,9 @@ public:
 
   Status logout(const UserLogoutRequest &req,
                 UserLogoutResponse *resp);
+
+  Status logoutUser(const LogoutUserRequest &req,
+                    LogoutUserResponse *resp);
 
   void internalConnect(const InternalConnectRequest &req,
                        InternalMessageHandler handler);

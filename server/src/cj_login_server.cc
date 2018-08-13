@@ -12,6 +12,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <algorithm>
 
 #include "redis/redis.h"
 #include "redis/redis_table.h"
@@ -212,7 +213,7 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
                                   "user has logined in other devices");
     }
 
-    long timeout = (long)std::time(0) - payload.ts;
+    uint64_t timeout = std::max((long)std::time(0) - payload.ts, 0L);
     if (user.logintickettimeout() < timeout) {
       return this->_finishRequest(baseResponse,
                                   ErrCode::CHECK_LOGIN_TICKET_TIMEOUT,
@@ -222,6 +223,36 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     auto sessionKey = cjLogin::genSessionKey(payload.userName, payload.uin);
     response->set_sessionkey(sessionKey);
     return this->_replyOk(baseResponse);
+  }
+
+  Status logoutUser(ServerContext *context,
+                    const LogoutUserRequest *request,
+                    LogoutUserResponse *response) override {
+    auto uin = request->uin();
+    auto baseResponse = response->mutable_baseresp();
+
+    LOG(INFO) << "logoutUser: " << uin;
+
+    string serialized;
+    User user;
+    if (!this->userTable->getData(std::to_string(uin), serialized)
+        || !user.ParseFromString(serialized)) {
+      return this->_replySystemError(baseResponse);
+    }
+    user.set_loginticket("");
+    user.set_logintickettimeout(0);
+    if (user.SerializeToString(&serialized)
+        && this->userTable->setData(std::to_string(uin), serialized)) {
+      InternalMessage message;
+      message.set_uin(uin);
+      message.set_type(MessageType::LOGOUT_BY_SYSTEM);
+      message.set_content("logoutBySystem");
+      this->writeMessageToConnectedClient(message);
+
+      return this->_replyOk(baseResponse);
+    } else {
+      return this->_replySystemError(baseResponse);
+    }
   }
 
   Status userLogout(ServerContext *context,

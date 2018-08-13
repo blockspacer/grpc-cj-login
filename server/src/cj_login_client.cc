@@ -30,6 +30,11 @@ Status CjLoginClient::checkLogin(const UserCheckLoginRequest &req,
   return stub_->userCheckLogin(&context, req, resp);
 }
 
+Status CjLoginClient::logoutUser(const LogoutUserRequest &req,
+                                 LogoutUserResponse *resp) {
+  ClientContext context;
+  return stub_->logoutUser(&context, req, resp);
+}
 Status CjLoginClient::logout(const UserLogoutRequest &req,
                              UserLogoutResponse *resp) {
   ClientContext context;
@@ -58,17 +63,10 @@ void CjLoginClient::readMessage(const InternalConnectRequest &req,
     if (ok && goTag == (void *)1) {
       reader->Read(&message, (void *)1);
       if (message.type() != 0) {
-        std::cout << "receive Message: " << message.type()
-                  << ", " << message.content() << std::endl;
         handler(message);
       }
     }
   }
 
   reader->Finish(&status, (void *)1);
-  if (status.ok()) {
-    std::cout << "Finish Read Message" << std::endl;
-  } else {
-    std::cout << "Fail" << std::endl;
-  }
 }

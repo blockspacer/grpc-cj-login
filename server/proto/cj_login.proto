@@ -81,7 +81,6 @@ message UserLogoutResponse {
 // Inner Service API: LogoutUser
 message LogoutUserRequest {
   uint64 uin = 1;
-  bool logoutByOthers = 2;
 }
 
 message LogoutUserResponse {
