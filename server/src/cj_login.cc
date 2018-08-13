@@ -16,6 +16,8 @@
 #include <thread>
 #include <chrono>
 #include <vector>
+#include <fstream>
+#include <sstream>
 
 #include "cj_login_client.h"
 #include "helper.h"
@@ -182,11 +184,36 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
   }
 };
 
-void RunServer() {
+
+std::string getFileContent(const char *fpath)
+{
+  std::ifstream finstream(fpath);
+  std::string contents((std::istreambuf_iterator<char>(finstream)),
+                       std::istreambuf_iterator<char>());
+  return contents;
+}
+
+void RunServer(int argc, char **argv) {
   std::string address("0.0.0.0:50052");
+
+  auto clientCA = getFileContent(argv[1]); // for verifying clients
+  auto serverKey = getFileContent(argv[2]);
+  auto serverCert = getFileContent(argv[3]);
+
+  grpc::SslServerCredentialsOptions::PemKeyCertPair pkcp = {
+    serverKey.c_str(), serverCert.c_str()
+  };
+  grpc::SslServerCredentialsOptions ssl_opts(GRPC_SSL_REQUEST_AND_REQUIRE_CLIENT_CERTIFICATE_AND_VERIFY);
+  ssl_opts.pem_root_certs = clientCA;
+  ssl_opts.pem_key_cert_pairs.push_back(pkcp);
+
+  std::cout << "pem_root_certs length: " << ssl_opts.pem_root_certs.length() << std::endl;
+
+  std::shared_ptr<grpc::ServerCredentials> creds = grpc::SslServerCredentials(ssl_opts);
+
   CjLoginCGIImp service;
   ServerBuilder builder;
-  builder.AddListeningPort(address, InsecureServerCredentials());
+  builder.AddListeningPort(address, creds);
   builder.RegisterService(&service);
   std::unique_ptr<Server> server(builder.BuildAndStart());
   LOG(INFO) << "Server listening on " << address;
@@ -195,8 +222,7 @@ void RunServer() {
 
 int main(int argc, char *argv[]) {
   google::InitGoogleLogging(argv[0]);
-  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  RunServer();
+  RunServer(argc, argv);
   return 0;
 }
