@@ -104,12 +104,22 @@ message ServerMessage {
   string content = 2;
 }
 
+message InternalConnectRequest {
+}
+
+message InternalMessage {
+  MessageType type = 1;
+  string content;
+  uint64 uin;
+}
+
 service CjLoginService {
   rpc registerUser(RegisterUserRequest) returns (RegisterUserResponse);
   rpc userLogin(UserLoginRequest) returns (UserLoginResponse);
   rpc userCheckLogin(UserCheckLoginRequest) returns (UserCheckLoginResponse);
   rpc userLogout(UserLogoutRequest) returns (UserLogoutResponse);
   rpc logoutUser(LogoutUserRequest) returns (LogoutUserResponse);
+  rpc internalConnect(InternalConnectRequest) returns (InternalMessage);
 }
 
 service CjLoginCGI {

@@ -7,7 +7,8 @@ cc_library(
     ],
     hdrs = [
         "helper.h",
-        "semaphore.hpp"
+        "semaphore.hpp",
+        "connected_client.hpp"
     ],
     deps = [
         "@com_github_md5//:md5-lib",

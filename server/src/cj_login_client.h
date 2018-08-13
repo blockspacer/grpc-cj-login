@@ -5,6 +5,7 @@
 #include <grpc++/security/credentials.h>
 
 #include <memory>
+#include <functional>
 
 using cjLogin::RegisterUserRequest;
 using cjLogin::RegisterUserResponse;
@@ -15,9 +16,13 @@ using cjLogin::UserCheckLoginResponse;
 using cjLogin::UserLogoutRequest;
 using cjLogin::UserLogoutResponse;
 using cjLogin::CjLoginService;
+using cjLogin::InternalConnectRequest;
+using cjLogin::InternalMessage;
 
 using grpc::Channel;
 using grpc::Status;
+
+typedef std::function<void(InternalMessage &)> InternalMessageHandler;
 
 class CjLoginClient {
 
@@ -36,8 +41,14 @@ public:
   Status logout(const UserLogoutRequest &req,
                 UserLogoutResponse *resp);
 
+  void internalConnect(const InternalConnectRequest &req,
+                       InternalMessageHandler handler);
+
 private:
   std::unique_ptr<CjLoginService::Stub> stub_;
+
+  void readMessage(const InternalConnectRequest &req,
+                   InternalMessageHandler handler);
 };
 
 

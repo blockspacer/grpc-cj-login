@@ -20,6 +20,7 @@
 #include "cj_login_client.h"
 #include "helper.h"
 #include "semaphore.hpp"
+#include "connected_client.hpp"
 
 using cjLogin::ErrCode;
 using cjLogin::CjLoginCGI;
@@ -38,57 +39,20 @@ using cjLogin::ConnectRequest;
 using cjLogin::ServerMessage;
 using cjLogin::MessageType;
 
-class ConnectedClient {
-public:
-  ConnectedClient() {
-    context = NULL;
-    writer = NULL;
-  }
-  ~ConnectedClient() {}
-
-  ServerContext *context;
-  ServerWriter<ServerMessage> *writer;
-  Semaphore s;
-};
-
 class CjLoginCGIImp final : public CjLoginCGI::Service {
  public:
-
-  void sendTestMessage() {
-    while (true) {
-      std::this_thread::sleep_for(std::chrono::seconds(10));
-      auto iter = this->clientMap.begin();
-      std::vector<string> eraseUin;
-
-      while (iter != this->clientMap.end()) {
-        ServerMessage message;
-        auto client = iter->second;
-        if (client->context->IsCancelled()) {
-          eraseUin.push_back(iter->first);
-        } else {
-          message.set_type(MessageType::LOGOUT_BY_OTHERS);
-          message.set_content("logout by others");
-          std::cout << "write test message: " << iter->second << std::endl;
-          client->writer->Write(message);
-        }
-        iter++;
-      }
-
-      for (size_t i = 0; i < eraseUin.size(); i++) {
-        auto uin = eraseUin[i];
-        auto client = this->clientMap[uin];
-        client->s.signal();
-        this->clientMap.erase(uin);
-        delete client;
-      }
-    }
-  }
-
   CjLoginCGIImp() {
     this->server = new CjLoginClient(CreateChannel("localhost:50051",
                                                    InsecureChannelCredentials()));
-    std::thread t(&CjLoginCGIImp::sendTestMessage, this);
-    t.detach();
+    InternalConnectRequest request;
+
+    this->server->internalConnect(request, [this](InternalMessage &message) {
+        auto uin = std::to_string(message.uin);
+        ServerMessage toClientMessage;
+        toClientMessage.set_type(message.type);
+        toClientMessage.set_content(message.content);
+        this->writeMessageToClient(uin, toClientMessage);
+      });
   }
 
   ~CjLoginCGIImp() {
@@ -166,8 +130,43 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
  private:
   CjLoginClient *server;
   std::map<std::string, ConnectedClient *> clientMap;
-};
 
+  bool writeMessageToClient(std::string uin, InternalMessage &message) {
+    auto iter = this->clientMap.find(uin);
+    if (iter != this->clientMap.end()) {
+      auto client = this->clientMap[uin];
+      if (!client->writer || !client->context) {
+        client->s.signal();
+        this->clientMap.erase(uin);
+        delete client;
+        return false;
+      }
+
+      if (client->context->IsCancelled()) {
+        client->s.signal();
+        this->clientMap.erase(uin);
+        delete client;
+        return false;
+      }
+
+      client->writer->Write(message);
+
+    } else {
+      return false;
+    }
+
+
+    if (this.connectedClient.context->IsCancelled()) {
+      this.connectedClient.s.signal();
+      this.connectedClient.context = NULL;
+      this.connectedClient.writer = NULL;
+      return false;
+    }
+
+    this.connectedClient.writer->Write(message);
+    return true;
+  }
+};
 
 void RunServer() {
   std::string address("0.0.0.0:50052");

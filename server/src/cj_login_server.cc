@@ -16,6 +16,7 @@
 #include "redis/redis.h"
 #include "redis/redis_table.h"
 #include "helper.h"
+#include "connected_client.hpp"
 
 using cjLogin::User;
 using cjLogin::ErrCode;
@@ -32,6 +33,8 @@ using cjLogin::UserLogoutRequest;
 using cjLogin::UserLogoutResponse;
 using cjLogin::LogoutUserRequest;
 using cjLogin::LogoutUserResponse;
+using cjLogin::InternalConnectRequest;
+using cjLogin::InternalMessage;
 
 using cjLogin::CjLoginService;
 
@@ -157,7 +160,13 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     user.set_logintickettimeout(60 * 60 * 24 * 30);
     if (user.SerializeToString(&serialized)
         && this->userTable->setData(uin, serialized)) {
-      //TODO: logout others
+
+      InternalMessage message;
+      message.set_type(MessageType::LOGOUT_BY_OTHERS);
+      message.set_content("logoutByOthers");
+      message.set_uin((uint64_t)atoll(uin.c_str()));
+      this->writeMessageToConnectedClient(message);
+
       response->set_loginticket(loginTicket);
       return this->_replyOk(baseResponse);
     } else {
@@ -253,6 +262,14 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     }
   }
 
+  Status internalConnect(ServerContext *context,
+                         const InternalConnectRequest *request,
+                         ServerWriter<InternalMessage> *writer) override {
+    this->connectedClient.context = context;
+    this->connectedClient.writer = writer;
+    this->connectedClient.s.wait();
+    return Status::OK;
+  }
 
 private:
   // redis-cli -h 172.17.0.4 -p 6379
@@ -260,6 +277,7 @@ private:
   RedisTable *commTable;
   RedisTable *userName2UinTable;
   RedisTable *userTable;
+  ConnectedClient connectedClient;
 
   Status _finishRequest(BaseResponse *baseResp,
                         ErrCode errcode,
@@ -276,6 +294,22 @@ private:
 
   Status _replyOk(BaseResponse *baseResp) {
     return this->_finishRequest(baseResp, ErrCode::OK, "ok");
+  }
+
+  bool writeMessageToConnectedClient(InternalMessage &message) {
+    if (!this.connectedClient.writer || !this.connectedClient.context) {
+      return false;
+    }
+
+    if (this.connectedClient.context->IsCancelled()) {
+      this.connectedClient.s.signal();
+      this.connectedClient.context = NULL;
+      this.connectedClient.writer = NULL;
+      return false;
+    }
+
+    this.connectedClient.writer->Write(message);
+    return true;
   }
 };
 
