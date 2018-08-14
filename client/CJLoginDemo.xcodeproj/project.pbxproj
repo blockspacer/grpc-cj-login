@@ -1660,7 +1660,6 @@
 		43D68C2863C36DD500000000 /* ares_parse_a_reply.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ares_parse_a_reply.c; path = third_party/cares/cares/ares_parse_a_reply.c; sourceTree = "<group>"; };
 		43D68C2863E056A500000000 /* log_windows.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = log_windows.h; path = include/grpc/support/log_windows.h; sourceTree = "<group>"; };
 		43D68C286450B7A900000000 /* duration.pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = duration.pb.h; path = src/google/protobuf/duration.pb.h; sourceTree = "<group>"; };
-		43D68C28645D51FF00000000 /* ares_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ares_config.h; path = src/iOS/ares_config.h; sourceTree = "<group>"; };
 		43D68C286463464E00000000 /* byte_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = byte_stream.h; path = src/core/lib/transport/byte_stream.h; sourceTree = "<group>"; };
 		43D68C286464257000000000 /* byte_stream.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = byte_stream.c; path = src/core/lib/transport/byte_stream.c; sourceTree = "<group>"; };
 		43D68C286477A87700000000 /* byte_buffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = byte_buffer.h; path = "include/grpc++/support/byte_buffer.h"; sourceTree = "<group>"; };
@@ -4442,7 +4441,6 @@
 				8CBD86FA6FB80E2A00000000 /* Main.storyboard */,
 				43D68C282A1D658300000000 /* ViewController.h */,
 				43D68C28A9E4ADA900000000 /* ViewController.mm */,
-				43D68C28645D51FF00000000 /* ares_config.h */,
 				43D68C286FBD708300000000 /* callback_objc_impl.h */,
 				43D68C289DB0A8A900000000 /* callback_objc_impl.mm */,
 				43D68C28343FBEE100000000 /* main.mm */,

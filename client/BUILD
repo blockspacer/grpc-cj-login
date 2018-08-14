@@ -28,6 +28,17 @@ cc_binary(
     ]
 )
 
+genrule(
+    name = "cert",
+    srcs = [
+        "cert/client-key.pem"
+    ],
+    outs = [
+        "cert-client/client-key.pem"
+    ],
+    cmd = "cat $< > $@"
+)
+
 objc_library(
     name = "Sources",
     srcs = glob([
@@ -41,7 +52,8 @@ objc_library(
         "*.hpp"
     ]),
     resources = glob([
-        "src/iOS/Base.lproj/*.storyboard"
+        "src/iOS/Base.lproj/*.storyboard",
+        "cert/*"
     ]),
     deps = [
         ":cj_login_sdk"
