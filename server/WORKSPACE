@@ -67,3 +67,19 @@ new_git_repository(
     commit = "87dcef903f48a8c33df0bd9658d775d6d5db1918",
     build_file = "BUILD.jwt"
 )
+
+# CSPRNG
+new_git_repository(
+    name = "com_github_csprng",
+    remote = "https://github.com/Duthomhas/CSPRNG",
+    commit = "8768a94b4b04213c0798b80824a04ae4990e9847",
+    build_file = "BUILD.csprng"
+)
+
+# bcrypt
+new_git_repository(
+    name = "com_github_bcrypt",
+    remote = "https://github.com/trusch/libbcrypt",
+    commit = "2c48ea0cb3e8539996a42ae526f80158e074b97a",
+    build_file = "BUILD.bcrypt"
+)

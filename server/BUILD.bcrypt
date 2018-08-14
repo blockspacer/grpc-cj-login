@@ -1,0 +1,16 @@
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "bcrypt-lib",
+    hdrs = glob([
+        "include/bcrypt/*.h",
+        "include/bcrypt/*.hpp"
+    ]),
+    srcs = glob([
+        "src/*.c",
+        "src/*.S"
+    ]),
+    includes = [
+        "include/bcrypt"
+    ]
+)

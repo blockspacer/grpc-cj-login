@@ -1,0 +1,15 @@
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "csprng-lib",
+    hdrs = glob([
+        "source/duthomhas/*.h",
+        "source/duthomhas/*.hpp"
+    ]),
+    srcs = glob([
+        "source/*.cpp"
+    ]),
+    includes = [
+        "source"
+    ]
+)
