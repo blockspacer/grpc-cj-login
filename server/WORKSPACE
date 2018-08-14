@@ -14,7 +14,7 @@ cpp_proto_repositories(
     overrides = {
         "libssl": {
             "rule": "bind",
-            "actual": "@com_github_openssl_wrap//:dep_libs"
+            "actual": "@com_github_openssl//:ssl"
         }
     }
 )
@@ -53,12 +53,21 @@ git_repository(
 )
 
 # openssl
-git_repository(
-    name = "com_github_openssl_wrap",
-    remote = "https://github.com/lbuchy/bazel-openssl",
-    commit = "c700be9ab51d5e869205f69480025cf33b033dc8",
-    init_submodules = 1
+# git_repository(
+#     name = "com_github_openssl_wrap",
+#     remote = "https://github.com/cs-jeason/bazel-openssl",
+#     commit = "e6c64ea260c81e0ba2e0862cfb221eca0c6c0264",
+#     init_submodules = 1
+# )
+
+new_http_archive(
+    name = "com_github_openssl",
+    url = "https://github.com/openssl/openssl/archive/OpenSSL_1_1_0h.tar.gz",
+    sha256 = "f56dd7d81ce8d3e395f83285bd700a1098ed5a4cb0a81ce9522e41e6db7e0389",
+    strip_prefix = "openssl-OpenSSL_1_1_0h",
+    build_file = "BUILD.openssl",
 )
+
 
 # jwt
 new_git_repository(
