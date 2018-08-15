@@ -17,13 +17,20 @@ auto jwtSessionKeyKey = "jwtSessionKeyKey";
 namespace cjLogin {
   string getPasswordSalt() {
     duthomhas::csprng rng;
-    return rng(string(20, 0));
+    return std::to_string(rng());
   }
 
   string genPassword(string raw, string salt) {
     BCrypt bcrypt;
     string pwd = raw + salt;
     return bcrypt.generateHash(pwd);
+  }
+
+  bool isPasswordMatch(string hash, string raw, string salt) {
+    BCrypt bcrypt;
+
+    auto pwd = raw + salt;
+    return bcrypt.validatePassword(pwd, salt);
   }
 
   bool validateUsername(string username) {

@@ -156,7 +156,7 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     LOG(INFO) << "validateUser, pwd: " << pwdServer
                                       << ", salt: " << salt
                                       << ", raw: " << user.password();
-    if (user.password() != pwdServer) {
+    if (cjLogin::isPasswordMatch(pwdServer, password, salt)) {
       return this->_finishRequest(baseResponse,
                                   ErrCode::LOGIN_ERROR_PWD_ERROR,
                                   "password error");

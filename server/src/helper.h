@@ -31,6 +31,8 @@ namespace cjLogin {
   string getPasswordSalt();
 
   string genPassword(string raw, string salt);
+
+  bool isPasswordMatch(string hash, string raw, string salt);
 }
 
 #endif
