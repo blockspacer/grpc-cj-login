@@ -5,6 +5,8 @@
 
 #include "helper.h"
 #include "src/md5.h"
+#include "include/bcrypt/BCrypt.hpp"
+#include "source/duthomhas/csprng.hpp"
 #include <glog/logging.h>
 
 using namespace jwt::params;
@@ -13,6 +15,17 @@ auto jwtLoginTicketKey = "jwtLoginTicketKey";
 auto jwtSessionKeyKey = "jwtSessionKeyKey";
 
 namespace cjLogin {
+  string getPasswordSalt() {
+    duthomhas::csprng rng;
+    return rng(string(20, 0));
+  }
+
+  string genPassword(string raw, string salt) {
+    BCrypt bcrypt;
+    string pwd = raw + salt;
+    return bcrypt.generateHash(pwd);
+  }
+
   bool validateUsername(string username) {
     for (const auto &ch : username) {
       if (ch != '_'

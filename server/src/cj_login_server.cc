@@ -47,8 +47,6 @@ using grpc::ServerContext;
 using grpc::ServerWriter;
 using grpc::Status;
 
-const char *salt = "cj_login_server_grpc_salt";
-
 const char *curSystemGenUinKey = "--cj_login_server_grpc_uin--";
 const char *userTableName = "UserTable";
 const char *userName2UinTableName = "UserName2UinTableName";
@@ -99,7 +97,8 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     }
 
     User newUser;
-    auto pwdServer = cjLogin::md5(password + salt);
+    auto salt = cjLogin::getPasswordSalt();
+    auto pwdServer = cjLogin::genPassword(password, salt);
     unsigned uin = 0;
     if (!this->commTable->increaseKey(curSystemGenUinKey, uin)) {
       LOG(ERROR) << "increase uin fail" ;
@@ -109,7 +108,8 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     newUser.set_uin(uin);
     newUser.set_username(userName);
     newUser.set_password(pwdServer);
-
+    newUser.set_pwdsalt(salt);
+    LOG(INFO) << "registerUser, pwd: " << pwdServer << "salt: " << salt;
     string serialized;
 
     if (newUser.SerializeToString(&serialized)
@@ -151,7 +151,11 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
       return this->_replySystemError(baseResponse);
     }
 
-    auto pwdServer = cjLogin::md5(password + salt);
+    string salt = user.pwdsalt();
+    auto pwdServer = cjLogin::genPassword(password, salt);
+    LOG(INFO) << "validateUser, pwd: " << pwdServer
+                                      << ", salt: " << salt
+                                      << ", raw: " << user.password();
     if (user.password() != pwdServer) {
       return this->_finishRequest(baseResponse,
                                   ErrCode::LOGIN_ERROR_PWD_ERROR,

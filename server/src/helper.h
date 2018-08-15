@@ -26,6 +26,11 @@ namespace cjLogin {
   inline string md5(string raw) {
     return MD5(raw).toStr();
   }
+
+  // rand salt
+  string getPasswordSalt();
+
+  string genPassword(string raw, string salt);
 }
 
 #endif
