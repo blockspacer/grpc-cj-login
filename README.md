@@ -2,7 +2,7 @@
 A login demo using grpc.
 
 
-## Build
+## Build Server
 
 ~~~
 cd server
@@ -14,11 +14,16 @@ Suppose a redis server is running on host <code>172.17.0.4</code> with port <cod
 
 ~~~
 ./bazel-bin/src/cj_login_server -h 172.17.0.4 -p 6379 &
+./bazel-bin/src/cj_login_cgi cert/client-self-signed-cert.pem cert/server.key.pem cert/server-self-signed.cert.pem
 ~~~
 
 glog files is located on /tmp/ as default.
 
-## Run Tools
+## Build&Run iOS Client
+
+open client/CJLoginDemo.tulsiproj using [tulsi](https://github.com/bazelbuild/tulsi), generate XCode Project, then build&run in XCode.
+
+## Run Server Tools
 
 ~~~
 # register:
@@ -32,4 +37,7 @@ glog files is located on /tmp/ as default.
 
 # logout
 ./bazel-bin/src/cj_login_tools -f logout jeason_test <sessionkey> 
+
+# logoutUser
+./bazel-bin/src/cj_login_tools -f logoutUser uin <uin>
 ~~~
