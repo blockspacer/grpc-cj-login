@@ -35,7 +35,7 @@ config_setting(
 
 genrule(
     name = "ares_build_h",
-    srcs = ["deps/cares/ares_build.h"],
+    srcs = ["@com_cj_login_client//deps/cares:ares_build.h"],
     outs = ["ares_build.h"],
     cmd = "cat $< > $@",
 )
@@ -43,7 +43,7 @@ genrule(
 genrule(
     name = "ares_config_h",
     srcs = select({
-        "//conditions:default": ["deps/cares/ares_config.h"],
+        "//conditions:default": ["@com_cj_login_client//deps/cares:ares_config.h"],
     }),
     outs = ["ares_config.h"],
     cmd = "cat $< > $@",

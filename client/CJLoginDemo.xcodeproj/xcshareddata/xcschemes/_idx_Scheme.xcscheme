@@ -39,6 +39,9 @@
                 <BuildableReference BlueprintIdentifier="3D31C5E6584AEF6800000000" ReferencedContainer="container:CJLoginDemo.xcodeproj" BuildableName="lib_idx_nanopb_Sources_cj_login_sdk_grpc++_grpc++_base_grpc++_codegen_base_src_grpc++_reflection_grpc_base_8B679C11_ios_min11.4.a" BlueprintName="_idx_nanopb_Sources_cj_login_sdk_grpc++_grpc++_base_grpc++_codegen_base_src_grpc++_reflection_grpc_base_8B679C11_ios_min11.4" BuildableIdentifier="primary"></BuildableReference>
             </BuildActionEntry>
             <BuildActionEntry buildForArchiving="YES" buildForTesting="YES" buildForRunning="YES" buildForAnalyzing="YES" buildForProfiling="YES">
+                <BuildableReference BlueprintIdentifier="3D31C5E63156886400000000" ReferencedContainer="container:CJLoginDemo.xcodeproj" BuildableName="lib_idx_ares_4464F9BD_ios_min11.4.a" BlueprintName="_idx_ares_4464F9BD_ios_min11.4" BuildableIdentifier="primary"></BuildableReference>
+            </BuildActionEntry>
+            <BuildActionEntry buildForArchiving="YES" buildForTesting="YES" buildForRunning="YES" buildForAnalyzing="YES" buildForProfiling="YES">
                 <BuildableReference BlueprintIdentifier="3D31C5E6B691258800000000" ReferencedContainer="container:CJLoginDemo.xcodeproj" BuildableName="lib_idx_tsi_interface_census_gpr_base_grpc_grpc_base_c_grpc_client_channel_grpc_deadline_filter_grpc_http_filters_grpc_lb_policy_grpclb_secure_grpc_lb_policy_pick_first_grpc_lb_policy__etc_904E388B_ios_min11.4.a" BlueprintName="_idx_tsi_interface_census_gpr_base_grpc_grpc_base_c_grpc_client_channel_grpc_deadline_filter_grpc_http_filters_grpc_lb_policy_grpclb_secure_grpc_lb_policy_pick_first_grpc_lb_policy__etc_904E388B_ios_min11.4" BuildableIdentifier="primary"></BuildableReference>
             </BuildActionEntry>
             <BuildActionEntry buildForArchiving="YES" buildForTesting="YES" buildForRunning="YES" buildForAnalyzing="YES" buildForProfiling="YES">
@@ -64,9 +67,6 @@
             </BuildActionEntry>
             <BuildActionEntry buildForArchiving="YES" buildForTesting="YES" buildForRunning="YES" buildForAnalyzing="YES" buildForProfiling="YES">
                 <BuildableReference BlueprintIdentifier="3D31C5E6B691258800000000" ReferencedContainer="container:CJLoginDemo.xcodeproj" BuildableName="lib_idx_tsi_interface_census_gpr_base_grpc_grpc_base_c_grpc_client_channel_grpc_deadline_filter_grpc_http_filters_grpc_lb_policy_grpclb_secure_grpc_lb_policy_pick_first_grpc_lb_policy__etc_904E388B_ios_min11.4.a" BlueprintName="_idx_tsi_interface_census_gpr_base_grpc_grpc_base_c_grpc_client_channel_grpc_deadline_filter_grpc_http_filters_grpc_lb_policy_grpclb_secure_grpc_lb_policy_pick_first_grpc_lb_policy__etc_904E388B_ios_min11.4" BuildableIdentifier="primary"></BuildableReference>
-            </BuildActionEntry>
-            <BuildActionEntry buildForArchiving="YES" buildForTesting="YES" buildForRunning="YES" buildForAnalyzing="YES" buildForProfiling="YES">
-                <BuildableReference BlueprintIdentifier="3D31C5E68CFC778A00000000" ReferencedContainer="container:CJLoginDemo.xcodeproj" BuildableName="lib_idx_ares_36218299_ios_min11.4.a" BlueprintName="_idx_ares_36218299_ios_min11.4" BuildableIdentifier="primary"></BuildableReference>
             </BuildActionEntry>
             <BuildActionEntry buildForArchiving="YES" buildForTesting="YES" buildForRunning="YES" buildForAnalyzing="YES" buildForProfiling="YES">
                 <BuildableReference BlueprintIdentifier="3D31C5E6584AEF6800000000" ReferencedContainer="container:CJLoginDemo.xcodeproj" BuildableName="lib_idx_nanopb_Sources_cj_login_sdk_grpc++_grpc++_base_grpc++_codegen_base_src_grpc++_reflection_grpc_base_8B679C11_ios_min11.4.a" BlueprintName="_idx_nanopb_Sources_cj_login_sdk_grpc++_grpc++_base_grpc++_codegen_base_src_grpc++_reflection_grpc_base_8B679C11_ios_min11.4" BuildableIdentifier="primary"></BuildableReference>
