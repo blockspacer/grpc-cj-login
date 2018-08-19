@@ -62,9 +62,9 @@ git_repository(
 
 new_http_archive(
     name = "com_github_openssl",
-    url = "https://github.com/openssl/openssl/archive/OpenSSL_1_1_0h.tar.gz",
-    sha256 = "f56dd7d81ce8d3e395f83285bd700a1098ed5a4cb0a81ce9522e41e6db7e0389",
-    strip_prefix = "openssl-OpenSSL_1_1_0h",
+    url = "https://github.com/openssl/openssl/archive/OpenSSL_1_0_2h.tar.gz",
+    sha256 = "2cadf888883690320fb638b651ee4d1cf90ec656a0e3b89ba3419592c2080e9f",
+    strip_prefix = "openssl-OpenSSL_1_0_2h",
     build_file = "BUILD.openssl",
 )
 
