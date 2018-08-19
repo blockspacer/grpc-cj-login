@@ -1,0 +1,480 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		10D946D12129B92800928BB5 /* cj_login_sdk_ios_lipo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D946D02129B92800928BB5 /* cj_login_sdk_ios_lipo.a */; };
+		10D946D82129BB5D00928BB5 /* client-self-signed-cert.pem in Resources */ = {isa = PBXBuildFile; fileRef = 10D946D52129BB5D00928BB5 /* client-self-signed-cert.pem */; };
+		10D946D92129BB5D00928BB5 /* client.key.pem in Resources */ = {isa = PBXBuildFile; fileRef = 10D946D62129BB5D00928BB5 /* client.key.pem */; };
+		10D946DA2129BB5D00928BB5 /* server-self-signed.cert.pem in Resources */ = {isa = PBXBuildFile; fileRef = 10D946D72129BB5D00928BB5 /* server-self-signed.cert.pem */; };
+		A50E6344212819060066082C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = A50E6343212819060066082C /* AppDelegate.mm */; };
+		A50E6347212819060066082C /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A50E6346212819060066082C /* ViewController.mm */; };
+		A50E634A212819060066082C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A50E6348212819060066082C /* Main.storyboard */; };
+		A50E634C212819070066082C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A50E634B212819070066082C /* Assets.xcassets */; };
+		A50E634F212819070066082C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A50E634D212819070066082C /* LaunchScreen.storyboard */; };
+		A50E6352212819070066082C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A50E6351212819070066082C /* main.m */; };
+		A541EF1D2129A19F008EBB5F /* CJCheckLoginCallback+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = A541EF1C2129A19F008EBB5F /* CJCheckLoginCallback+Private.mm */; };
+		A541EF1F2129A1AA008EBB5F /* CJCjLogin+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = A541EF1E2129A1AA008EBB5F /* CJCjLogin+Private.mm */; };
+		A541EF212129A1B3008EBB5F /* CJConnectCallback+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = A541EF202129A1B2008EBB5F /* CJConnectCallback+Private.mm */; };
+		A541EF232129A1BA008EBB5F /* CJLoginCallback+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = A541EF222129A1BA008EBB5F /* CJLoginCallback+Private.mm */; };
+		A541EF252129A1C1008EBB5F /* CJLogoutCallback+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = A541EF242129A1C1008EBB5F /* CJLogoutCallback+Private.mm */; };
+		A541EF272129A1C8008EBB5F /* CJRegisterUserCallback+Private.mm in Sources */ = {isa = PBXBuildFile; fileRef = A541EF262129A1C8008EBB5F /* CJRegisterUserCallback+Private.mm */; };
+		A541EF2A2129A204008EBB5F /* DJIProxyCaches.mm in Sources */ = {isa = PBXBuildFile; fileRef = A541EF282129A204008EBB5F /* DJIProxyCaches.mm */; };
+		A541EF2C2129A22A008EBB5F /* callback_objc_impl.mm in Sources */ = {isa = PBXBuildFile; fileRef = A541EF2B2129A22A008EBB5F /* callback_objc_impl.mm */; };
+		A541EF2E2129A277008EBB5F /* DJIError.mm in Sources */ = {isa = PBXBuildFile; fileRef = A541EF2D2129A276008EBB5F /* DJIError.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		10D946D02129B92800928BB5 /* cj_login_sdk_ios_lipo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = cj_login_sdk_ios_lipo.a; path = CJLoginDemoTestClient/cj_login_sdk_ios_lipo.a; sourceTree = SOURCE_ROOT; };
+		10D946D52129BB5D00928BB5 /* client-self-signed-cert.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "client-self-signed-cert.pem"; sourceTree = "<group>"; };
+		10D946D62129BB5D00928BB5 /* client.key.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = client.key.pem; sourceTree = "<group>"; };
+		10D946D72129BB5D00928BB5 /* server-self-signed.cert.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "server-self-signed.cert.pem"; sourceTree = "<group>"; };
+		A50E633F212819060066082C /* CJLoginDemoTestClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CJLoginDemoTestClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A50E6342212819060066082C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A50E6343212819060066082C /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		A50E6345212819060066082C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		A50E6346212819060066082C /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		A50E6349212819060066082C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A50E634B212819070066082C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A50E634E212819070066082C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A50E6350212819070066082C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A50E6351212819070066082C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A50E635C21281A2B0066082C /* proxy_cache_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = proxy_cache_impl.hpp; sourceTree = "<group>"; };
+		A50E635D21281A2B0066082C /* proxy_cache_interface.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = proxy_cache_interface.hpp; sourceTree = "<group>"; };
+		A50E635F21281A360066082C /* djinni_common.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = djinni_common.hpp; sourceTree = "<group>"; };
+		A50E636121281AA70066082C /* callback_objc_impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = callback_objc_impl.h; sourceTree = "<group>"; };
+		A50E636A21281BD20066082C /* CJLogoutCallback+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CJLogoutCallback+Private.h"; sourceTree = "<group>"; };
+		A50E636B21281BD20066082C /* checkLoginCallback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = checkLoginCallback.hpp; sourceTree = "<group>"; };
+		A50E636C21281BD20066082C /* cj_login.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cj_login.hpp; sourceTree = "<group>"; };
+		A50E636D21281BD20066082C /* CJConnectCallback+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CJConnectCallback+Private.h"; sourceTree = "<group>"; };
+		A50E636E21281BD20066082C /* DJICppWrapperCache+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DJICppWrapperCache+Private.h"; sourceTree = "<group>"; };
+		A50E637021281BD20066082C /* logoutCallback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = logoutCallback.hpp; sourceTree = "<group>"; };
+		A50E637121281BD20066082C /* CJLoginCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJLoginCallback.h; sourceTree = "<group>"; };
+		A50E637221281BD20066082C /* registerUserCallback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = registerUserCallback.hpp; sourceTree = "<group>"; };
+		A50E637321281BD20066082C /* CJCjLogin+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CJCjLogin+Private.h"; sourceTree = "<group>"; };
+		A50E637421281BD20066082C /* CJCheckLoginCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJCheckLoginCallback.h; sourceTree = "<group>"; };
+		A50E637521281BD20066082C /* DJIError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIError.h; sourceTree = "<group>"; };
+		A50E637721281BD20066082C /* DJIObjcWrapperCache+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DJIObjcWrapperCache+Private.h"; sourceTree = "<group>"; };
+		A50E637921281BD20066082C /* CJCjLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJCjLogin.h; sourceTree = "<group>"; };
+		A50E637A21281BD20066082C /* connectCallback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = connectCallback.hpp; sourceTree = "<group>"; };
+		A50E637B21281BD20066082C /* loginCallback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = loginCallback.hpp; sourceTree = "<group>"; };
+		A50E637C21281BD20066082C /* CJRegisterUserCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJRegisterUserCallback.h; sourceTree = "<group>"; };
+		A50E637D21281BD20066082C /* CJLogoutCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJLogoutCallback.h; sourceTree = "<group>"; };
+		A50E637F21281BD20066082C /* CJRegisterUserCallback+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CJRegisterUserCallback+Private.h"; sourceTree = "<group>"; };
+		A50E638021281BD20066082C /* CJLoginCallback+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CJLoginCallback+Private.h"; sourceTree = "<group>"; };
+		A50E638121281BD20066082C /* CJCheckLoginCallback+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CJCheckLoginCallback+Private.h"; sourceTree = "<group>"; };
+		A50E638321281BD20066082C /* CJConnectCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJConnectCallback.h; sourceTree = "<group>"; };
+		A50E638521281BD20066082C /* DJIMarshal+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DJIMarshal+Private.h"; sourceTree = "<group>"; };
+		A50E639021281BDB0066082C /* callback_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = callback_impl.hpp; sourceTree = "<group>"; };
+		A50E639321281BDB0066082C /* cj_login_imp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cj_login_imp.hpp; sourceTree = "<group>"; };
+		A541EF1C2129A19F008EBB5F /* CJCheckLoginCallback+Private.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CJCheckLoginCallback+Private.mm"; sourceTree = "<group>"; };
+		A541EF1E2129A1AA008EBB5F /* CJCjLogin+Private.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CJCjLogin+Private.mm"; sourceTree = "<group>"; };
+		A541EF202129A1B2008EBB5F /* CJConnectCallback+Private.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CJConnectCallback+Private.mm"; sourceTree = "<group>"; };
+		A541EF222129A1BA008EBB5F /* CJLoginCallback+Private.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CJLoginCallback+Private.mm"; sourceTree = "<group>"; };
+		A541EF242129A1C1008EBB5F /* CJLogoutCallback+Private.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CJLogoutCallback+Private.mm"; sourceTree = "<group>"; };
+		A541EF262129A1C8008EBB5F /* CJRegisterUserCallback+Private.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CJRegisterUserCallback+Private.mm"; sourceTree = "<group>"; };
+		A541EF282129A204008EBB5F /* DJIProxyCaches.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DJIProxyCaches.mm; sourceTree = "<group>"; };
+		A541EF292129A204008EBB5F /* DJIObjcWrapperCache+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJIObjcWrapperCache+Private.h"; path = "../../../../client/djinni-src/DJIObjcWrapperCache+Private.h"; sourceTree = "<group>"; };
+		A541EF2B2129A22A008EBB5F /* callback_objc_impl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = callback_objc_impl.mm; sourceTree = "<group>"; };
+		A541EF2D2129A276008EBB5F /* DJIError.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DJIError.mm; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A50E633C212819060066082C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10D946D12129B92800928BB5 /* cj_login_sdk_ios_lipo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		10D946D42129BB5D00928BB5 /* cert */ = {
+			isa = PBXGroup;
+			children = (
+				10D946D52129BB5D00928BB5 /* client-self-signed-cert.pem */,
+				10D946D62129BB5D00928BB5 /* client.key.pem */,
+				10D946D72129BB5D00928BB5 /* server-self-signed.cert.pem */,
+			);
+			path = cert;
+			sourceTree = "<group>";
+		};
+		A50E6336212819050066082C = {
+			isa = PBXGroup;
+			children = (
+				A50E6341212819060066082C /* CJLoginDemoTestClient */,
+				A50E6340212819060066082C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A50E6340212819060066082C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A50E633F212819060066082C /* CJLoginDemoTestClient.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A50E6341212819060066082C /* CJLoginDemoTestClient */ = {
+			isa = PBXGroup;
+			children = (
+				10D946D42129BB5D00928BB5 /* cert */,
+				A50E638E21281BDB0066082C /* src */,
+				A50E636721281BD20066082C /* djinni-src */,
+				A50E636121281AA70066082C /* callback_objc_impl.h */,
+				A50E635F21281A360066082C /* djinni_common.hpp */,
+				A50E635C21281A2B0066082C /* proxy_cache_impl.hpp */,
+				A50E635D21281A2B0066082C /* proxy_cache_interface.hpp */,
+				A50E6342212819060066082C /* AppDelegate.h */,
+				A50E6343212819060066082C /* AppDelegate.mm */,
+				A50E6345212819060066082C /* ViewController.h */,
+				A541EF2B2129A22A008EBB5F /* callback_objc_impl.mm */,
+				A50E6346212819060066082C /* ViewController.mm */,
+				A50E6348212819060066082C /* Main.storyboard */,
+				A50E634B212819070066082C /* Assets.xcassets */,
+				A50E634D212819070066082C /* LaunchScreen.storyboard */,
+				A50E6350212819070066082C /* Info.plist */,
+				A50E6351212819070066082C /* main.m */,
+			);
+			path = CJLoginDemoTestClient;
+			sourceTree = "<group>";
+		};
+		A50E636721281BD20066082C /* djinni-src */ = {
+			isa = PBXGroup;
+			children = (
+				A50E636A21281BD20066082C /* CJLogoutCallback+Private.h */,
+				A50E636B21281BD20066082C /* checkLoginCallback.hpp */,
+				A50E636C21281BD20066082C /* cj_login.hpp */,
+				A50E636D21281BD20066082C /* CJConnectCallback+Private.h */,
+				A50E636E21281BD20066082C /* DJICppWrapperCache+Private.h */,
+				A541EF1C2129A19F008EBB5F /* CJCheckLoginCallback+Private.mm */,
+				A50E637021281BD20066082C /* logoutCallback.hpp */,
+				A50E637121281BD20066082C /* CJLoginCallback.h */,
+				A50E637221281BD20066082C /* registerUserCallback.hpp */,
+				A541EF1E2129A1AA008EBB5F /* CJCjLogin+Private.mm */,
+				A50E637321281BD20066082C /* CJCjLogin+Private.h */,
+				A50E637421281BD20066082C /* CJCheckLoginCallback.h */,
+				A50E637521281BD20066082C /* DJIError.h */,
+				A50E637721281BD20066082C /* DJIObjcWrapperCache+Private.h */,
+				A50E637921281BD20066082C /* CJCjLogin.h */,
+				A541EF202129A1B2008EBB5F /* CJConnectCallback+Private.mm */,
+				A50E637A21281BD20066082C /* connectCallback.hpp */,
+				A541EF222129A1BA008EBB5F /* CJLoginCallback+Private.mm */,
+				A541EF262129A1C8008EBB5F /* CJRegisterUserCallback+Private.mm */,
+				A50E637B21281BD20066082C /* loginCallback.hpp */,
+				A50E637C21281BD20066082C /* CJRegisterUserCallback.h */,
+				A50E637D21281BD20066082C /* CJLogoutCallback.h */,
+				A541EF242129A1C1008EBB5F /* CJLogoutCallback+Private.mm */,
+				A50E637F21281BD20066082C /* CJRegisterUserCallback+Private.h */,
+				A50E638021281BD20066082C /* CJLoginCallback+Private.h */,
+				A50E638121281BD20066082C /* CJCheckLoginCallback+Private.h */,
+				10D946D02129B92800928BB5 /* cj_login_sdk_ios_lipo.a */,
+				A50E638321281BD20066082C /* CJConnectCallback.h */,
+				A50E638521281BD20066082C /* DJIMarshal+Private.h */,
+				A541EF292129A204008EBB5F /* DJIObjcWrapperCache+Private.h */,
+				A541EF2D2129A276008EBB5F /* DJIError.mm */,
+				A541EF282129A204008EBB5F /* DJIProxyCaches.mm */,
+			);
+			path = "djinni-src";
+			sourceTree = "<group>";
+		};
+		A50E638E21281BDB0066082C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				A50E639021281BDB0066082C /* callback_impl.hpp */,
+				A50E639321281BDB0066082C /* cj_login_imp.hpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A50E633E212819060066082C /* CJLoginDemoTestClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A50E6355212819070066082C /* Build configuration list for PBXNativeTarget "CJLoginDemoTestClient" */;
+			buildPhases = (
+				A50E633B212819060066082C /* Sources */,
+				A50E633C212819060066082C /* Frameworks */,
+				A50E633D212819060066082C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CJLoginDemoTestClient;
+			productName = CJLoginDemoTestClient;
+			productReference = A50E633F212819060066082C /* CJLoginDemoTestClient.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A50E6337212819050066082C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = jeason;
+				TargetAttributes = {
+					A50E633E212819060066082C = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = A50E633A212819050066082C /* Build configuration list for PBXProject "CJLoginDemoTestClient" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A50E6336212819050066082C;
+			productRefGroup = A50E6340212819060066082C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A50E633E212819060066082C /* CJLoginDemoTestClient */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A50E633D212819060066082C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10D946DA2129BB5D00928BB5 /* server-self-signed.cert.pem in Resources */,
+				10D946D92129BB5D00928BB5 /* client.key.pem in Resources */,
+				A50E634F212819070066082C /* LaunchScreen.storyboard in Resources */,
+				A50E634C212819070066082C /* Assets.xcassets in Resources */,
+				A50E634A212819060066082C /* Main.storyboard in Resources */,
+				10D946D82129BB5D00928BB5 /* client-self-signed-cert.pem in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A50E633B212819060066082C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A541EF212129A1B3008EBB5F /* CJConnectCallback+Private.mm in Sources */,
+				A541EF1F2129A1AA008EBB5F /* CJCjLogin+Private.mm in Sources */,
+				A50E6347212819060066082C /* ViewController.mm in Sources */,
+				A541EF272129A1C8008EBB5F /* CJRegisterUserCallback+Private.mm in Sources */,
+				A50E6352212819070066082C /* main.m in Sources */,
+				A541EF2A2129A204008EBB5F /* DJIProxyCaches.mm in Sources */,
+				A541EF232129A1BA008EBB5F /* CJLoginCallback+Private.mm in Sources */,
+				A541EF252129A1C1008EBB5F /* CJLogoutCallback+Private.mm in Sources */,
+				A541EF2E2129A277008EBB5F /* DJIError.mm in Sources */,
+				A541EF1D2129A19F008EBB5F /* CJCheckLoginCallback+Private.mm in Sources */,
+				A50E6344212819060066082C /* AppDelegate.mm in Sources */,
+				A541EF2C2129A22A008EBB5F /* callback_objc_impl.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A50E6348212819060066082C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A50E6349212819060066082C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A50E634D212819070066082C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A50E634E212819070066082C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A50E6353212819070066082C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		A50E6354212819070066082C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A50E6356212819070066082C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CJLoginDemoTestClient/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CJLoginDemoTestClient",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = jeason.CJLoginDemoTestClient;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A50E6357212819070066082C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CJLoginDemoTestClient/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CJLoginDemoTestClient",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = jeason.CJLoginDemoTestClient;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A50E633A212819050066082C /* Build configuration list for PBXProject "CJLoginDemoTestClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A50E6353212819070066082C /* Debug */,
+				A50E6354212819070066082C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A50E6355212819070066082C /* Build configuration list for PBXNativeTarget "CJLoginDemoTestClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A50E6356212819070066082C /* Debug */,
+				A50E6357212819070066082C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A50E6337212819050066082C /* Project object */;
+}

@@ -75,19 +75,19 @@ Fho=
 
 namespace cjlogin {
 
-  shared_ptr<CjLogin> CjLogin::create() {
-    return std::make_shared<CjLoginImpl>();
+  shared_ptr<CjLogin> CjLogin::create(const std::string & server, const std::string & serverCert, const std::string & cert, const std::string & key, const std::string & sslOverride) {
+    return std::make_shared<CjLoginImpl>(server, serverCert, cert, key, sslOverride);
   }
 
-  CjLoginImpl::CjLoginImpl() {
+  CjLoginImpl::CjLoginImpl(const std::string & server, const std::string & serverCert, const std::string & cert, const std::string & key, const std::string & sslOverride) {
     grpc::SslCredentialsOptions ssl_opts;
-    ssl_opts.pem_root_certs = serverCA;
-    ssl_opts.pem_private_key = clientKey;
-    ssl_opts.pem_cert_chain = clientCert;
+    ssl_opts.pem_root_certs = serverCert.c_str();
+    ssl_opts.pem_private_key = key.c_str();
+    ssl_opts.pem_cert_chain = cert.c_str();
     std::shared_ptr<grpc::ChannelCredentials> creds = grpc::SslCredentials(ssl_opts);
     grpc::ChannelArguments args;
-    args.SetSslTargetNameOverride("Jeason");
-    this->client = new CjLoginCGIClient(grpc::CreateCustomChannel("35.194.225.201:50052",creds, args));
+    args.SetSslTargetNameOverride(sslOverride.c_str());
+    this->client = new CjLoginCGIClient(grpc::CreateCustomChannel(server.c_str(),creds, args));
     auto t = std::thread(&CjLoginCGIClient::AsyncCompleteRpc, this->client);
     t.detach();
   }

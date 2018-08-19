@@ -28,6 +28,14 @@ cc_binary(
     ]
 )
 
+apple_static_library(
+    name = "cj_login_sdk_ios",
+    platform_type = "ios",
+    deps = [
+        ":cj_login_sdk"
+    ]
+)
+
 objc_library(
     name = "Sources",
     srcs = glob([

@@ -1,5 +1,5 @@
 cj_login = interface +c {
-  static create(): cj_login;
+  static create(server: string, serverCert: string, cert: string, key: string, sslOverride: string): cj_login;
 
   registerUser(userName: string, password: string, cb: registerUserCallback);
   login(userName: string, password: string, cb: loginCallback);
