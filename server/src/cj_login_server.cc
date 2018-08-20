@@ -111,7 +111,7 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     newUser.set_pwdsalt(salt);
     LOG(INFO) << "registerUser, pwd: " << pwdServer << "salt: " << salt;
     string serialized;
-
+    
     if (newUser.SerializeToString(&serialized)
         && this->userTable->setData(std::to_string(uin), serialized)
         && this->userName2UinTable->setData(userName, std::to_string(uin))) {
@@ -132,7 +132,7 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     LOG(INFO) << "login: {" << userName << ", " << password << "}";
 
     string uin;
-    if (!this->userName2UinTable->getData(userName, uin)) {
+    if (!this->userName2UinTable->getData(userName, uin) || uin.size() == 0) {
       LOG(ERROR) << "login user not exists: " << userName ;
       return this->_finishRequest(baseResponse,
                                   ErrCode::LOGIN_ERROR_USER_NOT_EXISTS,
@@ -152,11 +152,11 @@ class CjLoginServiceImpl final : public CjLoginService::Service {
     }
 
     string salt = user.pwdsalt();
-    auto pwdServer = cjLogin::genPassword(password, salt);
+    auto pwdServer = user.password();
     LOG(INFO) << "validateUser, pwd: " << pwdServer
                                       << ", salt: " << salt
                                       << ", raw: " << user.password();
-    if (cjLogin::isPasswordMatch(pwdServer, password, salt)) {
+    if (!cjLogin::isPasswordMatch(pwdServer, password, salt)) {
       return this->_finishRequest(baseResponse,
                                   ErrCode::LOGIN_ERROR_PWD_ERROR,
                                   "password error");

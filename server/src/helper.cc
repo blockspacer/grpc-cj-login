@@ -21,16 +21,14 @@ namespace cjLogin {
   }
 
   string genPassword(string raw, string salt) {
-    BCrypt bcrypt;
-    string pwd = raw + salt;
-    return bcrypt.generateHash(pwd);
+    string pwd = raw+salt;
+    string ret = BCrypt::generateHash(pwd, 12);
+    return ret;
   }
 
   bool isPasswordMatch(string hash, string raw, string salt) {
-    BCrypt bcrypt;
-
-    auto pwd = raw + salt;
-    return bcrypt.validatePassword(pwd, salt);
+    auto pwd = raw+salt;
+    return BCrypt::validatePassword(pwd, hash);
   }
 
   bool validateUsername(string username) {
