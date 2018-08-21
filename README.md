@@ -21,9 +21,7 @@ glog files is located on /tmp/ as default.
 
 ## Build&Run iOS Client
 
-- open test-client/CJLoginDemoTestClient/CJLoginDemoTestClient.xcworspace;
-- open ViewController.mm, change `serverAddress` to your server;
-- build & run.
+open client/CJLoginDemo.tulsiproj using [tulsi](https://github.com/bazelbuild/tulsi), generate XCode Project, then build&run in XCode.
 
 ## Run Server Tools
 

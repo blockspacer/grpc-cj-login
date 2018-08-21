@@ -56,21 +56,16 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
         if (this->writeMessageToClient(uin, toClientMessage)) {
           if (message.type() == MessageType::LOGOUT_BY_OTHERS ||
               message.type() == MessageType::LOGOUT_BY_SYSTEM) {
-            this->deleteClient(uin);
+            auto iter = this->clientMap.find(uin);
+            if (iter != this->clientMap.end()) {
+              auto client = this->clientMap[uin];
+              client->s.signal();
+              this->clientMap.erase(uin);
+              delete client;
+            }
           }
         }
       });
-  }
-
-  void deleteClient(const string &uin) {
-    std::unique_lock<std::mutex> lock(mtx);
-    auto iter = this->clientMap.find(uin);
-    if (iter != this->clientMap.end()) {
-      auto client = this->clientMap[uin];
-      client->s.signal();
-      this->clientMap.erase(uin);
-      delete client;
-    }
   }
 
   ~CjLoginCGIImp() {
@@ -80,7 +75,6 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
   Status connect(ServerContext *context,
                  const ConnectRequest *request,
                  ServerWriter<ServerMessage> *writer) override {
-    std::unique_lock<std::mutex> lock(mtx);
     auto userName = request->basereq().username();
     auto sessionKey = request->basereq().sessionkey();
 
@@ -97,7 +91,10 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
 
     auto iter = this->clientMap.find(payload.uin);
     if (iter != this->clientMap.end()) {
-      this->deleteClient(payload.uin);
+      auto oldClient = this->clientMap[payload.uin];
+      oldClient->s.signal();
+      this->clientMap.erase(payload.uin);
+      delete oldClient;
     }
 
     this->clientMap[payload.uin] = client;
@@ -143,7 +140,10 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
 
     auto iter = this->clientMap.find(payload.uin);
     if (iter != this->clientMap.end()) {
-      this->deleteClient(payload.uin);
+      auto client = this->clientMap[payload.uin];
+      client->s.signal();
+      this->clientMap.erase(payload.uin);
+      delete client;
     }
 
     return this->server->logout(*request, response);
@@ -152,21 +152,23 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
  private:
   CjLoginClient *server;
   std::map<std::string, ConnectedClient<ServerMessage> *> clientMap;
-  std::mutex mtx;
 
   bool writeMessageToClient(std::string uin, ServerMessage &message) {
-    std::unique_lock<std::mutex> lock(mtx);
     auto iter = this->clientMap.find(uin);
     if (iter != this->clientMap.end()) {
       auto client = this->clientMap[uin];
       if (!client->writer || !client->context) {
-        this->deleteClient(uin);
+        client->s.signal();
+        this->clientMap.erase(uin);
+        delete client;
         LOG(ERROR) << "write message to unconnected client";
         return false;
       }
 
       if (client->context->IsCancelled()) {
-        this->deleteClient(uin);
+        client->s.signal();
+        this->clientMap.erase(uin);
+        delete client;
         LOG(ERROR) << "write message to cancelled client";
         return false;
       }
