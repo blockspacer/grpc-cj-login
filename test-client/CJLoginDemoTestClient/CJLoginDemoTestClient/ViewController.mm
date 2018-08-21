@@ -11,6 +11,8 @@
 #import "callback_objc_impl.h"
 #import <Toast/Toast.h>
 
+static NSString *serverAddress = @"localhost:50052";
+
 typedef enum {
     LoginViewStateLogout = 0,
     LoginViewStateLogined = 1
@@ -51,7 +53,7 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.loginSdk = [CJCjLogin create:@"35.194.225.201:50052"
+    self.loginSdk = [CJCjLogin create:serverAddress
                            serverCert:[self getFile:@"server-self-signed.cert" ofType:@"pem"]
                                  cert:[self getFile:@"client-self-signed-cert" ofType:@"pem"]
                                   key:[self getFile:@"client.key" ofType:@"pem"]
@@ -93,16 +95,19 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
 - (IBAction)onClickLogin:(id)sender {
     NSString *userName = self.userNameTextField.text;
     NSString *password = self.passwordTextField.text;
-    [self.view makeToastActivity:CSToastPositionCenter];
+    if (userName.length > 0 && password.length > 0) {
+      [self.view makeToastActivity:CSToastPositionCenter];
+    }
+
     [self login:userName password:password];
 }
 
 - (IBAction)onClickRegister:(id)sender {
     NSString *userName = self.userNameTextField.text;
     NSString *password = self.passwordTextField.text;
-    [self.view makeToastActivity:CSToastPositionCenter];
 
     if (userName.length > 0 && password.length > 0) {
+        [self.view makeToastActivity:CSToastPositionCenter];
         __block typeof(self) weakSelf = self;
         [weakSelf.loginSdk registerUser:userName
                                password:password
@@ -133,7 +138,10 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
 - (IBAction)onClickLogout:(id)sender {
     NSString *userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
     NSString *sessionKey = [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionKey"];
-    [self.view makeToastActivity:CSToastPositionCenter];
+    if (userName.length > 0 && sessionKey.length > 0) {
+      [self.view makeToastActivity:CSToastPositionCenter];
+    }
+
     [self logout:userName withSessionKey:sessionKey];
 }
 
@@ -269,6 +277,8 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
             }
         }]];
     }
+
+    [self.view hideToastActivity];
 }
 
 - (void)showErrorTitle:(NSString *)title message:(NSString *)message {
