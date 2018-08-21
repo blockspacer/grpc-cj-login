@@ -63,7 +63,6 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
   }
 
   void deleteClient(const string &uin) {
-    std::cout << "deleting client: " << uin << std::endl;
     std::unique_lock<std::mutex> lock(mtx);
     auto iter = this->clientMap.find(uin);
     if (iter != this->clientMap.end()) {
@@ -81,6 +80,7 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
   Status connect(ServerContext *context,
                  const ConnectRequest *request,
                  ServerWriter<ServerMessage> *writer) override {
+
     auto userName = request->basereq().username();
     auto sessionKey = request->basereq().sessionkey();
 
@@ -99,9 +99,10 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
     if (iter != this->clientMap.end()) {
       this->deleteClient(payload.uin);
     }
-
-    this->clientMap[payload.uin] = client;
-
+    {
+      std::unique_lock<std::mutex> lock(mtx);
+      this->clientMap[payload.uin] = client;
+    }
     client->s.wait();
 
     return Status::OK;
