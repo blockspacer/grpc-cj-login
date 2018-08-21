@@ -26,6 +26,7 @@
 		A541EF2A2129A204008EBB5F /* DJIProxyCaches.mm in Sources */ = {isa = PBXBuildFile; fileRef = A541EF282129A204008EBB5F /* DJIProxyCaches.mm */; };
 		A541EF2C2129A22A008EBB5F /* callback_objc_impl.mm in Sources */ = {isa = PBXBuildFile; fileRef = A541EF2B2129A22A008EBB5F /* callback_objc_impl.mm */; };
 		A541EF2E2129A277008EBB5F /* DJIError.mm in Sources */ = {isa = PBXBuildFile; fileRef = A541EF2D2129A276008EBB5F /* DJIError.mm */; };
+		F1CD09A344BBEB0FCE0F5E1F /* libPods-CJLoginDemoTestClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0692F7C5E3B45C0F7831D73 /* libPods-CJLoginDemoTestClient.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,9 @@
 		A541EF292129A204008EBB5F /* DJIObjcWrapperCache+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DJIObjcWrapperCache+Private.h"; path = "../../../../client/djinni-src/DJIObjcWrapperCache+Private.h"; sourceTree = "<group>"; };
 		A541EF2B2129A22A008EBB5F /* callback_objc_impl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = callback_objc_impl.mm; sourceTree = "<group>"; };
 		A541EF2D2129A276008EBB5F /* DJIError.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DJIError.mm; sourceTree = "<group>"; };
+		B0692F7C5E3B45C0F7831D73 /* libPods-CJLoginDemoTestClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CJLoginDemoTestClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE63EA2459784238BF0FAB37 /* Pods-CJLoginDemoTestClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CJLoginDemoTestClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CJLoginDemoTestClient/Pods-CJLoginDemoTestClient.debug.xcconfig"; sourceTree = "<group>"; };
+		E066231ECE1663F93566F0E9 /* Pods-CJLoginDemoTestClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CJLoginDemoTestClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-CJLoginDemoTestClient/Pods-CJLoginDemoTestClient.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				10D946D12129B92800928BB5 /* cj_login_sdk_ios_lipo.a in Frameworks */,
+				F1CD09A344BBEB0FCE0F5E1F /* libPods-CJLoginDemoTestClient.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,11 +110,21 @@
 			path = cert;
 			sourceTree = "<group>";
 		};
+		5B49F6DACC5A1845905F928B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0692F7C5E3B45C0F7831D73 /* libPods-CJLoginDemoTestClient.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A50E6336212819050066082C = {
 			isa = PBXGroup;
 			children = (
 				A50E6341212819060066082C /* CJLoginDemoTestClient */,
 				A50E6340212819060066082C /* Products */,
+				F3F91A773A93F019146A35E2 /* Pods */,
+				5B49F6DACC5A1845905F928B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -193,6 +208,15 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		F3F91A773A93F019146A35E2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DE63EA2459784238BF0FAB37 /* Pods-CJLoginDemoTestClient.debug.xcconfig */,
+				E066231ECE1663F93566F0E9 /* Pods-CJLoginDemoTestClient.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -200,6 +224,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A50E6355212819070066082C /* Build configuration list for PBXNativeTarget "CJLoginDemoTestClient" */;
 			buildPhases = (
+				F6DC5C7196CE887B598E99F1 /* [CP] Check Pods Manifest.lock */,
 				A50E633B212819060066082C /* Sources */,
 				A50E633C212819060066082C /* Frameworks */,
 				A50E633D212819060066082C /* Resources */,
@@ -260,6 +285,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F6DC5C7196CE887B598E99F1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CJLoginDemoTestClient-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A50E633B212819060066082C /* Sources */ = {
@@ -415,6 +461,7 @@
 		};
 		A50E6356212819070066082C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE63EA2459784238BF0FAB37 /* Pods-CJLoginDemoTestClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -435,6 +482,7 @@
 		};
 		A50E6357212819070066082C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E066231ECE1663F93566F0E9 /* Pods-CJLoginDemoTestClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

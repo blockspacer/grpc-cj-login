@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "CJCjLogin.h"
 #import "callback_objc_impl.h"
+#import <Toast/Toast.h>
 
 typedef enum {
     LoginViewStateLogout = 0,
@@ -92,12 +93,15 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
 - (IBAction)onClickLogin:(id)sender {
     NSString *userName = self.userNameTextField.text;
     NSString *password = self.passwordTextField.text;
+    [self.view makeToastActivity:CSToastPositionCenter];
     [self login:userName password:password];
 }
 
 - (IBAction)onClickRegister:(id)sender {
     NSString *userName = self.userNameTextField.text;
     NSString *password = self.passwordTextField.text;
+    [self.view makeToastActivity:CSToastPositionCenter];
+
     if (userName.length > 0 && password.length > 0) {
         __block typeof(self) weakSelf = self;
         [weakSelf.loginSdk registerUser:userName
@@ -118,6 +122,9 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
                 NSLog(@"register error: %d, errmsg: %@", errcode, errmsg);
                 [self showErrorTitle:@"注册失败"
                              message:messae];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.view hideToastActivity];
+                });
             }
         }]];
     }
@@ -126,6 +133,7 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
 - (IBAction)onClickLogout:(id)sender {
     NSString *userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
     NSString *sessionKey = [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionKey"];
+    [self.view makeToastActivity:CSToastPositionCenter];
     [self logout:userName withSessionKey:sessionKey];
 }
 
@@ -145,6 +153,9 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
                           withTicket:loginTicket
                           completion:^(NSString *sessionKey) {
                               [weakSelf connect:userName withSessionKey:sessionKey];
+                              dispatch_async(dispatch_get_main_queue(), ^{
+                                  [weakSelf.view hideToastActivity];
+                              });
                           }];
             } else {
                 NSLog(@"login error: %d, errmsg: %@, ticket: %@", errcode, errmsg, loginTicket);
@@ -154,6 +165,9 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
                 }
                 [self showErrorTitle:@"登录失败"
                              message:message];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.view hideToastActivity];
+                });
             }
         }]];
     }
@@ -233,6 +247,7 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     weakSelf.currentViewState = LoginViewStateLogout;
                     [weakSelf syncViewState];
+                    [weakSelf.view hideToastActivity];
                 });
             } else {
                 NSString *loginTicket = [[NSUserDefaults standardUserDefaults] objectForKey:@"loginTicket"];
@@ -247,6 +262,9 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
                     NSLog(@"logout error: %d, errmsg: %@", errcode, errmsg);
                     [self showErrorTitle:@"退出登录失败"
                                  message:@"稍后重试"];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [weakSelf.view hideToastActivity];
+                    });
                 }
             }
         }]];
