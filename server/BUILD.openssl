@@ -117,7 +117,7 @@ genrule(
         "libcrypto.a",
         "libssl.a",
         "include/openssl/opensslconf.h",
-    ] + gen_hdrs,
+    ],
     cmd = """
         OPENSSL_ROOT=$$(dirname $(location config))
         pushd $$OPENSSL_ROOT 
@@ -126,6 +126,9 @@ genrule(
         popd
         cp $$OPENSSL_ROOT/libcrypto.a $(location libcrypto.a)
         cp $$OPENSSL_ROOT/libssl.a $(location libssl.a)
-        cp $${OPENSSL_ROOT}/include/openssl/*.h $(@D)/include/openssl/. 
+        #cp $${OPENSSL_ROOT}/include/openssl/*.h $(@D)/include/openssl/.
+        #cp $$OPENSSL_ROOT/libssl.a $(location libssl.a)
+        cp $$OPENSSL_ROOT/include/openssl/opensslconf.h $(location include/openssl/opensslconf.h)
+
     """,
 )
