@@ -16,6 +16,9 @@ cc_library(
         "@com_github_bcrypt//:bcrypt-lib",
         "@com_github_cppjwt//:jwt-lib",
         "@com_google_glog//:glog"
+    ],
+    copts = [
+        "-std=c++14"
     ]
 )
 
@@ -42,6 +45,9 @@ cc_binary(
         ":cj_login_helper",
         ":cj_login_redis",
         "@com_google_glog//:glog"
+    ],
+    copts = [
+        "-std=c++14"
     ]
 )
 
@@ -69,5 +75,8 @@ cc_binary(
         ":cj_login_client",
         "@com_google_glog//:glog",
         ":cj_login_helper"
+    ],
+    copts = [
+        "-std=c++14"
     ]
 )

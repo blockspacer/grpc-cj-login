@@ -9,6 +9,9 @@ cc_library(
     includes = [
         "include"
     ],
+    copts = [
+        "-std=c++14"
+    ],
     deps = [
         "@com_github_openssl//:ssl"
     ],
