@@ -15,6 +15,8 @@ typedef enum {
     LoginViewStateLogined = 1
 } LoginViewState;
 
+typedef void(^CheckLoginComplete)(NSString *sessionKey);
+
 @interface ViewController ()
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *userNameLabel;
@@ -60,7 +62,12 @@ typedef enum {
     NSLog(@"sessionKey: %@", sessionKey);
     if (sessionKey.length > 0) { // TODO: svr response session timeout time
         self.currentViewState = LoginViewStateLogined;
-        [self checkLogin:userName withTicket:loginTicket];
+        __block typeof(self) weakSelf = self;
+        [self checkLogin:userName
+              withTicket:loginTicket
+              completion:^(NSString *sessionKey) {
+                  [weakSelf connect:userName withSessionKey:sessionKey];
+              }];
     }
     [self syncViewState];
 }
@@ -96,11 +103,21 @@ typedef enum {
         [weakSelf.loginSdk registerUser:userName
                                password:password
                                      cb:[[CJRegisterUserCallbackObjcImpl alloc] initWithBlock:^(int32_t errcode, NSString *errmsg) {
-            if (errcode == 0) {
+            if (errcode == 0 && errmsg.length > 0) {
                 [weakSelf login:userName password:password];
             } else {
                 // Error Alert Here
+                NSString *messae = @"请稍后重试";
+                if (errcode == REGISTER_ERROR_USERNAME_INVALID) {
+                    messae = @"用户名不合法，只能包含字母数字及下划线";
+                } else if (errcode == REGISTER_ERROR_USERNAME_EXISTS) {
+                    messae = @"该用户名已被占用";
+                } else if (errcode == REGISTER_ERROR_PWD_INVALID) {
+                    messae = @"密码至少6位，且不能为纯数字或纯字母";
+                }
                 NSLog(@"register error: %d, errmsg: %@", errcode, errmsg);
+                [self showErrorTitle:@"注册失败"
+                             message:messae];
             }
         }]];
     }
@@ -125,23 +142,32 @@ typedef enum {
                                                           forKey:@"loginTicket"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 [weakSelf checkLogin:userName
-                          withTicket:loginTicket];
+                          withTicket:loginTicket
+                          completion:^(NSString *sessionKey) {
+                              [weakSelf connect:userName withSessionKey:sessionKey];
+                          }];
             } else {
-                NSLog(@"login error: %d, errmsg: %@", errcode, errmsg);
+                NSLog(@"login error: %d, errmsg: %@, ticket: %@", errcode, errmsg, loginTicket);
+                NSString *message = @"请稍后重试";
+                if (errcode == LOGIN_ERROR_PWD_ERROR || errcode == LOGIN_ERROR_USER_NOT_EXISTS) {
+                    message = @"请检查账号密码是否正确";
+                }
+                [self showErrorTitle:@"登录失败"
+                             message:message];
             }
         }]];
     }
 
 }
 
-- (void)checkLogin:(NSString *)userName withTicket:(NSString *)loginTicket {
+- (void)checkLogin:(NSString *)userName withTicket:(NSString *)loginTicket completion:(CheckLoginComplete)handler {
     __block typeof(self) weakSelf = self;
 
     if (userName.length > 0 && loginTicket.length > 0) {
         [self.loginSdk checkLogin:userName
                       loginTicket:loginTicket
                                cb:[[CJCheckLoginCallbackObjcImpl alloc] initWithBlock:^(int32_t errcode, NSString *errmsg, NSString *sessionKey) {
-            if (errcode == 0) {
+            if (errcode == 0 && sessionKey.length > 0) {
                 NSLog(@"checkLogin Success");
                 [[NSUserDefaults standardUserDefaults] setObject:sessionKey
                                                           forKey:@"sessionKey"];
@@ -151,10 +177,13 @@ typedef enum {
                     weakSelf.currentViewState = LoginViewStateLogined;
                     [weakSelf syncViewState];
                 });
-                
-                [self connect:userName withSessionKey:sessionKey];
+                if (handler) {
+                    handler(sessionKey);
+                }
             } else {
                 NSLog(@"checkLogin error: %d, errmsg: %@", errcode, errmsg);
+                [self showErrorTitle:@"登录失败"
+                             message:@"请重新登录"];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     weakSelf.currentViewState = LoginViewStateLogout;
                     [weakSelf syncViewState];
@@ -178,6 +207,9 @@ typedef enum {
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"sessionKey"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
 
+                [self showErrorTitle:@"退出登录"
+                             message:@"该账号在其他地方登录"];
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     weakSelf.currentViewState = LoginViewStateLogout;
                     [weakSelf syncViewState];
@@ -203,11 +235,35 @@ typedef enum {
                     [weakSelf syncViewState];
                 });
             } else {
-                // Error Alert Here
-                NSLog(@"logout error: %d, errmsg: %@", errcode, errmsg);
+                NSString *loginTicket = [[NSUserDefaults standardUserDefaults] objectForKey:@"loginTicket"];
+                if (errcode == SYSTEM_SESSION_TIMEOUT && loginTicket.length > 0) {
+                    [weakSelf checkLogin:userName
+                              withTicket:loginTicket
+                              completion:^(NSString *sessionKey) {
+                        [weakSelf logout:userName withSessionKey:sessionKey];
+                    }];
+                } else {
+                    // Error Alert Here
+                    NSLog(@"logout error: %d, errmsg: %@", errcode, errmsg);
+                    [self showErrorTitle:@"退出登录失败"
+                                 message:@"稍后重试"];
+                }
             }
         }]];
     }
+}
+
+- (void)showErrorTitle:(NSString *)title message:(NSString *)message {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                       message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:okAction];
+        [self presentViewController:alert
+                           animated:YES
+                         completion:nil];
+
+    });
 }
 
 - (void)didReceiveMemoryWarning {

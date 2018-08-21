@@ -9,6 +9,22 @@
 @protocol CJLogoutCallback;
 @protocol CJRegisterUserCallback;
 
+enum ErrCode {
+    OK = 0,
+    SYSTEM_ERROR = -1,
+    SYSTEM_SESSION_TIMEOUT = -2,
+    SYSTEM_INVALID_PARAM = -3,
+    
+    REGISTER_ERROR_USERNAME_INVALID = 1001,
+    REGISTER_ERROR_USERNAME_EXISTS = 1002,
+    REGISTER_ERROR_PWD_INVALID = 1003,
+    
+    LOGIN_ERROR_USER_NOT_EXISTS = 2001,
+    LOGIN_ERROR_PWD_ERROR = 2002,
+    
+    CHECK_LOGIN_USER_LOGIN_OTHERS = 3001,
+    CHECK_LOGIN_TICKET_TIMEOUT = 3003,
+};
 
 @interface CJCjLogin : NSObject
 
