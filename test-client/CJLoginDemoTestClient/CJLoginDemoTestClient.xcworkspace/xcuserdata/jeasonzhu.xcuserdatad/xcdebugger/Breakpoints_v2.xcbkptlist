@@ -10,12 +10,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CJLoginDemoTestClient/ViewController.mm"
-            timestampString = "556546510.8595099"
+            timestampString = "556594937.787919"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "-onClickLogout:"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
+            landmarkName = "-logout:withSessionKey:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CJLoginDemoTestClient/ViewController.mm"
+            timestampString = "556594937.794531"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
+            landmarkName = "-logout:withSessionKey:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -11,7 +11,7 @@
 #import "callback_objc_impl.h"
 #import <Toast/Toast.h>
 
-static NSString *serverAddress = @"localhost:50052";
+#define ServerAddress @"127.0.0.1:50052"
 
 typedef enum {
     LoginViewStateLogout = 0,
@@ -53,7 +53,7 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.loginSdk = [CJCjLogin create:serverAddress
+    self.loginSdk = [CJCjLogin create:ServerAddress
                            serverCert:[self getFile:@"server-self-signed.cert" ofType:@"pem"]
                                  cert:[self getFile:@"client-self-signed-cert" ofType:@"pem"]
                                   key:[self getFile:@"client.key" ofType:@"pem"]
@@ -204,9 +204,10 @@ typedef void(^CheckLoginComplete)(NSString *sessionKey);
                 }
             } else {
                 NSLog(@"checkLogin error: %d, errmsg: %@", errcode, errmsg);
-                [self showErrorTitle:@"登录失败"
-                             message:@"请重新登录"];
+                [weakSelf showErrorTitle:@"登录失败"
+                                 message:@"请重新登录"];
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.view hideToastActivity];
                     weakSelf.currentViewState = LoginViewStateLogout;
                     [weakSelf syncViewState];
                 });

@@ -69,7 +69,6 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
       auto client = this->clientMap[uin];
       client->s.signal();
       this->clientMap.erase(uin);
-      delete client;
     }
   }
 
@@ -105,6 +104,7 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
     }
     client->s.wait();
 
+    delete client;
     return Status::OK;
   }
 
@@ -155,7 +155,7 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
   std::mutex mtx;
 
   bool writeMessageToClient(std::string uin, ServerMessage &message) {
-    std::unique_lock<std::mutex> lock(mtx);
+
     auto iter = this->clientMap.find(uin);
     if (iter != this->clientMap.end()) {
       auto client = this->clientMap[uin];
@@ -172,9 +172,9 @@ class CjLoginCGIImp final : public CjLoginCGI::Service {
       }
 
       client->writer->Write(message);
-      LOG(INFO) << "write message to client: " << uin
+      std::cout << "write message to client: " << uin
                 << ", type: " << message.type()
-                << ", content: " << message.content();
+                << ", content: " << message.content() << std::endl;
       return true;
     } else {
       return false;
